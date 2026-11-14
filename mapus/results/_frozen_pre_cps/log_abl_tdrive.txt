@@ -1,0 +1,13 @@
+[tdrive_small] w/o PRG   cov 4.656 pss 0.603 overlap 0.036
+[tdrive_small] w/o FPS   cov 4.681 pss 0.529 overlap 0.022
+[tdrive_small] w/o NRR   cov 4.674 pss 0.657 overlap 0.024
+[tdrive_small] Full      cov 4.668 pss 0.677 overlap 0.016
+[tdrive_medium] w/o PRG   cov 5.039 pss 0.694 overlap 0.021
+[tdrive_medium] w/o FPS   cov 5.049 pss 0.500 overlap 0.007
+[tdrive_medium] w/o NRR   cov 5.035 pss 0.724 overlap 0.019
+[tdrive_medium] Full      cov 5.042 pss 0.704 overlap 0.017
+[tdrive_large] w/o PRG   cov 5.350 pss 0.772 overlap 0.008
+[tdrive_large] w/o FPS   cov 5.375 pss 0.614 overlap 0.001
+[tdrive_large] w/o NRR   cov 5.349 pss 0.791 overlap 0.004
+[tdrive_large] Full      cov 5.349 pss 0.791 overlap 0.004
+wrote results\ablation_tdrive_qwen72b_n3.json

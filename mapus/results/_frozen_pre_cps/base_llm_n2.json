@@ -1,0 +1,35 @@
+{
+  "scale": "medium",
+  "n": 2,
+  "models": {
+    "Qwen/Qwen2.5-7B-Instruct": {
+      "tdrive": {
+        "coverage": 5.0328,
+        "pss": 0.7251,
+        "runtime": 278.31,
+        "runtime_source": "measured (uncached)"
+      },
+      "grab": {
+        "coverage": 5.0174,
+        "pss": 0.8331,
+        "runtime": 237.24,
+        "runtime_source": "measured (uncached)"
+      }
+    },
+    "Qwen/Qwen2.5-72B-Instruct": {
+      "tdrive": {
+        "coverage": 5.0439,
+        "pss": 0.6856,
+        "runtime": 153.24,
+        "runtime_raw_cached": 1.01,
+        "runtime_source": "from experiments/run_main.py --tag qwen72b (medium, n=3, uncached); this run replayed from disk cache (1.0s) so its own timing is not meaningful"
+      },
+      "grab": {
+        "coverage": 5.0129,
+        "pss": 0.8426,
+        "runtime": 200.02,
+        "runtime_source": "measured (uncached)"
+      }
+    }
+  }
+}

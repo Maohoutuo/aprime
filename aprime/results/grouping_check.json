@@ -1,0 +1,329 @@
+{
+  "scales": [
+    "small",
+    "medium"
+  ],
+  "thetas": [
+    0.0,
+    0.3,
+    0.6,
+    0.9
+  ],
+  "seeds": 5,
+  "k": 8,
+  "budget": 80.0,
+  "rows": [
+    {
+      "scale": "small",
+      "theta": 0.0,
+      "modal_cap_frac": 0.405,
+      "n_distinct": 4,
+      "tie_dominated_frac": 0.2,
+      "schemes": {
+        "value": {
+          "shares": [
+            0.0,
+            0.075,
+            0.925
+          ],
+          "low_empty_seeds": 5,
+          "high_empty_seeds": 0,
+          "impurity": null
+        },
+        "quantile": {
+          "shares": [
+            0.3,
+            0.4,
+            0.3
+          ],
+          "low_empty_seeds": 0,
+          "high_empty_seeds": 0,
+          "impurity": 0.0
+        },
+        "quantile_tied": {
+          "shares": [
+            0.515,
+            0.0,
+            0.485
+          ],
+          "low_empty_seeds": 0,
+          "high_empty_seeds": 0,
+          "impurity": 0.0
+        }
+      }
+    },
+    {
+      "scale": "small",
+      "theta": 0.3,
+      "modal_cap_frac": 0.4,
+      "n_distinct": 4.2,
+      "tie_dominated_frac": 0.0,
+      "schemes": {
+        "value": {
+          "shares": [
+            0.005,
+            0.11,
+            0.885
+          ],
+          "low_empty_seeds": 4,
+          "high_empty_seeds": 0,
+          "impurity": 0.0
+        },
+        "quantile": {
+          "shares": [
+            0.3,
+            0.4,
+            0.3
+          ],
+          "low_empty_seeds": 0,
+          "high_empty_seeds": 0,
+          "impurity": 0.0
+        },
+        "quantile_tied": {
+          "shares": [
+            0.475,
+            0.0,
+            0.525
+          ],
+          "low_empty_seeds": 0,
+          "high_empty_seeds": 0,
+          "impurity": 0.0
+        }
+      }
+    },
+    {
+      "scale": "small",
+      "theta": 0.6,
+      "modal_cap_frac": 0.3465,
+      "n_distinct": 5,
+      "tie_dominated_frac": 0.0,
+      "schemes": {
+        "value": {
+          "shares": [
+            0.08,
+            0.291,
+            0.628
+          ],
+          "low_empty_seeds": 0,
+          "high_empty_seeds": 0,
+          "impurity": 0.0
+        },
+        "quantile": {
+          "shares": [
+            0.302,
+            0.402,
+            0.296
+          ],
+          "low_empty_seeds": 0,
+          "high_empty_seeds": 0,
+          "impurity": 0.0
+        },
+        "quantile_tied": {
+          "shares": [
+            0.447,
+            0.172,
+            0.382
+          ],
+          "low_empty_seeds": 0,
+          "high_empty_seeds": 0,
+          "impurity": 0.0
+        }
+      }
+    },
+    {
+      "scale": "small",
+      "theta": 0.9,
+      "modal_cap_frac": 0.4942,
+      "n_distinct": 4,
+      "tie_dominated_frac": 0.0,
+      "schemes": {
+        "value": {
+          "shares": [
+            0.325,
+            0.494,
+            0.181
+          ],
+          "low_empty_seeds": 0,
+          "high_empty_seeds": 0,
+          "impurity": 0.0
+        },
+        "quantile": {
+          "shares": [
+            0.314,
+            0.412,
+            0.274
+          ],
+          "low_empty_seeds": 0,
+          "high_empty_seeds": 0,
+          "impurity": 0.0222
+        },
+        "quantile_tied": {
+          "shares": [
+            0.325,
+            0.0,
+            0.675
+          ],
+          "low_empty_seeds": 0,
+          "high_empty_seeds": 0,
+          "impurity": 0.0
+        }
+      }
+    },
+    {
+      "scale": "medium",
+      "theta": 0.0,
+      "modal_cap_frac": 0.835,
+      "n_distinct": 2.2,
+      "tie_dominated_frac": 1.0,
+      "schemes": {
+        "value": {
+          "shares": [
+            0.0,
+            0.0,
+            1.0
+          ],
+          "low_empty_seeds": 5,
+          "high_empty_seeds": 0,
+          "impurity": null
+        },
+        "quantile": {
+          "shares": [
+            0.3,
+            0.4,
+            0.3
+          ],
+          "low_empty_seeds": 0,
+          "high_empty_seeds": 0,
+          "impurity": 0.45
+        },
+        "quantile_tied": {
+          "shares": [
+            0.165,
+            0.0,
+            0.835
+          ],
+          "low_empty_seeds": 0,
+          "high_empty_seeds": 0,
+          "impurity": 0.0
+        }
+      }
+    },
+    {
+      "scale": "medium",
+      "theta": 0.3,
+      "modal_cap_frac": 0.74,
+      "n_distinct": 3,
+      "tie_dominated_frac": 1.0,
+      "schemes": {
+        "value": {
+          "shares": [
+            0.0,
+            0.005,
+            0.995
+          ],
+          "low_empty_seeds": 5,
+          "high_empty_seeds": 0,
+          "impurity": null
+        },
+        "quantile": {
+          "shares": [
+            0.3,
+            0.4,
+            0.3
+          ],
+          "low_empty_seeds": 0,
+          "high_empty_seeds": 0,
+          "impurity": 0.1667
+        },
+        "quantile_tied": {
+          "shares": [
+            0.26,
+            0.0,
+            0.74
+          ],
+          "low_empty_seeds": 0,
+          "high_empty_seeds": 0,
+          "impurity": 0.0
+        }
+      }
+    },
+    {
+      "scale": "medium",
+      "theta": 0.6,
+      "modal_cap_frac": 0.37,
+      "n_distinct": 4,
+      "tie_dominated_frac": 0.6,
+      "schemes": {
+        "value": {
+          "shares": [
+            0.0,
+            0.155,
+            0.845
+          ],
+          "low_empty_seeds": 5,
+          "high_empty_seeds": 0,
+          "impurity": null
+        },
+        "quantile": {
+          "shares": [
+            0.3,
+            0.4,
+            0.3
+          ],
+          "low_empty_seeds": 0,
+          "high_empty_seeds": 0,
+          "impurity": 0.0
+        },
+        "quantile_tied": {
+          "shares": [
+            0.49,
+            0.055,
+            0.455
+          ],
+          "low_empty_seeds": 0,
+          "high_empty_seeds": 0,
+          "impurity": 0.0
+        }
+      }
+    },
+    {
+      "scale": "medium",
+      "theta": 0.9,
+      "modal_cap_frac": 0.6042,
+      "n_distinct": 4.6,
+      "tie_dominated_frac": 0.0,
+      "schemes": {
+        "value": {
+          "shares": [
+            0.114,
+            0.604,
+            0.282
+          ],
+          "low_empty_seeds": 0,
+          "high_empty_seeds": 0,
+          "impurity": 0.0
+        },
+        "quantile": {
+          "shares": [
+            0.313,
+            0.396,
+            0.292
+          ],
+          "low_empty_seeds": 0,
+          "high_empty_seeds": 0,
+          "impurity": 0.4
+        },
+        "quantile_tied": {
+          "shares": [
+            0.198,
+            0.0,
+            0.802
+          ],
+          "low_empty_seeds": 0,
+          "high_empty_seeds": 0,
+          "impurity": 0.0
+        }
+      }
+    }
+  ]
+}

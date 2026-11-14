@@ -1,0 +1,60 @@
+
+=== fairness ===
+  task 10/60 done
+  task 20/60 done
+  task 30/60 done
+  task 40/60 done
+  task 50/60 done
+  task 60/60 done
+UR   cov 4.489 pss 0.836 gini 0.167 max 17 std 2.78
+LS   cov 4.478 pss 0.840 gini 0.026 max 9 std 0.47
+CG   cov 4.784 pss 0.899 gini 0.592 max 36 std 9.39
+FPS  cov 4.642 pss 0.931 gini 0.007 max 9 std 0.25
+wrote results/fairness.json
+--- fairness: exit=0, 18.8s
+
+=== runtime ===
+[tdrive_small] RN                 0.000s   paper 0.00068
+[tdrive_small] TVPG               0.052s   paper 0.01
+[tdrive_small] TCPG               0.076s   paper 0.012
+[tdrive_small] MSA                0.786s   paper 0.04
+[tdrive_small] MSAGI              0.790s   paper 0.089
+[tdrive_small] GraphDP            0.008s   paper 0.16
+[tdrive_small] GPT-4.1-mini       0.038s   paper 158.72
+[tdrive_small] MAPUS              0.184s   paper 232.12
+[tdrive_medium] RN                 0.000s   paper 0.00045
+[tdrive_medium] TVPG               0.125s   paper 0.048
+[tdrive_medium] TCPG               0.160s   paper 0.112
+[tdrive_medium] MSA                0.996s   paper 0.077
+[tdrive_medium] MSAGI              1.116s   paper 0.322
+[tdrive_medium] GraphDP            0.037s   paper 7.763
+[tdrive_medium] GPT-4.1-mini       0.162s   paper 187.15
+[tdrive_medium] MAPUS              0.705s   paper 254.66
+[tdrive_large] RN                 0.000s   paper 0.0011
+[tdrive_large] TVPG               0.292s   paper 0.472
+[tdrive_large] TCPG               0.423s   paper 1.155
+[tdrive_large] MSA                1.997s   paper 0.217
+[tdrive_large] MSAGI              2.283s   paper 2.442
+[tdrive_large] GraphDP            0.086s   paper 147.94
+[tdrive_large] GPT-4.1-mini       0.495s   paper 210.32
+[tdrive_large] MAPUS              2.230s   paper 283.41
+wrote results\runtime_tdrive_surrogate_n5.json
+--- runtime: exit=0, 65.9s
+
+=== case-study ===
+[accident] cov 4.682 -> 4.682  pss 1.031 -> 1.031  changed 0/6
+[priority] cov 4.960 -> 4.960  pss 1.143 -> 1.143  changed 6/6
+wrote results\case_study_surrogate.json
+--- case-study: exit=0, 0.9s
+
+=== figures ===
+wrote results\figures\fig_ablation.png
+wrote results\figures\fig_fairness.png
+wrote results\figures\fig_land_use.png
+fig_negotiation: skipped ('overlap')
+3 figures
+--- figures: exit=0, 1.7s
+
+=== report ===
+wrote report.html (246 KB)
+--- report: exit=0, 0.5s

@@ -1,0 +1,8 @@
+.env
+__pycache__/
+*.pyc
+results/llm_cache/
+results/*.json
+results/*.md
+results/*.png
+!results/README.md

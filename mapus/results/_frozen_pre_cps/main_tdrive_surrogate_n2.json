@@ -1,0 +1,32 @@
+{
+  "dataset": "tdrive",
+  "n": 2,
+  "backend": "surrogate",
+  "model": "surrogate",
+  "methods": [
+    "RN",
+    "MAPUS"
+  ],
+  "scales": {
+    "small": {
+      "RN": {
+        "coverage": 4.6165,
+        "coverage_std": 0.0174,
+        "pss": 0.548,
+        "pss_std": 0.0989,
+        "runtime": 0.001,
+        "n_selected": 6.5,
+        "cost": 38.5
+      },
+      "MAPUS": {
+        "coverage": 4.7121,
+        "coverage_std": 0.033,
+        "pss": 0.6068,
+        "pss_std": 0.0176,
+        "runtime": 0.484,
+        "n_selected": 5.0,
+        "cost": 38.5
+      }
+    }
+  }
+}

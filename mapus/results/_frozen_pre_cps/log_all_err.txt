@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "D:\composition\mapus\experiments\run_fairness.py", line 139, in <module>
+    main()
+    ~~~~^^
+  File "D:\composition\mapus\experiments\run_fairness.py", line 108, in main
+    picked[name], _ = ca_use.select(routes, prefs, histories=hist[name],
+                      ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                    budget=pool.budget, beta=kwargs.get("beta"))
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\composition\mapus\mapus\agents\coordinator.py", line 103, in select
+    satis[wid] = sat.score(profiles[wid].pref, path_cells(path))
+                           ^^^^^^^^^^^^^^^^^^
+AttributeError: 'numpy.ndarray' object has no attribute 'pref'
+fairness failed

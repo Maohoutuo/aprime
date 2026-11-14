@@ -1,0 +1,24 @@
+{
+  "model": "siliconflow:Qwen/Qwen2.5-72B-Instruct",
+  "note": "真实 LLM 的墙钟时延只有在未命中磁盘缓存时才有意义。这里记录几次未命中缓存的实测：run_main 的 medium 与 large 是完整干净的执行；large 的单 LLM 基线取自第一次（因 TPM 限流中断的）执行中已完成的计时。",
+  "items": [
+    {
+      "scale": "medium",
+      "method": "MAPUS",
+      "runtime": 153.24,
+      "note": "run_main --scales small,medium --n 3，16:53–16:58，未命中缓存，parallel=2/llm-workers=6"
+    },
+    {
+      "scale": "large",
+      "method": "MAPUS",
+      "runtime": 286.5,
+      "note": "run_main --scales large --n 3，17:49–18:06，未命中缓存，parallel=1/llm-workers=2（TPM 限流后降速）"
+    },
+    {
+      "scale": "large",
+      "method": "GPT-4.1-mini",
+      "runtime": 55.5,
+      "note": "单 LLM 基线，17:22 首次执行（随后 overall run 因 TPM 限流中断），未命中缓存"
+    }
+  ]
+}

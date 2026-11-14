@@ -1,0 +1,108 @@
+{
+  "backend": "surrogate",
+  "model": "surrogate",
+  "cases": {
+    "accident": {
+      "event": "A serious traffic accident has occurred in grid [2, 5]. Please take a detour.",
+      "grid": [
+        2,
+        5
+      ],
+      "coverage_before": 4.682,
+      "coverage_after": 4.682,
+      "pss_before": 1.0311,
+      "pss_after": 1.0311,
+      "n_agents": 6,
+      "n_changed": 0,
+      "decisions": [
+        {
+          "worker": "w003",
+          "adjust": false,
+          "changed": false,
+          "explanation": "the affected area is not on my route"
+        },
+        {
+          "worker": "w018",
+          "adjust": false,
+          "changed": false,
+          "explanation": "the affected area is not on my route"
+        },
+        {
+          "worker": "w008",
+          "adjust": false,
+          "changed": false,
+          "explanation": "the affected area is not on my route"
+        },
+        {
+          "worker": "w002",
+          "adjust": false,
+          "changed": false,
+          "explanation": "the affected area is not on my route"
+        },
+        {
+          "worker": "w000",
+          "adjust": true,
+          "changed": false,
+          "explanation": "replanned my route around the broadcast information"
+        },
+        {
+          "worker": "w014",
+          "adjust": false,
+          "changed": false,
+          "explanation": "the affected area is not on my route"
+        }
+      ]
+    },
+    "priority": {
+      "event": "Data in grid [1, 0] is important and more data needs to be collected.",
+      "grid": [
+        1,
+        0
+      ],
+      "coverage_before": 4.9597,
+      "coverage_after": 4.9597,
+      "pss_before": 1.1431,
+      "pss_after": 1.1431,
+      "n_agents": 6,
+      "n_changed": 6,
+      "decisions": [
+        {
+          "worker": "w007",
+          "adjust": true,
+          "changed": true,
+          "explanation": "replanned my route around the broadcast information"
+        },
+        {
+          "worker": "w006",
+          "adjust": true,
+          "changed": true,
+          "explanation": "replanned my route around the broadcast information"
+        },
+        {
+          "worker": "w011",
+          "adjust": true,
+          "changed": true,
+          "explanation": "replanned my route around the broadcast information"
+        },
+        {
+          "worker": "w004",
+          "adjust": true,
+          "changed": true,
+          "explanation": "replanned my route around the broadcast information"
+        },
+        {
+          "worker": "w008",
+          "adjust": true,
+          "changed": true,
+          "explanation": "replanned my route around the broadcast information"
+        },
+        {
+          "worker": "w010",
+          "adjust": true,
+          "changed": true,
+          "explanation": "replanned my route around the broadcast information"
+        }
+      ]
+    }
+  }
+}

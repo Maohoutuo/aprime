@@ -1,0 +1,9 @@
+[tdrive/large] RN             cov 5.321±0.012  pss 0.701±0.097  n 5.0  t 0.0s  | paper 4.974/0.594  dCov +7.0%  dPSS +0.107
+[tdrive/large] TVPG           cov 5.375±0.041  pss 0.738±0.107  n 4.7  t 0.3s  | paper 5.067/0.590  dCov +6.1%  dPSS +0.148
+[tdrive/large] TCPG           cov 5.333±0.029  pss 0.776±0.097  n 4.3  t 0.4s  | paper 5.043/0.602  dCov +5.7%  dPSS +0.174
+[tdrive/large] MSA            cov 5.354±0.038  pss 0.694±0.044  n 5.0  t 2.2s  | paper 5.131/0.598  dCov +4.4%  dPSS +0.096
+[tdrive/large] MSAGI          cov 5.378±0.043  pss 0.754±0.151  n 4.7  t 2.6s  | paper 5.128/0.590  dCov +4.9%  dPSS +0.164
+[tdrive/large] GraphDP        cov 5.286±0.015  pss 0.717±0.103  n 5.0  t 0.1s  | paper 5.214/0.628  dCov +1.4%  dPSS +0.089
+[tdrive/large] GPT-4.1-mini   cov 5.266±0.073  pss 0.636±0.043  n 5.0  t 0.6s  | paper 4.936/0.691  dCov +6.7%  dPSS -0.055
+[tdrive/large] MAPUS          cov 5.349±0.004  pss 0.791±0.026  n 4.0  t 286.5s  | paper 5.251/0.898  dCov +1.9%  dPSS -0.107
+wrote results\main_tdrive_qwen72b_large_n3.json

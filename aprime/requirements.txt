@@ -1,0 +1,6 @@
+﻿# A′ 的依赖（数据与 PSS 口径复用同级的 mapus/ 与 agentsense/，不在此列）
+numpy>=2.0,<3
+scipy>=1.11,<2
+pytest>=8
+matplotlib>=3.5
+

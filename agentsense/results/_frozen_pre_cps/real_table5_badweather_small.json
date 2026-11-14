@@ -1,0 +1,16 @@
+{
+  "model": "deepseek-ai/DeepSeek-V3.2",
+  "scale": "small",
+  "n": 1,
+  "temperature": 0.5,
+  "rows": {
+    "bad_weather": {
+      "SR": 100.0,
+      "AIR": 0.7274036321073085,
+      "ANI": 1.0,
+      "ACS": 0.0,
+      "n": 1,
+      "tokens": 0
+    }
+  }
+}

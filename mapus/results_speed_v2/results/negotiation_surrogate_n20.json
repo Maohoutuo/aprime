@@ -1,0 +1,40 @@
+{
+  "scale": "medium",
+  "n": 20,
+  "backend": "surrogate",
+  "model": "surrogate",
+  "datasets": {
+    "tdrive": {
+      "pre_neg_overlap": 0.0187,
+      "avg_overlap": 0.0181,
+      "pre_neg_coverage": 5.0429,
+      "coverage": 5.0432,
+      "pre_neg_entropy": 4.1789,
+      "entropy": 4.1794,
+      "pre_neg_count": 60.0,
+      "count": 60.0,
+      "pre_neg_pss": 0.8945,
+      "pss": 0.8937,
+      "neg_attempts": 0.05,
+      "neg_accepted": 0.05,
+      "neg_rejected": 0.0,
+      "n_selected": 4.0
+    },
+    "grab": {
+      "pre_neg_overlap": 0.0454,
+      "avg_overlap": 0.031,
+      "pre_neg_coverage": 5.0373,
+      "coverage": 5.033,
+      "pre_neg_entropy": 4.1714,
+      "entropy": 4.1726,
+      "pre_neg_count": 59.85,
+      "count": 59.45,
+      "pre_neg_pss": 0.9574,
+      "pss": 0.9603,
+      "neg_attempts": 1.7,
+      "neg_accepted": 1.65,
+      "neg_rejected": 0.15,
+      "n_selected": 4.0
+    }
+  }
+}

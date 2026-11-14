@@ -1,0 +1,24 @@
+{
+  "model": "deepseek-ai/DeepSeek-V3.2",
+  "scale": "small",
+  "n": 5,
+  "temperature": 0.5,
+  "rows": {
+    "single-agent": {
+      "SR": 60.0,
+      "AIR": 0.5517602572886168,
+      "ANI": 1.0,
+      "ACS": 0.0,
+      "n": 5,
+      "tokens": 11222
+    },
+    "AgentSense": {
+      "SR": 100.0,
+      "AIR": 1.0251525148217888,
+      "ANI": 1.4,
+      "ACS": -0.6,
+      "n": 5,
+      "tokens": 23837
+    }
+  }
+}

@@ -1,0 +1,8 @@
+﻿__pycache__/
+*.pyc
+.venv/
+results/*.json
+!results/*.md
+docs/calibration_result.json
+.env
+.env.local

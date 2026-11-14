@@ -1,0 +1,13 @@
+[grab_small] w/o PRG   cov 4.641 pss 0.799 overlap 0.138
+[grab_small] w/o FPS   cov 4.696 pss 0.660 overlap 0.120
+[grab_small] w/o NRR   cov 4.656 pss 0.812 overlap 0.161
+[grab_small] Full      cov 4.641 pss 0.799 overlap 0.138
+[grab_medium] w/o PRG   cov 5.026 pss 0.825 overlap 0.055
+[grab_medium] w/o FPS   cov 5.043 pss 0.658 overlap 0.021
+[grab_medium] w/o NRR   cov 5.029 pss 0.848 overlap 0.072
+[grab_medium] Full      cov 5.012 pss 0.842 overlap 0.070
+[grab_large] w/o PRG   cov 5.348 pss 0.864 overlap 0.010
+[grab_large] w/o FPS   cov 5.359 pss 0.753 overlap 0.008
+[grab_large] w/o NRR   cov 5.339 pss 0.885 overlap 0.012
+[grab_large] Full      cov 5.339 pss 0.885 overlap 0.012
+wrote results\ablation_grab_qwen72b_n3.json

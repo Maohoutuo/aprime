@@ -1,0 +1,5 @@
+[Qwen/Qwen2.5-7B-Instruct][tdrive] cov 5.033 pss 0.725 t 278.3s
+[Qwen/Qwen2.5-7B-Instruct][grab] cov 5.017 pss 0.833 t 237.2s
+[Qwen/Qwen2.5-72B-Instruct][tdrive] cov 5.044 pss 0.686 t 1.0s
+[Qwen/Qwen2.5-72B-Instruct][grab] cov 5.013 pss 0.843 t 200.0s
+wrote results\base_llm_n2.json

@@ -1,0 +1,81 @@
+
+=== main-grab ===
+[grab/small] RN             cov 4.607±0.081  pss 0.750±0.112  n 6.0  t 0.0s  | paper 4.236/0.727  dCov +8.8%  dPSS +0.023
+[grab/small] TVPG           cov 4.669±0.037  pss 0.824±0.114  n 5.2  t 0.3s  | paper 4.342/0.714  dCov +7.5%  dPSS +0.110
+[grab/small] TCPG           cov 4.679±0.034  pss 0.815±0.116  n 5.6  t 0.5s  | paper 4.232/0.730  dCov +10.6%  dPSS +0.085
+[grab/small] MSA            cov 4.708±0.025  pss 0.846±0.090  n 6.0  t 5.4s  | paper 4.372/0.744  dCov +7.7%  dPSS +0.102
+[grab/small] MSAGI          cov 4.708±0.032  pss 0.838±0.100  n 5.5  t 5.7s  | paper 4.392/0.752  dCov +7.2%  dPSS +0.086
+[grab/small] GraphDP        cov 4.675±0.009  pss 0.737±0.103  n 6.0  t 0.0s  | paper 4.369/0.749  dCov +7.0%  dPSS -0.012
+[grab/small] GPT-4.1-mini   cov 4.686±0.034  pss 0.652±0.068  n 5.2  t 0.4s  | paper 4.293/0.782  dCov +9.1%  dPSS -0.130
+[grab/small] MAPUS          cov 4.673±0.044  pss 0.873±0.036  n 5.5  t 1.3s  | paper 4.386/0.854  dCov +6.5%  dPSS +0.019
+[grab/medium] RN             cov 4.910±0.048  pss 0.766±0.167  n 4.2  t 0.0s  | paper 4.710/0.696  dCov +4.2%  dPSS +0.070
+[grab/medium] TVPG           cov 5.007±0.029  pss 0.818±0.110  n 4.0  t 1.8s  | paper 4.737/0.695  dCov +5.7%  dPSS +0.123
+[grab/medium] TCPG           cov 4.973±0.037  pss 0.852±0.109  n 4.0  t 2.3s  | paper 4.806/0.703  dCov +3.5%  dPSS +0.149
+[grab/medium] MSA            cov 4.983±0.037  pss 0.831±0.129  n 4.2  t 12.9s  | paper 4.900/0.699  dCov +1.7%  dPSS +0.132
+[grab/medium] MSAGI          cov 5.024±0.023  pss 0.824±0.091  n 4.0  t 15.1s  | paper 4.887/0.714  dCov +2.8%  dPSS +0.110
+[grab/medium] GraphDP        cov 4.924±0.016  pss 0.700±0.156  n 4.2  t 0.4s  | paper 4.913/0.719  dCov +0.2%  dPSS -0.019
+[grab/medium] GPT-4.1-mini   cov 5.044±0.003  pss 0.659±0.127  n 4.0  t 2.0s  | paper 4.755/0.742  dCov +6.1%  dPSS -0.083
+[grab/medium] MAPUS          cov 5.026±0.012  pss 0.919±0.033  n 4.0  t 5.4s  | paper 4.890/0.834  dCov +2.8%  dPSS +0.085
+[grab/large] RN             cov 5.278±0.064  pss 0.761±0.150  n 3.6  t 0.0s  | paper 5.399/0.648  dCov -2.2%  dPSS +0.113
+[grab/large] TVPG           cov 5.341±0.042  pss 0.858±0.132  n 3.2  t 2.3s  | paper 5.406/0.640  dCov -1.2%  dPSS +0.218
+[grab/large] TCPG           cov 5.325±0.054  pss 0.833±0.141  n 3.4  t 3.9s  | paper 5.587/0.658  dCov -4.7%  dPSS +0.175
+[grab/large] MSA            cov 5.339±0.054  pss 0.848±0.151  n 3.6  t 21.4s  | paper 5.586/0.655  dCov -4.4%  dPSS +0.193
+[grab/large] MSAGI          cov 5.352±0.039  pss 0.882±0.106  n 3.2  t 23.7s  | paper 5.567/0.653  dCov -3.9%  dPSS +0.229
+[grab/large] GraphDP        cov 5.233±0.029  pss 0.622±0.141  n 3.6  t 4.3s  | paper 5.611/0.700  dCov -6.7%  dPSS -0.078
+[grab/large] GPT-4.1-mini   cov 5.382±0.014  pss 0.666±0.104  n 3.0  t 4.9s  | paper 5.413/0.729  dCov -0.6%  dPSS -0.063
+[grab/[grab/large] MAPUS          cov 5.360±0.022  pss 0.900±0.034  n 3.0  t 97.2s  | paper 5.701/0.831  dCov -6.0%  dPSS +0.069
+wrote results\main_grab_surrogate_n20.json
+in-grab: exit=0, 356.6s
+
+=== main-tdrive ===
+[tdrive/small] RN             cov 4.633±0.037  pss 0.573±0.135  n 6.0  t 0.0s  | paper 4.557/0.632  dCov +1.7%  dPSS -0.059
+[tdrive/small] TVPG           cov 4.683±0.034  pss 0.717±0.086  n 5.2  t 1.4s  | paper 4.563/0.634  dCov +2.6%  dPSS +0.083
+[tdrive/small] TCPG           cov 4.694±0.029  pss 0.707±0.105  n 5.5  t 1.9s  | paper 4.594/0.631  dCov +2.2%  dPSS +0.076
+[tdrive/small] MSA            cov 4.714±0.022  pss 0.645±0.102  n 6.1  t 13.4s  | paper 4.662/0.630  dCov +1.1%  dPSS +0.015
+[tdrive/small] MSAGI          cov 4.716±0.024  pss 0.692±0.080  n 5.2  t 13.2s  | paper 4.661/0.633  dCov +1.2%  dPSS +0.059
+[tdrive/small] GraphDP        cov 4.681±0.010  pss 0.574±0.120  n 6.0  t 0.1s  | paper 4.761/0.659  dCov -1.7%  dPSS -0.085
+[tdrive/small] GPT-4.1-mini   cov 4.712±0.033  pss 0.511±0.104  n 5.0  t 0.7s  | paper 4.576/0.742  dCov +3.0%  dPSS -0.231
+[tdrive/small] MAPUS          cov 4.694±0.037  pss 0.741±0.034  n 5.2  t 1.8s  | paper 4.677/0.875  dCov +0.4%  dPSS -0.134
+[tdrive/medium] RN             cov 4.924±0.046  pss 0.662±0.127  n 4.2  t 0.0s  | paper 4.626/0.605  dCov +6.4%  dPSS +0.057
+[tdrive/medium] TVPG           cov 4.998±0.027  pss 0.739±0.107  n 4.0  t 1.4s  | paper 4.753/0.610  dCov +5.1%  dPSS +0.129
+[tdrive/medium] TCPG           cov 4.985±0.039  pss 0.713±0.137  n 4.0  t 1.9s  | paper 5.084/0.621  dCov -2.0%  dPSS +0.092
+[tdrive/medium] MSA            cov 4.976±0.036  pss 0.742±0.130  n 4.2  t 10.8s  | paper 5.065/0.622  dCov -1.8%  dPSS +0.120
+[tdrive/medium] MSAGI          cov 5.019±0.024  pss 0.758±0.139  n 4.0  t 12.2s  | paper 5.052/0.616  dCov -0.7%  dPSS +0.142
+[tdrive/medium] GraphDP        cov 4.931±0.014  pss 0.594±0.133  n 4.2  t 0.4s  | paper 5.102/0.651  dCov -3.4%  dPSS -0.057
+[tdrive/medium] GPT-4.1-mini   cov 5.049±0.003  pss 0.561±0.088  n 4.0  t 2.3s  | paper 4.872/0.706  dCov +3.6%  dPSS -0.145
+[tdrive/medium] MAPUS          cov 5.035±0.008  pss 0.835±0.032  n 4.0  t 6.0s  | paper 5.115/0.875  dCov -1.6%  dPSS -0.040
+[tdrive/large] RN             cov 5.339±0.030  pss 0.664±0.150  n 5.2  t 0.0s  | paper 4.974/0.594  dCov +7.3%  dPSS +0.070
+[tdrive/large] TVPG           cov 5.357±0.038  pss 0.745±0.147  n 4.3  t 2.7s  | paper 5.067/0.590  dCov +5.7%  dPSS +0.155
+[tdrive/large] TCPG           cov 5.347±0.036  pss 0.740±0.112  n 4.4  t 4.5s  | paper 5.043/0.602  dCov +6.0%  dPSS +0.138
+[tdrive/large] MSA            cov 5.369±0.028  pss 0.680±0.123  n 5.2  t 18.9s  | paper 5.131/0.598  dCov +4.6%  dPSS +0.082
+[tdrive/large] MSAGI          cov 5.370±0.034  pss 0.743±0.151  n 4.5  t 21.2s  | paper 5.128/0.590  dCov +4.7%  dPSS +0.153
+[tdrive/large] GraphDP        cov 5.277±0.018  pss 0.578±0.163  n 5.2  t 2.3s  | paper 5.214/0.628  dCov +1.2%  dPSS -0.050
+[tdrive/large] GPT-4.1-mini   cov 5.389±0.003  pss 0.588±0.107  n 4.0  t 5.2s  | paper 4.936/0.691  dCov +9.2%  dPSS -0.103
+[tdrive/large] MAPUS          cov 5.362±0.017  pss 0.835±0.033  n 4.0  t 16.5s  | paper 5.251/0.898  dCov +2.1%  dPSS -0.063
+wrote results\main_tdrive_surrogate_n20.json
+--- main-tdrive: exit=0, 379.1s
+
+=== ablation ===
+[tdrive_small] w/o PRG   cov 4.706 pss 0.687 overlap 0.025
+[tdrive_small] w/o FPS   cov 4.708 pss 0.628 overlap 0.013
+[tdrive_small] w/o NRR   cov 4.697 pss 0.734 overlap 0.032
+[tdrive_small] Full      cov 4.694 pss 0.741 overlap 0.025
+[tdrive_medium] w/o PRG   cov 5.040 pss 0.774 overlap 0.008
+[tdrive_medium] w/o FPS   cov 5.046 pss 0.630 overlap 0.005
+[tdrive_medium] w/o NRR   cov 5.036 pss 0.826 overlap 0.020
+[tdrive_medium] Full      cov 5.035 pss 0.835 overlap 0.008
+[tdrive_large] w/o PRG   cov 5.362 pss 0.802 overlap 0.005
+[tdrive_large] w/o FPS   cov 5.388 pss 0.638 overlap 0.005
+[tdrive_large] w/o NRR   cov 5.362 pss 0.836 overlap 0.010
+[tdrive_large] Full      cov 5.362 pss 0.835 overlap 0.008
+wrote results\ablation_tdrive_surrogate_n20.json
+--- ablation: exit=0, 226.5s
+
+=== negotiation ===
+[tdrive] overlap 0.020 -> 0.008 | cov 5.036 -> 5.035 | H 4.171 -> 4.170 | count 59.8 -> 59.7 | pss 0.826 -> 0.835 | pairs 0.5 acc 0.5
+[grab] overlap 0.037 -> 0.026 | cov 5.028 -> 5.026 | H 4.161 -> 4.160 | count 59.5 -> 59.4 | pss 0.900 -> 0.919 | pairs 1.6 acc 1.4
+wrote results\negotiation_surrogate_n20.json
+--- negotiation: exit=0, 26.4s
+
+=== fairness ===
+--- fairness: exit=1, 0.6s

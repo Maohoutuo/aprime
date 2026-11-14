@@ -1,0 +1,5 @@
+[tdrive/small] GPT-4.1-mini   cov 4.516±0.021  pss 0.475±0.097  n 5.7  t 0.1s  | paper 4.576/0.742  dCov -1.3%  dPSS -0.267
+[tdrive/small] MAPUS          cov 4.668±0.020  pss 0.677±0.020  n 5.3  t 0.2s  | paper 4.677/0.875  dCov -0.2%  dPSS -0.198
+[tdrive/medium] GPT-4.1-mini   cov 4.987±0.027  pss 0.522±0.043  n 5.0  t 0.3s  | paper 4.872/0.706  dCov +2.4%  dPSS -0.184
+[tdrive/medium] MAPUS          cov 5.042±0.004  pss 0.704±0.031  n 4.0  t 153.2s  | paper 5.115/0.875  dCov -1.4%  dPSS -0.171
+wrote results\main_tdrive_qwen72b_n3.json

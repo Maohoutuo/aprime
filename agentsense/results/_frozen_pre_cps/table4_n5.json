@@ -1,0 +1,146 @@
+{
+  "small/RN": {
+    "ours": 4.614,
+    "paper": 4.505,
+    "err_pct": 2.42,
+    "cost": 39.0,
+    "feasible_rate": 1,
+    "seconds": 0.0
+  },
+  "small/TVPG": {
+    "ours": 4.7537,
+    "paper": 4.565,
+    "err_pct": 4.13,
+    "cost": 38.8,
+    "feasible_rate": 1,
+    "seconds": 0.12
+  },
+  "small/TCPG": {
+    "ours": 4.7454,
+    "paper": 4.588,
+    "err_pct": 3.43,
+    "cost": 39.6,
+    "feasible_rate": 1,
+    "seconds": 0.2
+  },
+  "small/MSA": {
+    "ours": 4.7702,
+    "paper": 4.662,
+    "err_pct": 2.32,
+    "cost": 39.8,
+    "feasible_rate": 1,
+    "seconds": 2.38
+  },
+  "small/MSAGI": {
+    "ours": 4.7888,
+    "paper": 4.702,
+    "err_pct": 1.85,
+    "cost": 38.8,
+    "feasible_rate": 1,
+    "seconds": 9.09
+  },
+  "small/GraphDP": {
+    "ours": 4.6668,
+    "paper": 4.78,
+    "err_pct": -2.37,
+    "cost": 39.8,
+    "feasible_rate": 1,
+    "seconds": 0.11
+  },
+  "medium/RN": {
+    "ours": 4.7209,
+    "paper": 4.706,
+    "err_pct": 0.32,
+    "cost": 55.2,
+    "feasible_rate": 1,
+    "seconds": 0.0
+  },
+  "medium/TVPG": {
+    "ours": 4.862,
+    "paper": 4.761,
+    "err_pct": 2.12,
+    "cost": 57.8,
+    "feasible_rate": 1,
+    "seconds": 0.91
+  },
+  "medium/TCPG": {
+    "ours": 4.8588,
+    "paper": 5.118,
+    "err_pct": -5.06,
+    "cost": 59.0,
+    "feasible_rate": 1,
+    "seconds": 1.24
+  },
+  "medium/MSA": {
+    "ours": 4.8275,
+    "paper": 5.086,
+    "err_pct": -5.08,
+    "cost": 56.0,
+    "feasible_rate": 1,
+    "seconds": 11.98
+  },
+  "medium/MSAGI": {
+    "ours": 4.8863,
+    "paper": 5.09,
+    "err_pct": -4.0,
+    "cost": 57.8,
+    "feasible_rate": 1,
+    "seconds": 12.26
+  },
+  "medium/GraphDP": {
+    "ours": 4.8087,
+    "paper": 5.205,
+    "err_pct": -7.61,
+    "cost": 59.8,
+    "feasible_rate": 1,
+    "seconds": 0.58
+  },
+  "large/RN": {
+    "ours": 5.0741,
+    "paper": 5.029,
+    "err_pct": 0.9,
+    "cost": 97.2,
+    "feasible_rate": 1,
+    "seconds": 0.01
+  },
+  "large/TVPG": {
+    "ours": 5.1531,
+    "paper": 5.602,
+    "err_pct": -8.01,
+    "cost": 96.6,
+    "feasible_rate": 1,
+    "seconds": 1.42
+  },
+  "large/TCPG": {
+    "ours": 5.1096,
+    "paper": 5.544,
+    "err_pct": -7.84,
+    "cost": 96.6,
+    "feasible_rate": 1,
+    "seconds": 1.75
+  },
+  "large/MSA": {
+    "ours": 5.156,
+    "paper": 5.631,
+    "err_pct": -8.43,
+    "cost": 97.8,
+    "feasible_rate": 1,
+    "seconds": 21.76
+  },
+  "large/MSAGI": {
+    "ours": 5.1606,
+    "paper": 5.682,
+    "err_pct": -9.18,
+    "cost": 96.6,
+    "feasible_rate": 1,
+    "seconds": 23.1
+  },
+  "large/GraphDP": {
+    "ours": 5.0801,
+    "paper": 5.701,
+    "err_pct": -10.89,
+    "cost": 99.8,
+    "feasible_rate": 1,
+    "seconds": 1.64
+  }
+}

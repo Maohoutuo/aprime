@@ -1,0 +1,108 @@
+{
+  "backend": "siliconflow",
+  "model": "siliconflow:Qwen/Qwen2.5-72B-Instruct",
+  "cases": {
+    "accident": {
+      "event": "A serious traffic accident has occurred in grid [5, 4]. Please take a detour.",
+      "grid": [
+        5,
+        4
+      ],
+      "coverage_before": 4.6932,
+      "coverage_after": 4.6933,
+      "pss_before": 0.9169,
+      "pss_after": 0.9038,
+      "n_agents": 6,
+      "n_changed": 2,
+      "decisions": [
+        {
+          "worker": "w003",
+          "adjust": true,
+          "changed": false,
+          "explanation": "The traffic accident in grid [5, 4] affects my route. I will detour around the affected area by moving to [4, 4] and [4, 5] before heading to my destination at [5, 4] at t=7."
+        },
+        {
+          "worker": "w002",
+          "adjust": true,
+          "changed": false,
+          "explanation": "The traffic accident in grid [5, 4] is on my original route. To avoid the congested area and stay true to my preference as an eco_enthusiast, I will take a detour through the residential area in grid [5, 6] instead of going directly to my destination at [5, 4]."
+        },
+        {
+          "worker": "w006",
+          "adjust": false,
+          "changed": false,
+          "explanation": "The traffic accident in grid [5, 4] does not affect my planned route, as I do not pass through that grid. Therefore, I will keep my original route."
+        },
+        {
+          "worker": "w012",
+          "adjust": false,
+          "changed": false,
+          "explanation": "The traffic accident in grid [5, 4] does not affect my current planned route, as my route does not pass through that grid. I will continue with my original route."
+        },
+        {
+          "worker": "w000",
+          "adjust": true,
+          "changed": true,
+          "explanation": "The traffic accident in grid [5, 4] affects my planned route. I will take a detour through the residential area to avoid the congestion and pollution, which aligns with my preference as an eco_enthusiast."
+        },
+        {
+          "worker": "w004",
+          "adjust": true,
+          "changed": true,
+          "explanation": "The traffic accident in grid [5, 4] does not directly affect my route, but I will take a detour to avoid any potential delays or hazards. I will move from [0, 3, 3] to [0, 2, 4] and then to [0, 2, 5] to stay clear of the affected area while still reaching my destination at the same time."
+        }
+      ]
+    },
+    "priority": {
+      "event": "Data in grid [5, 3] is important and more data needs to be collected.",
+      "grid": [
+        5,
+        3
+      ],
+      "coverage_before": 5.0144,
+      "coverage_after": 5.0674,
+      "pss_before": 0.8833,
+      "pss_after": 0.9225,
+      "n_agents": 6,
+      "n_changed": 6,
+      "decisions": [
+        {
+          "worker": "w007",
+          "adjust": true,
+          "changed": true,
+          "explanation": "Adjusted the route to pass through grid [5, 3] to collect more data, as it is important and my preference for industrial and commercial areas aligns with the task."
+        },
+        {
+          "worker": "w011",
+          "adjust": true,
+          "changed": true,
+          "explanation": "The event is in grid [5, 3], which is not on my planned route. My route already passes through grid [3, 3] multiple times, and I am an eco_enthusiast who prefers green spaces and quiet neighborhoods. The current route includes a residential area and a vegetation area, which align with my preferences. Therefore, no adjustment is necessary."
+        },
+        {
+          "worker": "w014",
+          "adjust": true,
+          "changed": true,
+          "explanation": "I have adjusted my route to pass through grid [5, 3] at t=2 to collect more data, as it is important according to the coordinator's broadcast. This adjustment aligns with my preference for commercial areas and ensures I reach my destination within the same time frame."
+        },
+        {
+          "worker": "w009",
+          "adjust": true,
+          "changed": true,
+          "explanation": "I have adjusted my route to pass through grid [5, 3] at t=7, as it is important and more data needs to be collected. This adjustment allows me to explore the area and collect the required data while still reaching my destination at the same time."
+        },
+        {
+          "worker": "w008",
+          "adjust": true,
+          "changed": true,
+          "explanation": "The event in grid [5, 3] is important for data collection. Since my original route passes through [4, 3, 2] and [4, 2, 3], I can adjust it to pass through [5, 3] at t=3, which aligns with my preference for commercial areas and does not significantly impact my travel time."
+        },
+        {
+          "worker": "w002",
+          "adjust": true,
+          "changed": true,
+          "explanation": "The event in grid [5, 3] is important but does not affect my current planned route. However, since my destination is in the same row as the event and I prefer regions near community facilities, I will stay in the same row for an additional time step to collect more data near the event while still reaching my destination on time."
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,31 @@
+# 只跟踪 aprime 及其两个依赖包。
+#
+# `aprime` 在 import 期就依赖同级的 `mapus` 与 `agentsense`
+# （aprime/aprime/candidates.py 直接 import 三者的模块），
+# 所以仓库根必须是三者的公共父目录，不能只推 aprime/。
+/*
+!/.gitignore
+!/aprime/
+!/mapus/
+!/agentsense/
+
+# ── 凭据：任何情况下都不得提交 ──────────────────────────
+.env
+.env.*
+!.env.example
+
+# ── 缓存与构建产物 ────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.venv/
+venv/
+*.egg-info/
+
+# ── 体积控制 ──────────────────────────────────────────
+# 论文 PDF 是生成物，不入库（每次重编都是一份新的二进制）
+aprime/paper_draft.pdf
+# 临时运行日志
+_run_*.log
+*.log

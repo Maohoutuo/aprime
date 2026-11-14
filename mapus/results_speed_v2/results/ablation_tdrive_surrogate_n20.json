@@ -1,0 +1,122 @@
+{
+  "dataset": "tdrive",
+  "n": 20,
+  "backend": "surrogate",
+  "model": "surrogate",
+  "results": {
+    "small": {
+      "w/o PRG": {
+        "coverage": 4.6859,
+        "coverage_std": 0.034,
+        "pss": 0.767,
+        "pss_std": 0.0444,
+        "overlap": 0.0384,
+        "n_selected": 5.1,
+        "runtime": 1.83
+      },
+      "w/o FPS": {
+        "coverage": 4.7171,
+        "coverage_std": 0.0263,
+        "pss": 0.695,
+        "pss_std": 0.0676,
+        "overlap": 0.0378,
+        "n_selected": 5.0,
+        "runtime": 3.14
+      },
+      "w/o NRR": {
+        "coverage": 4.6967,
+        "coverage_std": 0.0228,
+        "pss": 0.7544,
+        "pss_std": 0.0404,
+        "overlap": 0.0596,
+        "n_selected": 5.05,
+        "runtime": 2.56
+      },
+      "Full": {
+        "coverage": 4.6785,
+        "coverage_std": 0.0268,
+        "pss": 0.7934,
+        "pss_std": 0.0403,
+        "overlap": 0.0502,
+        "n_selected": 5.05,
+        "runtime": 3.77
+      }
+    },
+    "medium": {
+      "w/o PRG": {
+        "coverage": 5.0331,
+        "coverage_std": 0.0089,
+        "pss": 0.7523,
+        "pss_std": 0.0418,
+        "overlap": 0.0141,
+        "n_selected": 4.0,
+        "runtime": 7.32
+      },
+      "w/o FPS": {
+        "coverage": 5.0449,
+        "coverage_std": 0.0049,
+        "pss": 0.8382,
+        "pss_std": 0.0456,
+        "overlap": 0.0141,
+        "n_selected": 4.0,
+        "runtime": 23.69
+      },
+      "w/o NRR": {
+        "coverage": 5.0429,
+        "coverage_std": 0.003,
+        "pss": 0.8945,
+        "pss_std": 0.0128,
+        "overlap": 0.0187,
+        "n_selected": 4.0,
+        "runtime": 21.19
+      },
+      "Full": {
+        "coverage": 5.0432,
+        "coverage_std": 0.0027,
+        "pss": 0.8937,
+        "pss_std": 0.0129,
+        "overlap": 0.0181,
+        "n_selected": 4.0,
+        "runtime": 24.21
+      }
+    },
+    "large": {
+      "w/o PRG": {
+        "coverage": 5.3428,
+        "coverage_std": 0.0159,
+        "pss": 0.7987,
+        "pss_std": 0.0377,
+        "overlap": 0.0093,
+        "n_selected": 4.0,
+        "runtime": 14.48
+      },
+      "w/o FPS": {
+        "coverage": 5.3847,
+        "coverage_std": 0.0054,
+        "pss": 0.9263,
+        "pss_std": 0.0155,
+        "overlap": 0.0131,
+        "n_selected": 4.0,
+        "runtime": 121.91
+      },
+      "w/o NRR": {
+        "coverage": 5.3752,
+        "coverage_std": 0.0133,
+        "pss": 0.9409,
+        "pss_std": 0.0089,
+        "overlap": 0.015,
+        "n_selected": 4.0,
+        "runtime": 121.76
+      },
+      "Full": {
+        "coverage": 5.3744,
+        "coverage_std": 0.0136,
+        "pss": 0.9408,
+        "pss_std": 0.0088,
+        "overlap": 0.0148,
+        "n_selected": 4.0,
+        "runtime": 124.56
+      }
+    }
+  }
+}

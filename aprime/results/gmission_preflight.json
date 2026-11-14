@@ -1,0 +1,4241 @@
+{
+  "file": "d:\\composition\\data\\gmission\\raw\\EverySender_cap1\\data_00.txt",
+  "nx": 8,
+  "ny": 8,
+  "radius_cells": 2,
+  "thetas": [
+    0.0,
+    0.1,
+    0.2,
+    0.3,
+    0.4,
+    0.5,
+    0.6,
+    0.7,
+    0.8,
+    0.9
+  ],
+  "edges": {
+    "edges_total": 739,
+    "edges_kept": 739
+  },
+  "workers_with_cand": 492,
+  "states_value": {
+    "惰性": 9,
+    "激活但不绑定": 1,
+    "激活且绑定": 0
+  },
+  "states_synthetic": {
+    "惰性": 68,
+    "激活但不绑定": 5,
+    "激活且绑定": 7
+  },
+  "gmission_value": [
+    {
+      "scheme": "value",
+      "theta": 0.0,
+      "n_feas": 492,
+      "k0": 64,
+      "delta": 0.1301,
+      "need_n": 7.688,
+      "caps_min": 1,
+      "caps_med": 1,
+      "caps_max": 5,
+      "n_groups": 3,
+      "groups": [
+        {
+          "group": "tight",
+          "n": 308,
+          "share": 0.626,
+          "q": 40.065,
+          "floor_plain": 40,
+          "floor_mrg": 40
+        },
+        {
+          "group": "two",
+          "n": 132,
+          "share": 0.2683,
+          "q": 17.1707,
+          "floor_plain": 17,
+          "floor_mrg": 17
+        },
+        {
+          "group": "ample",
+          "n": 52,
+          "share": 0.1057,
+          "q": 6.7642,
+          "floor_plain": 6,
+          "floor_mrg": 6
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 64,
+      "coverage_gqc": 64,
+      "gap_a": 0.0948,
+      "gap_gqc": 0.013,
+      "gap_mrg": 0.013,
+      "theta_violations": 0
+    },
+    {
+      "scheme": "value",
+      "theta": 0.1,
+      "n_feas": 448,
+      "k0": 64,
+      "delta": 0.1429,
+      "need_n": 7.0,
+      "caps_min": 1,
+      "caps_med": 1,
+      "caps_max": 4,
+      "n_groups": 3,
+      "groups": [
+        {
+          "group": "tight",
+          "n": 311,
+          "share": 0.6942,
+          "q": 44.4286,
+          "floor_plain": 44,
+          "floor_mrg": 44
+        },
+        {
+          "group": "two",
+          "n": 103,
+          "share": 0.2299,
+          "q": 14.7143,
+          "floor_plain": 14,
+          "floor_mrg": 14
+        },
+        {
+          "group": "ample",
+          "n": 34,
+          "share": 0.0759,
+          "q": 4.8571,
+          "floor_plain": 4,
+          "floor_mrg": 4
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 64,
+      "coverage_gqc": 64,
+      "gap_a": 0.0536,
+      "gap_gqc": 0.0179,
+      "gap_mrg": 0.0179,
+      "theta_violations": 0
+    },
+    {
+      "scheme": "value",
+      "theta": 0.2,
+      "n_feas": 384,
+      "k0": 64,
+      "delta": 0.1667,
+      "need_n": 6.0,
+      "caps_min": 1,
+      "caps_med": 1,
+      "caps_max": 4,
+      "n_groups": 3,
+      "groups": [
+        {
+          "group": "tight",
+          "n": 283,
+          "share": 0.737,
+          "q": 47.1667,
+          "floor_plain": 47,
+          "floor_mrg": 47
+        },
+        {
+          "group": "two",
+          "n": 86,
+          "share": 0.224,
+          "q": 14.3333,
+          "floor_plain": 14,
+          "floor_mrg": 14
+        },
+        {
+          "group": "ample",
+          "n": 15,
+          "share": 0.0391,
+          "q": 2.5,
+          "floor_plain": 2,
+          "floor_mrg": 2
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 64,
+      "coverage_gqc": 64,
+      "gap_a": 0.0339,
+      "gap_gqc": 0.0078,
+      "gap_mrg": 0.0078,
+      "theta_violations": 0
+    },
+    {
+      "scheme": "value",
+      "theta": 0.3,
+      "n_feas": 314,
+      "k0": 64,
+      "delta": 0.2038,
+      "need_n": 4.906,
+      "caps_min": 1,
+      "caps_med": 1,
+      "caps_max": 4,
+      "n_groups": 3,
+      "groups": [
+        {
+          "group": "tight",
+          "n": 250,
+          "share": 0.7962,
+          "q": 50.9554,
+          "floor_plain": 50,
+          "floor_mrg": 50
+        },
+        {
+          "group": "two",
+          "n": 54,
+          "share": 0.172,
+          "q": 11.0064,
+          "floor_plain": 11,
+          "floor_mrg": 11
+        },
+        {
+          "group": "ample",
+          "n": 10,
+          "share": 0.0318,
+          "q": 2.0382,
+          "floor_plain": 2,
+          "floor_mrg": 2
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 64,
+      "coverage_gqc": 64,
+      "gap_a": 0.0462,
+      "gap_gqc": 0.015,
+      "gap_mrg": 0.015,
+      "theta_violations": 0
+    },
+    {
+      "scheme": "value",
+      "theta": 0.4,
+      "n_feas": 252,
+      "k0": 63,
+      "delta": 0.25,
+      "need_n": 4.0,
+      "caps_min": 1,
+      "caps_med": 1,
+      "caps_max": 3,
+      "n_groups": 3,
+      "groups": [
+        {
+          "group": "tight",
+          "n": 211,
+          "share": 0.8373,
+          "q": 52.75,
+          "floor_plain": 52,
+          "floor_mrg": 52
+        },
+        {
+          "group": "two",
+          "n": 37,
+          "share": 0.1468,
+          "q": 9.25,
+          "floor_plain": 9,
+          "floor_mrg": 9
+        },
+        {
+          "group": "ample",
+          "n": 4,
+          "share": 0.0159,
+          "q": 1.0,
+          "floor_plain": 1,
+          "floor_mrg": 1
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 63,
+      "coverage_gqc": 63,
+      "gap_a": 0.0198,
+      "gap_gqc": 0.0154,
+      "gap_mrg": 0.0154,
+      "theta_violations": 0
+    },
+    {
+      "scheme": "value",
+      "theta": 0.5,
+      "n_feas": 188,
+      "k0": 61,
+      "delta": 0.3245,
+      "need_n": 3.082,
+      "caps_min": 1,
+      "caps_med": 1,
+      "caps_max": 3,
+      "n_groups": 3,
+      "groups": [
+        {
+          "group": "tight",
+          "n": 167,
+          "share": 0.8883,
+          "q": 54.1862,
+          "floor_plain": 54,
+          "floor_mrg": 54
+        },
+        {
+          "group": "two",
+          "n": 19,
+          "share": 0.1011,
+          "q": 6.1649,
+          "floor_plain": 6,
+          "floor_mrg": 6
+        },
+        {
+          "group": "ample",
+          "n": 2,
+          "share": 0.0106,
+          "q": 0.6489,
+          "floor_plain": 0,
+          "floor_mrg": 1
+        }
+      ],
+      "floor_zero_groups": [
+        "ample"
+      ],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "激活但不绑定",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 61,
+      "coverage_gqc": 61,
+      "gap_a": 0.0191,
+      "gap_gqc": 0.0058,
+      "gap_mrg": 0.0058,
+      "theta_violations": 0
+    },
+    {
+      "scheme": "value",
+      "theta": 0.6,
+      "n_feas": 128,
+      "k0": 54,
+      "delta": 0.4219,
+      "need_n": 2.37,
+      "caps_min": 1,
+      "caps_med": 1,
+      "caps_max": 3,
+      "n_groups": 3,
+      "groups": [
+        {
+          "group": "tight",
+          "n": 117,
+          "share": 0.9141,
+          "q": 49.3594,
+          "floor_plain": 49,
+          "floor_mrg": 49
+        },
+        {
+          "group": "two",
+          "n": 10,
+          "share": 0.0781,
+          "q": 4.2188,
+          "floor_plain": 4,
+          "floor_mrg": 4
+        },
+        {
+          "group": "ample",
+          "n": 1,
+          "share": 0.0078,
+          "q": 0.4219,
+          "floor_plain": 0,
+          "floor_mrg": 0
+        }
+      ],
+      "floor_zero_groups": [
+        "ample"
+      ],
+      "mrg_blocked": [
+        "ample"
+      ],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 54,
+      "coverage_gqc": 54,
+      "gap_a": 0.0489,
+      "gap_gqc": 0.0119,
+      "gap_mrg": 0.0119,
+      "theta_violations": 0
+    },
+    {
+      "scheme": "value",
+      "theta": 0.7,
+      "n_feas": 72,
+      "k0": 45,
+      "delta": 0.625,
+      "need_n": 1.6,
+      "caps_min": 1,
+      "caps_med": 1,
+      "caps_max": 2,
+      "n_groups": 2,
+      "groups": [
+        {
+          "group": "tight",
+          "n": 67,
+          "share": 0.9306,
+          "q": 41.875,
+          "floor_plain": 41,
+          "floor_mrg": 41
+        },
+        {
+          "group": "two",
+          "n": 5,
+          "share": 0.0694,
+          "q": 3.125,
+          "floor_plain": 3,
+          "floor_mrg": 3
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 45,
+      "coverage_gqc": 45,
+      "gap_a": 0.0194,
+      "gap_gqc": 0.0194,
+      "gap_mrg": 0.0194,
+      "theta_violations": 0
+    },
+    {
+      "scheme": "value",
+      "theta": 0.8,
+      "n_feas": 30,
+      "k0": 23,
+      "delta": 0.7667,
+      "need_n": 1.304,
+      "caps_min": 1,
+      "caps_med": 1,
+      "caps_max": 2,
+      "n_groups": 2,
+      "groups": [
+        {
+          "group": "tight",
+          "n": 28,
+          "share": 0.9333,
+          "q": 21.4667,
+          "floor_plain": 21,
+          "floor_mrg": 21
+        },
+        {
+          "group": "two",
+          "n": 2,
+          "share": 0.0667,
+          "q": 1.5333,
+          "floor_plain": 1,
+          "floor_mrg": 1
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 23,
+      "coverage_gqc": 23,
+      "gap_a": 0.0203,
+      "gap_gqc": 0.0203,
+      "gap_mrg": 0.0203,
+      "theta_violations": 0
+    },
+    {
+      "scheme": "value",
+      "theta": 0.9,
+      "n_feas": 7,
+      "k0": 7,
+      "delta": 1.0,
+      "need_n": 1.0,
+      "caps_min": 1,
+      "caps_med": 1,
+      "caps_max": 1,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "tight",
+          "n": 7,
+          "share": 1.0,
+          "q": 7.0,
+          "floor_plain": 7,
+          "floor_mrg": 7
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 7,
+      "coverage_gqc": 7,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0
+    }
+  ],
+  "gmission_quantile_tied": [
+    {
+      "scheme": "quantile_tied",
+      "theta": 0.0,
+      "n_feas": 492,
+      "k0": 64,
+      "delta": 0.1301,
+      "need_n": 7.688,
+      "caps_min": 1,
+      "caps_med": 1,
+      "caps_max": 5,
+      "n_groups": 2,
+      "groups": [
+        {
+          "group": "tight",
+          "n": 308,
+          "share": 0.626,
+          "q": 40.065,
+          "floor_plain": 40,
+          "floor_mrg": 40
+        },
+        {
+          "group": "ample",
+          "n": 184,
+          "share": 0.374,
+          "q": 23.935,
+          "floor_plain": 23,
+          "floor_mrg": 23
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 64,
+      "coverage_gqc": 64,
+      "gap_a": 0.0948,
+      "gap_gqc": 0.001,
+      "gap_mrg": 0.001,
+      "theta_violations": 0
+    },
+    {
+      "scheme": "quantile_tied",
+      "theta": 0.1,
+      "n_feas": 448,
+      "k0": 64,
+      "delta": 0.1429,
+      "need_n": 7.0,
+      "caps_min": 1,
+      "caps_med": 1,
+      "caps_max": 4,
+      "n_groups": 2,
+      "groups": [
+        {
+          "group": "tight",
+          "n": 311,
+          "share": 0.6942,
+          "q": 44.4286,
+          "floor_plain": 44,
+          "floor_mrg": 44
+        },
+        {
+          "group": "ample",
+          "n": 137,
+          "share": 0.3058,
+          "q": 19.5714,
+          "floor_plain": 19,
+          "floor_mrg": 19
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 64,
+      "coverage_gqc": 64,
+      "gap_a": 0.0536,
+      "gap_gqc": 0.0067,
+      "gap_mrg": 0.0067,
+      "theta_violations": 0
+    },
+    {
+      "scheme": "quantile_tied",
+      "theta": 0.2,
+      "n_feas": 384,
+      "k0": 64,
+      "delta": 0.1667,
+      "need_n": 6.0,
+      "caps_min": 1,
+      "caps_med": 1,
+      "caps_max": 4,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 384,
+          "share": 1.0,
+          "q": 64.0,
+          "floor_plain": 64,
+          "floor_mrg": 64
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 64,
+      "coverage_gqc": 64,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0
+    },
+    {
+      "scheme": "quantile_tied",
+      "theta": 0.3,
+      "n_feas": 314,
+      "k0": 64,
+      "delta": 0.2038,
+      "need_n": 4.906,
+      "caps_min": 1,
+      "caps_med": 1,
+      "caps_max": 4,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 314,
+          "share": 1.0,
+          "q": 64.0,
+          "floor_plain": 64,
+          "floor_mrg": 64
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 64,
+      "coverage_gqc": 64,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0
+    },
+    {
+      "scheme": "quantile_tied",
+      "theta": 0.4,
+      "n_feas": 252,
+      "k0": 63,
+      "delta": 0.25,
+      "need_n": 4.0,
+      "caps_min": 1,
+      "caps_med": 1,
+      "caps_max": 3,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 252,
+          "share": 1.0,
+          "q": 63.0,
+          "floor_plain": 63,
+          "floor_mrg": 63
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 63,
+      "coverage_gqc": 63,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0
+    },
+    {
+      "scheme": "quantile_tied",
+      "theta": 0.5,
+      "n_feas": 188,
+      "k0": 61,
+      "delta": 0.3245,
+      "need_n": 3.082,
+      "caps_min": 1,
+      "caps_med": 1,
+      "caps_max": 3,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 188,
+          "share": 1.0,
+          "q": 61.0,
+          "floor_plain": 61,
+          "floor_mrg": 61
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 61,
+      "coverage_gqc": 61,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0
+    },
+    {
+      "scheme": "quantile_tied",
+      "theta": 0.6,
+      "n_feas": 128,
+      "k0": 54,
+      "delta": 0.4219,
+      "need_n": 2.37,
+      "caps_min": 1,
+      "caps_med": 1,
+      "caps_max": 3,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 128,
+          "share": 1.0,
+          "q": 54.0,
+          "floor_plain": 54,
+          "floor_mrg": 54
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 54,
+      "coverage_gqc": 54,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0
+    },
+    {
+      "scheme": "quantile_tied",
+      "theta": 0.7,
+      "n_feas": 72,
+      "k0": 45,
+      "delta": 0.625,
+      "need_n": 1.6,
+      "caps_min": 1,
+      "caps_med": 1,
+      "caps_max": 2,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 72,
+          "share": 1.0,
+          "q": 45.0,
+          "floor_plain": 45,
+          "floor_mrg": 45
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 45,
+      "coverage_gqc": 45,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0
+    },
+    {
+      "scheme": "quantile_tied",
+      "theta": 0.8,
+      "n_feas": 30,
+      "k0": 23,
+      "delta": 0.7667,
+      "need_n": 1.304,
+      "caps_min": 1,
+      "caps_med": 1,
+      "caps_max": 2,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 30,
+          "share": 1.0,
+          "q": 23.0,
+          "floor_plain": 23,
+          "floor_mrg": 23
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 23,
+      "coverage_gqc": 23,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0
+    },
+    {
+      "scheme": "quantile_tied",
+      "theta": 0.9,
+      "n_feas": 7,
+      "k0": 7,
+      "delta": 1.0,
+      "need_n": 1.0,
+      "caps_min": 1,
+      "caps_med": 1,
+      "caps_max": 1,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 7,
+          "share": 1.0,
+          "q": 7.0,
+          "floor_plain": 7,
+          "floor_mrg": 7
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 7,
+      "coverage_gqc": 7,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0
+    }
+  ],
+  "synthetic_medium": [
+    {
+      "scheme": "value",
+      "theta": 0.0,
+      "n_feas": 40,
+      "k0": 6,
+      "delta": 0.15,
+      "need_n": 6.667,
+      "caps_min": 4,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 40,
+          "share": 1.0,
+          "q": 6.0,
+          "floor_plain": 6,
+          "floor_mrg": 6
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 76,
+      "coverage_gqc": 76,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0,
+      "seed": 0
+    },
+    {
+      "scheme": "value",
+      "theta": 0.1,
+      "n_feas": 40,
+      "k0": 6,
+      "delta": 0.15,
+      "need_n": 6.667,
+      "caps_min": 4,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 40,
+          "share": 1.0,
+          "q": 6.0,
+          "floor_plain": 6,
+          "floor_mrg": 6
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 76,
+      "coverage_gqc": 76,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0,
+      "seed": 0
+    },
+    {
+      "scheme": "value",
+      "theta": 0.2,
+      "n_feas": 40,
+      "k0": 6,
+      "delta": 0.15,
+      "need_n": 6.667,
+      "caps_min": 4,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 40,
+          "share": 1.0,
+          "q": 6.0,
+          "floor_plain": 6,
+          "floor_mrg": 6
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 76,
+      "coverage_gqc": 76,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0,
+      "seed": 0
+    },
+    {
+      "scheme": "value",
+      "theta": 0.3,
+      "n_feas": 40,
+      "k0": 6,
+      "delta": 0.15,
+      "need_n": 6.667,
+      "caps_min": 3,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 40,
+          "share": 1.0,
+          "q": 6.0,
+          "floor_plain": 6,
+          "floor_mrg": 6
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 76,
+      "coverage_gqc": 76,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0,
+      "seed": 0
+    },
+    {
+      "scheme": "value",
+      "theta": 0.4,
+      "n_feas": 40,
+      "k0": 6,
+      "delta": 0.15,
+      "need_n": 6.667,
+      "caps_min": 3,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 40,
+          "share": 1.0,
+          "q": 6.0,
+          "floor_plain": 6,
+          "floor_mrg": 6
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 76,
+      "coverage_gqc": 76,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0,
+      "seed": 0
+    },
+    {
+      "scheme": "value",
+      "theta": 0.5,
+      "n_feas": 40,
+      "k0": 6,
+      "delta": 0.15,
+      "need_n": 6.667,
+      "caps_min": 2,
+      "caps_med": 4,
+      "caps_max": 5,
+      "n_groups": 2,
+      "groups": [
+        {
+          "group": "two",
+          "n": 3,
+          "share": 0.075,
+          "q": 0.45,
+          "floor_plain": 0,
+          "floor_mrg": 0
+        },
+        {
+          "group": "ample",
+          "n": 37,
+          "share": 0.925,
+          "q": 5.55,
+          "floor_plain": 5,
+          "floor_mrg": 5
+        }
+      ],
+      "floor_zero_groups": [
+        "two"
+      ],
+      "mrg_blocked": [
+        "two"
+      ],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 76,
+      "coverage_gqc": 76,
+      "gap_a": 0.075,
+      "gap_gqc": 0.075,
+      "gap_mrg": 0.075,
+      "theta_violations": 0,
+      "seed": 0
+    },
+    {
+      "scheme": "value",
+      "theta": 0.6,
+      "n_feas": 40,
+      "k0": 6,
+      "delta": 0.15,
+      "need_n": 6.667,
+      "caps_min": 2,
+      "caps_med": 4,
+      "caps_max": 5,
+      "n_groups": 2,
+      "groups": [
+        {
+          "group": "two",
+          "n": 7,
+          "share": 0.175,
+          "q": 1.05,
+          "floor_plain": 1,
+          "floor_mrg": 1
+        },
+        {
+          "group": "ample",
+          "n": 33,
+          "share": 0.825,
+          "q": 4.95,
+          "floor_plain": 4,
+          "floor_mrg": 4
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 76,
+      "coverage_gqc": 77,
+      "gap_a": 0.175,
+      "gap_gqc": 0.0083,
+      "gap_mrg": 0.0083,
+      "theta_violations": 0,
+      "seed": 0
+    },
+    {
+      "scheme": "value",
+      "theta": 0.7,
+      "n_feas": 40,
+      "k0": 7,
+      "delta": 0.175,
+      "need_n": 5.714,
+      "caps_min": 2,
+      "caps_med": 3,
+      "caps_max": 5,
+      "n_groups": 2,
+      "groups": [
+        {
+          "group": "two",
+          "n": 14,
+          "share": 0.35,
+          "q": 2.45,
+          "floor_plain": 2,
+          "floor_mrg": 2
+        },
+        {
+          "group": "ample",
+          "n": 26,
+          "share": 0.65,
+          "q": 4.55,
+          "floor_plain": 4,
+          "floor_mrg": 4
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 77,
+      "coverage_gqc": 77,
+      "gap_a": 0.0643,
+      "gap_gqc": 0.0643,
+      "gap_mrg": 0.0643,
+      "theta_violations": 0,
+      "seed": 0
+    },
+    {
+      "scheme": "value",
+      "theta": 0.8,
+      "n_feas": 40,
+      "k0": 7,
+      "delta": 0.175,
+      "need_n": 5.714,
+      "caps_min": 1,
+      "caps_med": 3,
+      "caps_max": 5,
+      "n_groups": 3,
+      "groups": [
+        {
+          "group": "tight",
+          "n": 3,
+          "share": 0.075,
+          "q": 0.525,
+          "floor_plain": 0,
+          "floor_mrg": 1
+        },
+        {
+          "group": "two",
+          "n": 17,
+          "share": 0.425,
+          "q": 2.975,
+          "floor_plain": 2,
+          "floor_mrg": 2
+        },
+        {
+          "group": "ample",
+          "n": 20,
+          "share": 0.5,
+          "q": 3.5,
+          "floor_plain": 3,
+          "floor_mrg": 3
+        }
+      ],
+      "floor_zero_groups": [
+        "tight"
+      ],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "激活但不绑定",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 75,
+      "coverage_gqc": 75,
+      "gap_a": 0.0714,
+      "gap_gqc": 0.0714,
+      "gap_mrg": 0.0714,
+      "theta_violations": 0,
+      "seed": 0
+    },
+    {
+      "scheme": "value",
+      "theta": 0.9,
+      "n_feas": 38,
+      "k0": 7,
+      "delta": 0.1842,
+      "need_n": 5.429,
+      "caps_min": 1,
+      "caps_med": 2,
+      "caps_max": 5,
+      "n_groups": 3,
+      "groups": [
+        {
+          "group": "tight",
+          "n": 5,
+          "share": 0.1316,
+          "q": 0.9211,
+          "floor_plain": 0,
+          "floor_mrg": 1
+        },
+        {
+          "group": "two",
+          "n": 16,
+          "share": 0.4211,
+          "q": 2.9474,
+          "floor_plain": 2,
+          "floor_mrg": 2
+        },
+        {
+          "group": "ample",
+          "n": 17,
+          "share": 0.4474,
+          "q": 3.1316,
+          "floor_plain": 3,
+          "floor_mrg": 3
+        }
+      ],
+      "floor_zero_groups": [
+        "tight"
+      ],
+      "mrg_blocked": [],
+      "mrg_changed": true,
+      "state": "激活且绑定",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 75,
+      "coverage_gqc": 75,
+      "gap_a": 0.1316,
+      "gap_gqc": 0.1316,
+      "gap_mrg": 0.0188,
+      "theta_violations": 0,
+      "seed": 0
+    },
+    {
+      "scheme": "value",
+      "theta": 0.0,
+      "n_feas": 40,
+      "k0": 7,
+      "delta": 0.175,
+      "need_n": 5.714,
+      "caps_min": 4,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 40,
+          "share": 1.0,
+          "q": 7.0,
+          "floor_plain": 7,
+          "floor_mrg": 7
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 78,
+      "coverage_gqc": 78,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0,
+      "seed": 1
+    },
+    {
+      "scheme": "value",
+      "theta": 0.1,
+      "n_feas": 40,
+      "k0": 7,
+      "delta": 0.175,
+      "need_n": 5.714,
+      "caps_min": 4,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 40,
+          "share": 1.0,
+          "q": 7.0,
+          "floor_plain": 7,
+          "floor_mrg": 7
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 78,
+      "coverage_gqc": 78,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0,
+      "seed": 1
+    },
+    {
+      "scheme": "value",
+      "theta": 0.2,
+      "n_feas": 40,
+      "k0": 7,
+      "delta": 0.175,
+      "need_n": 5.714,
+      "caps_min": 4,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 40,
+          "share": 1.0,
+          "q": 7.0,
+          "floor_plain": 7,
+          "floor_mrg": 7
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 78,
+      "coverage_gqc": 78,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0,
+      "seed": 1
+    },
+    {
+      "scheme": "value",
+      "theta": 0.3,
+      "n_feas": 40,
+      "k0": 7,
+      "delta": 0.175,
+      "need_n": 5.714,
+      "caps_min": 4,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 40,
+          "share": 1.0,
+          "q": 7.0,
+          "floor_plain": 7,
+          "floor_mrg": 7
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 78,
+      "coverage_gqc": 78,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0,
+      "seed": 1
+    },
+    {
+      "scheme": "value",
+      "theta": 0.4,
+      "n_feas": 40,
+      "k0": 7,
+      "delta": 0.175,
+      "need_n": 5.714,
+      "caps_min": 3,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 40,
+          "share": 1.0,
+          "q": 7.0,
+          "floor_plain": 7,
+          "floor_mrg": 7
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 78,
+      "coverage_gqc": 78,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0,
+      "seed": 1
+    },
+    {
+      "scheme": "value",
+      "theta": 0.5,
+      "n_feas": 40,
+      "k0": 7,
+      "delta": 0.175,
+      "need_n": 5.714,
+      "caps_min": 2,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 2,
+      "groups": [
+        {
+          "group": "two",
+          "n": 1,
+          "share": 0.025,
+          "q": 0.175,
+          "floor_plain": 0,
+          "floor_mrg": 0
+        },
+        {
+          "group": "ample",
+          "n": 39,
+          "share": 0.975,
+          "q": 6.825,
+          "floor_plain": 6,
+          "floor_mrg": 6
+        }
+      ],
+      "floor_zero_groups": [
+        "two"
+      ],
+      "mrg_blocked": [
+        "two"
+      ],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 77,
+      "coverage_gqc": 77,
+      "gap_a": 0.025,
+      "gap_gqc": 0.025,
+      "gap_mrg": 0.025,
+      "theta_violations": 0,
+      "seed": 1
+    },
+    {
+      "scheme": "value",
+      "theta": 0.6,
+      "n_feas": 40,
+      "k0": 7,
+      "delta": 0.175,
+      "need_n": 5.714,
+      "caps_min": 2,
+      "caps_med": 4,
+      "caps_max": 5,
+      "n_groups": 2,
+      "groups": [
+        {
+          "group": "two",
+          "n": 3,
+          "share": 0.075,
+          "q": 0.525,
+          "floor_plain": 0,
+          "floor_mrg": 1
+        },
+        {
+          "group": "ample",
+          "n": 37,
+          "share": 0.925,
+          "q": 6.475,
+          "floor_plain": 6,
+          "floor_mrg": 6
+        }
+      ],
+      "floor_zero_groups": [
+        "two"
+      ],
+      "mrg_blocked": [],
+      "mrg_changed": true,
+      "state": "激活且绑定",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 76,
+      "coverage_gqc": 76,
+      "gap_a": 0.075,
+      "gap_gqc": 0.075,
+      "gap_mrg": 0.0679,
+      "theta_violations": 0,
+      "seed": 1
+    },
+    {
+      "scheme": "value",
+      "theta": 0.7,
+      "n_feas": 40,
+      "k0": 7,
+      "delta": 0.175,
+      "need_n": 5.714,
+      "caps_min": 2,
+      "caps_med": 4,
+      "caps_max": 5,
+      "n_groups": 2,
+      "groups": [
+        {
+          "group": "two",
+          "n": 9,
+          "share": 0.225,
+          "q": 1.575,
+          "floor_plain": 1,
+          "floor_mrg": 1
+        },
+        {
+          "group": "ample",
+          "n": 31,
+          "share": 0.775,
+          "q": 5.425,
+          "floor_plain": 5,
+          "floor_mrg": 5
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 76,
+      "coverage_gqc": 76,
+      "gap_a": 0.225,
+      "gap_gqc": 0.0821,
+      "gap_mrg": 0.0821,
+      "theta_violations": 0,
+      "seed": 1
+    },
+    {
+      "scheme": "value",
+      "theta": 0.8,
+      "n_feas": 39,
+      "k0": 6,
+      "delta": 0.1538,
+      "need_n": 6.5,
+      "caps_min": 1,
+      "caps_med": 3,
+      "caps_max": 5,
+      "n_groups": 3,
+      "groups": [
+        {
+          "group": "tight",
+          "n": 1,
+          "share": 0.0256,
+          "q": 0.1538,
+          "floor_plain": 0,
+          "floor_mrg": 0
+        },
+        {
+          "group": "two",
+          "n": 14,
+          "share": 0.359,
+          "q": 2.1538,
+          "floor_plain": 2,
+          "floor_mrg": 2
+        },
+        {
+          "group": "ample",
+          "n": 24,
+          "share": 0.6154,
+          "q": 3.6923,
+          "floor_plain": 3,
+          "floor_mrg": 3
+        }
+      ],
+      "floor_zero_groups": [
+        "tight"
+      ],
+      "mrg_blocked": [
+        "tight"
+      ],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 77,
+      "coverage_gqc": 75,
+      "gap_a": 0.2179,
+      "gap_gqc": 0.0513,
+      "gap_mrg": 0.0513,
+      "theta_violations": 0,
+      "seed": 1
+    },
+    {
+      "scheme": "value",
+      "theta": 0.9,
+      "n_feas": 38,
+      "k0": 6,
+      "delta": 0.1579,
+      "need_n": 6.333,
+      "caps_min": 1,
+      "caps_med": 2,
+      "caps_max": 4,
+      "n_groups": 3,
+      "groups": [
+        {
+          "group": "tight",
+          "n": 5,
+          "share": 0.1316,
+          "q": 0.7895,
+          "floor_plain": 0,
+          "floor_mrg": 1
+        },
+        {
+          "group": "two",
+          "n": 22,
+          "share": 0.5789,
+          "q": 3.4737,
+          "floor_plain": 3,
+          "floor_mrg": 3
+        },
+        {
+          "group": "ample",
+          "n": 11,
+          "share": 0.2895,
+          "q": 1.7368,
+          "floor_plain": 1,
+          "floor_mrg": 1
+        }
+      ],
+      "floor_zero_groups": [
+        "tight"
+      ],
+      "mrg_blocked": [],
+      "mrg_changed": true,
+      "state": "激活且绑定",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 76,
+      "coverage_gqc": 76,
+      "gap_a": 0.2456,
+      "gap_gqc": 0.2105,
+      "gap_mrg": 0.0789,
+      "theta_violations": 0,
+      "seed": 1
+    },
+    {
+      "scheme": "value",
+      "theta": 0.0,
+      "n_feas": 40,
+      "k0": 7,
+      "delta": 0.175,
+      "need_n": 5.714,
+      "caps_min": 3,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 40,
+          "share": 1.0,
+          "q": 7.0,
+          "floor_plain": 7,
+          "floor_mrg": 7
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 79,
+      "coverage_gqc": 79,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0,
+      "seed": 2
+    },
+    {
+      "scheme": "value",
+      "theta": 0.1,
+      "n_feas": 40,
+      "k0": 7,
+      "delta": 0.175,
+      "need_n": 5.714,
+      "caps_min": 3,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 40,
+          "share": 1.0,
+          "q": 7.0,
+          "floor_plain": 7,
+          "floor_mrg": 7
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 79,
+      "coverage_gqc": 79,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0,
+      "seed": 2
+    },
+    {
+      "scheme": "value",
+      "theta": 0.2,
+      "n_feas": 40,
+      "k0": 7,
+      "delta": 0.175,
+      "need_n": 5.714,
+      "caps_min": 3,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 40,
+          "share": 1.0,
+          "q": 7.0,
+          "floor_plain": 7,
+          "floor_mrg": 7
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 79,
+      "coverage_gqc": 79,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0,
+      "seed": 2
+    },
+    {
+      "scheme": "value",
+      "theta": 0.3,
+      "n_feas": 40,
+      "k0": 7,
+      "delta": 0.175,
+      "need_n": 5.714,
+      "caps_min": 3,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 40,
+          "share": 1.0,
+          "q": 7.0,
+          "floor_plain": 7,
+          "floor_mrg": 7
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 79,
+      "coverage_gqc": 79,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0,
+      "seed": 2
+    },
+    {
+      "scheme": "value",
+      "theta": 0.4,
+      "n_feas": 40,
+      "k0": 7,
+      "delta": 0.175,
+      "need_n": 5.714,
+      "caps_min": 3,
+      "caps_med": 4,
+      "caps_max": 5,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 40,
+          "share": 1.0,
+          "q": 7.0,
+          "floor_plain": 7,
+          "floor_mrg": 7
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 79,
+      "coverage_gqc": 79,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0,
+      "seed": 2
+    },
+    {
+      "scheme": "value",
+      "theta": 0.5,
+      "n_feas": 40,
+      "k0": 7,
+      "delta": 0.175,
+      "need_n": 5.714,
+      "caps_min": 2,
+      "caps_med": 4,
+      "caps_max": 5,
+      "n_groups": 2,
+      "groups": [
+        {
+          "group": "two",
+          "n": 5,
+          "share": 0.125,
+          "q": 0.875,
+          "floor_plain": 0,
+          "floor_mrg": 1
+        },
+        {
+          "group": "ample",
+          "n": 35,
+          "share": 0.875,
+          "q": 6.125,
+          "floor_plain": 6,
+          "floor_mrg": 6
+        }
+      ],
+      "floor_zero_groups": [
+        "two"
+      ],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "激活但不绑定",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 79,
+      "coverage_gqc": 79,
+      "gap_a": 0.0179,
+      "gap_gqc": 0.0179,
+      "gap_mrg": 0.0179,
+      "theta_violations": 0,
+      "seed": 2
+    },
+    {
+      "scheme": "value",
+      "theta": 0.6,
+      "n_feas": 40,
+      "k0": 7,
+      "delta": 0.175,
+      "need_n": 5.714,
+      "caps_min": 2,
+      "caps_med": 4,
+      "caps_max": 5,
+      "n_groups": 2,
+      "groups": [
+        {
+          "group": "two",
+          "n": 8,
+          "share": 0.2,
+          "q": 1.4,
+          "floor_plain": 1,
+          "floor_mrg": 1
+        },
+        {
+          "group": "ample",
+          "n": 32,
+          "share": 0.8,
+          "q": 5.6,
+          "floor_plain": 5,
+          "floor_mrg": 5
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 79,
+      "coverage_gqc": 79,
+      "gap_a": 0.0571,
+      "gap_gqc": 0.0571,
+      "gap_mrg": 0.0571,
+      "theta_violations": 0,
+      "seed": 2
+    },
+    {
+      "scheme": "value",
+      "theta": 0.7,
+      "n_feas": 40,
+      "k0": 7,
+      "delta": 0.175,
+      "need_n": 5.714,
+      "caps_min": 1,
+      "caps_med": 3,
+      "caps_max": 5,
+      "n_groups": 3,
+      "groups": [
+        {
+          "group": "tight",
+          "n": 1,
+          "share": 0.025,
+          "q": 0.175,
+          "floor_plain": 0,
+          "floor_mrg": 0
+        },
+        {
+          "group": "two",
+          "n": 11,
+          "share": 0.275,
+          "q": 1.925,
+          "floor_plain": 1,
+          "floor_mrg": 1
+        },
+        {
+          "group": "ample",
+          "n": 28,
+          "share": 0.7,
+          "q": 4.9,
+          "floor_plain": 4,
+          "floor_mrg": 4
+        }
+      ],
+      "floor_zero_groups": [
+        "tight"
+      ],
+      "mrg_blocked": [
+        "tight"
+      ],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 79,
+      "coverage_gqc": 79,
+      "gap_a": 0.025,
+      "gap_gqc": 0.025,
+      "gap_mrg": 0.025,
+      "theta_violations": 0,
+      "seed": 2
+    },
+    {
+      "scheme": "value",
+      "theta": 0.8,
+      "n_feas": 39,
+      "k0": 7,
+      "delta": 0.1795,
+      "need_n": 5.571,
+      "caps_min": 1,
+      "caps_med": 2,
+      "caps_max": 5,
+      "n_groups": 3,
+      "groups": [
+        {
+          "group": "tight",
+          "n": 2,
+          "share": 0.0513,
+          "q": 0.359,
+          "floor_plain": 0,
+          "floor_mrg": 0
+        },
+        {
+          "group": "two",
+          "n": 19,
+          "share": 0.4872,
+          "q": 3.4103,
+          "floor_plain": 3,
+          "floor_mrg": 3
+        },
+        {
+          "group": "ample",
+          "n": 18,
+          "share": 0.4615,
+          "q": 3.2308,
+          "floor_plain": 3,
+          "floor_mrg": 3
+        }
+      ],
+      "floor_zero_groups": [
+        "tight"
+      ],
+      "mrg_blocked": [
+        "tight"
+      ],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 76,
+      "coverage_gqc": 76,
+      "gap_a": 0.1099,
+      "gap_gqc": 0.1099,
+      "gap_mrg": 0.1099,
+      "theta_violations": 0,
+      "seed": 2
+    },
+    {
+      "scheme": "value",
+      "theta": 0.9,
+      "n_feas": 39,
+      "k0": 7,
+      "delta": 0.1795,
+      "need_n": 5.571,
+      "caps_min": 1,
+      "caps_med": 2,
+      "caps_max": 4,
+      "n_groups": 3,
+      "groups": [
+        {
+          "group": "tight",
+          "n": 5,
+          "share": 0.1282,
+          "q": 0.8974,
+          "floor_plain": 0,
+          "floor_mrg": 1
+        },
+        {
+          "group": "two",
+          "n": 25,
+          "share": 0.641,
+          "q": 4.4872,
+          "floor_plain": 4,
+          "floor_mrg": 4
+        },
+        {
+          "group": "ample",
+          "n": 9,
+          "share": 0.2308,
+          "q": 1.6154,
+          "floor_plain": 1,
+          "floor_mrg": 1
+        }
+      ],
+      "floor_zero_groups": [
+        "tight"
+      ],
+      "mrg_blocked": [],
+      "mrg_changed": true,
+      "state": "激活且绑定",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 75,
+      "coverage_gqc": 75,
+      "gap_a": 0.0879,
+      "gap_gqc": 0.1282,
+      "gap_mrg": 0.0696,
+      "theta_violations": 0,
+      "seed": 2
+    },
+    {
+      "scheme": "value",
+      "theta": 0.0,
+      "n_feas": 40,
+      "k0": 7,
+      "delta": 0.175,
+      "need_n": 5.714,
+      "caps_min": 4,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 40,
+          "share": 1.0,
+          "q": 7.0,
+          "floor_plain": 7,
+          "floor_mrg": 7
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 79,
+      "coverage_gqc": 79,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0,
+      "seed": 3
+    },
+    {
+      "scheme": "value",
+      "theta": 0.1,
+      "n_feas": 40,
+      "k0": 7,
+      "delta": 0.175,
+      "need_n": 5.714,
+      "caps_min": 4,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 40,
+          "share": 1.0,
+          "q": 7.0,
+          "floor_plain": 7,
+          "floor_mrg": 7
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 79,
+      "coverage_gqc": 79,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0,
+      "seed": 3
+    },
+    {
+      "scheme": "value",
+      "theta": 0.2,
+      "n_feas": 40,
+      "k0": 7,
+      "delta": 0.175,
+      "need_n": 5.714,
+      "caps_min": 4,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 40,
+          "share": 1.0,
+          "q": 7.0,
+          "floor_plain": 7,
+          "floor_mrg": 7
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 79,
+      "coverage_gqc": 79,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0,
+      "seed": 3
+    },
+    {
+      "scheme": "value",
+      "theta": 0.3,
+      "n_feas": 40,
+      "k0": 7,
+      "delta": 0.175,
+      "need_n": 5.714,
+      "caps_min": 2,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 2,
+      "groups": [
+        {
+          "group": "two",
+          "n": 1,
+          "share": 0.025,
+          "q": 0.175,
+          "floor_plain": 0,
+          "floor_mrg": 0
+        },
+        {
+          "group": "ample",
+          "n": 39,
+          "share": 0.975,
+          "q": 6.825,
+          "floor_plain": 6,
+          "floor_mrg": 6
+        }
+      ],
+      "floor_zero_groups": [
+        "two"
+      ],
+      "mrg_blocked": [
+        "two"
+      ],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 79,
+      "coverage_gqc": 79,
+      "gap_a": 0.025,
+      "gap_gqc": 0.025,
+      "gap_mrg": 0.025,
+      "theta_violations": 0,
+      "seed": 3
+    },
+    {
+      "scheme": "value",
+      "theta": 0.4,
+      "n_feas": 40,
+      "k0": 7,
+      "delta": 0.175,
+      "need_n": 5.714,
+      "caps_min": 2,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 2,
+      "groups": [
+        {
+          "group": "two",
+          "n": 2,
+          "share": 0.05,
+          "q": 0.35,
+          "floor_plain": 0,
+          "floor_mrg": 0
+        },
+        {
+          "group": "ample",
+          "n": 38,
+          "share": 0.95,
+          "q": 6.65,
+          "floor_plain": 6,
+          "floor_mrg": 6
+        }
+      ],
+      "floor_zero_groups": [
+        "two"
+      ],
+      "mrg_blocked": [
+        "two"
+      ],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 79,
+      "coverage_gqc": 79,
+      "gap_a": 0.05,
+      "gap_gqc": 0.05,
+      "gap_mrg": 0.05,
+      "theta_violations": 0,
+      "seed": 3
+    },
+    {
+      "scheme": "value",
+      "theta": 0.5,
+      "n_feas": 40,
+      "k0": 7,
+      "delta": 0.175,
+      "need_n": 5.714,
+      "caps_min": 2,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 2,
+      "groups": [
+        {
+          "group": "two",
+          "n": 4,
+          "share": 0.1,
+          "q": 0.7,
+          "floor_plain": 0,
+          "floor_mrg": 1
+        },
+        {
+          "group": "ample",
+          "n": 36,
+          "share": 0.9,
+          "q": 6.3,
+          "floor_plain": 6,
+          "floor_mrg": 6
+        }
+      ],
+      "floor_zero_groups": [
+        "two"
+      ],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "激活但不绑定",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 78,
+      "coverage_gqc": 78,
+      "gap_a": 0.0429,
+      "gap_gqc": 0.0429,
+      "gap_mrg": 0.0429,
+      "theta_violations": 0,
+      "seed": 3
+    },
+    {
+      "scheme": "value",
+      "theta": 0.6,
+      "n_feas": 40,
+      "k0": 7,
+      "delta": 0.175,
+      "need_n": 5.714,
+      "caps_min": 2,
+      "caps_med": 4,
+      "caps_max": 5,
+      "n_groups": 2,
+      "groups": [
+        {
+          "group": "two",
+          "n": 9,
+          "share": 0.225,
+          "q": 1.575,
+          "floor_plain": 1,
+          "floor_mrg": 1
+        },
+        {
+          "group": "ample",
+          "n": 31,
+          "share": 0.775,
+          "q": 5.425,
+          "floor_plain": 5,
+          "floor_mrg": 5
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 80,
+      "coverage_gqc": 79,
+      "gap_a": 0.0821,
+      "gap_gqc": 0.0607,
+      "gap_mrg": 0.0607,
+      "theta_violations": 0,
+      "seed": 3
+    },
+    {
+      "scheme": "value",
+      "theta": 0.7,
+      "n_feas": 40,
+      "k0": 7,
+      "delta": 0.175,
+      "need_n": 5.714,
+      "caps_min": 2,
+      "caps_med": 4,
+      "caps_max": 5,
+      "n_groups": 2,
+      "groups": [
+        {
+          "group": "two",
+          "n": 12,
+          "share": 0.3,
+          "q": 2.1,
+          "floor_plain": 2,
+          "floor_mrg": 2
+        },
+        {
+          "group": "ample",
+          "n": 28,
+          "share": 0.7,
+          "q": 4.9,
+          "floor_plain": 4,
+          "floor_mrg": 4
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 77,
+      "coverage_gqc": 77,
+      "gap_a": 0.1286,
+      "gap_gqc": 0.1286,
+      "gap_mrg": 0.1286,
+      "theta_violations": 0,
+      "seed": 3
+    },
+    {
+      "scheme": "value",
+      "theta": 0.8,
+      "n_feas": 40,
+      "k0": 7,
+      "delta": 0.175,
+      "need_n": 5.714,
+      "caps_min": 1,
+      "caps_med": 3,
+      "caps_max": 5,
+      "n_groups": 3,
+      "groups": [
+        {
+          "group": "tight",
+          "n": 1,
+          "share": 0.025,
+          "q": 0.175,
+          "floor_plain": 0,
+          "floor_mrg": 0
+        },
+        {
+          "group": "two",
+          "n": 18,
+          "share": 0.45,
+          "q": 3.15,
+          "floor_plain": 3,
+          "floor_mrg": 3
+        },
+        {
+          "group": "ample",
+          "n": 21,
+          "share": 0.525,
+          "q": 3.675,
+          "floor_plain": 3,
+          "floor_mrg": 3
+        }
+      ],
+      "floor_zero_groups": [
+        "tight"
+      ],
+      "mrg_blocked": [
+        "tight"
+      ],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 77,
+      "coverage_gqc": 77,
+      "gap_a": 0.0464,
+      "gap_gqc": 0.0464,
+      "gap_mrg": 0.0464,
+      "theta_violations": 0,
+      "seed": 3
+    },
+    {
+      "scheme": "value",
+      "theta": 0.9,
+      "n_feas": 37,
+      "k0": 7,
+      "delta": 0.1892,
+      "need_n": 5.286,
+      "caps_min": 1,
+      "caps_med": 2,
+      "caps_max": 5,
+      "n_groups": 3,
+      "groups": [
+        {
+          "group": "tight",
+          "n": 2,
+          "share": 0.0541,
+          "q": 0.3784,
+          "floor_plain": 0,
+          "floor_mrg": 0
+        },
+        {
+          "group": "two",
+          "n": 27,
+          "share": 0.7297,
+          "q": 5.1081,
+          "floor_plain": 5,
+          "floor_mrg": 5
+        },
+        {
+          "group": "ample",
+          "n": 8,
+          "share": 0.2162,
+          "q": 1.5135,
+          "floor_plain": 1,
+          "floor_mrg": 1
+        }
+      ],
+      "floor_zero_groups": [
+        "tight"
+      ],
+      "mrg_blocked": [
+        "tight"
+      ],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 73,
+      "coverage_gqc": 71,
+      "gap_a": 0.444,
+      "gap_gqc": 0.0888,
+      "gap_mrg": 0.0888,
+      "theta_violations": 0,
+      "seed": 3
+    },
+    {
+      "scheme": "value",
+      "theta": 0.0,
+      "n_feas": 40,
+      "k0": 6,
+      "delta": 0.15,
+      "need_n": 6.667,
+      "caps_min": 4,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 40,
+          "share": 1.0,
+          "q": 6.0,
+          "floor_plain": 6,
+          "floor_mrg": 6
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 76,
+      "coverage_gqc": 76,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0,
+      "seed": 4
+    },
+    {
+      "scheme": "value",
+      "theta": 0.1,
+      "n_feas": 40,
+      "k0": 6,
+      "delta": 0.15,
+      "need_n": 6.667,
+      "caps_min": 4,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 40,
+          "share": 1.0,
+          "q": 6.0,
+          "floor_plain": 6,
+          "floor_mrg": 6
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 76,
+      "coverage_gqc": 76,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0,
+      "seed": 4
+    },
+    {
+      "scheme": "value",
+      "theta": 0.2,
+      "n_feas": 40,
+      "k0": 6,
+      "delta": 0.15,
+      "need_n": 6.667,
+      "caps_min": 3,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 40,
+          "share": 1.0,
+          "q": 6.0,
+          "floor_plain": 6,
+          "floor_mrg": 6
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 76,
+      "coverage_gqc": 76,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0,
+      "seed": 4
+    },
+    {
+      "scheme": "value",
+      "theta": 0.3,
+      "n_feas": 40,
+      "k0": 6,
+      "delta": 0.15,
+      "need_n": 6.667,
+      "caps_min": 3,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 40,
+          "share": 1.0,
+          "q": 6.0,
+          "floor_plain": 6,
+          "floor_mrg": 6
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 76,
+      "coverage_gqc": 76,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0,
+      "seed": 4
+    },
+    {
+      "scheme": "value",
+      "theta": 0.4,
+      "n_feas": 40,
+      "k0": 6,
+      "delta": 0.15,
+      "need_n": 6.667,
+      "caps_min": 3,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 40,
+          "share": 1.0,
+          "q": 6.0,
+          "floor_plain": 6,
+          "floor_mrg": 6
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 76,
+      "coverage_gqc": 76,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0,
+      "seed": 4
+    },
+    {
+      "scheme": "value",
+      "theta": 0.5,
+      "n_feas": 40,
+      "k0": 6,
+      "delta": 0.15,
+      "need_n": 6.667,
+      "caps_min": 2,
+      "caps_med": 4,
+      "caps_max": 5,
+      "n_groups": 2,
+      "groups": [
+        {
+          "group": "two",
+          "n": 2,
+          "share": 0.05,
+          "q": 0.3,
+          "floor_plain": 0,
+          "floor_mrg": 0
+        },
+        {
+          "group": "ample",
+          "n": 38,
+          "share": 0.95,
+          "q": 5.7,
+          "floor_plain": 5,
+          "floor_mrg": 5
+        }
+      ],
+      "floor_zero_groups": [
+        "two"
+      ],
+      "mrg_blocked": [
+        "two"
+      ],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 76,
+      "coverage_gqc": 76,
+      "gap_a": 0.05,
+      "gap_gqc": 0.05,
+      "gap_mrg": 0.05,
+      "theta_violations": 0,
+      "seed": 4
+    },
+    {
+      "scheme": "value",
+      "theta": 0.6,
+      "n_feas": 40,
+      "k0": 6,
+      "delta": 0.15,
+      "need_n": 6.667,
+      "caps_min": 2,
+      "caps_med": 4,
+      "caps_max": 5,
+      "n_groups": 2,
+      "groups": [
+        {
+          "group": "two",
+          "n": 4,
+          "share": 0.1,
+          "q": 0.6,
+          "floor_plain": 0,
+          "floor_mrg": 1
+        },
+        {
+          "group": "ample",
+          "n": 36,
+          "share": 0.9,
+          "q": 5.4,
+          "floor_plain": 5,
+          "floor_mrg": 5
+        }
+      ],
+      "floor_zero_groups": [
+        "two"
+      ],
+      "mrg_blocked": [],
+      "mrg_changed": true,
+      "state": "激活且绑定",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 75,
+      "coverage_gqc": 75,
+      "gap_a": 0.0667,
+      "gap_gqc": 0.1,
+      "gap_mrg": 0.0667,
+      "theta_violations": 0,
+      "seed": 4
+    },
+    {
+      "scheme": "value",
+      "theta": 0.7,
+      "n_feas": 40,
+      "k0": 7,
+      "delta": 0.175,
+      "need_n": 5.714,
+      "caps_min": 2,
+      "caps_med": 3,
+      "caps_max": 5,
+      "n_groups": 2,
+      "groups": [
+        {
+          "group": "two",
+          "n": 10,
+          "share": 0.25,
+          "q": 1.75,
+          "floor_plain": 1,
+          "floor_mrg": 1
+        },
+        {
+          "group": "ample",
+          "n": 30,
+          "share": 0.75,
+          "q": 5.25,
+          "floor_plain": 5,
+          "floor_mrg": 5
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 74,
+      "coverage_gqc": 74,
+      "gap_a": 0.0357,
+      "gap_gqc": 0.0357,
+      "gap_mrg": 0.0357,
+      "theta_violations": 0,
+      "seed": 4
+    },
+    {
+      "scheme": "value",
+      "theta": 0.8,
+      "n_feas": 40,
+      "k0": 6,
+      "delta": 0.15,
+      "need_n": 6.667,
+      "caps_min": 1,
+      "caps_med": 3,
+      "caps_max": 5,
+      "n_groups": 3,
+      "groups": [
+        {
+          "group": "tight",
+          "n": 2,
+          "share": 0.05,
+          "q": 0.3,
+          "floor_plain": 0,
+          "floor_mrg": 0
+        },
+        {
+          "group": "two",
+          "n": 15,
+          "share": 0.375,
+          "q": 2.25,
+          "floor_plain": 2,
+          "floor_mrg": 2
+        },
+        {
+          "group": "ample",
+          "n": 23,
+          "share": 0.575,
+          "q": 3.45,
+          "floor_plain": 3,
+          "floor_mrg": 3
+        }
+      ],
+      "floor_zero_groups": [
+        "tight"
+      ],
+      "mrg_blocked": [
+        "tight"
+      ],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 75,
+      "coverage_gqc": 74,
+      "gap_a": 0.0917,
+      "gap_gqc": 0.0917,
+      "gap_mrg": 0.0917,
+      "theta_violations": 0,
+      "seed": 4
+    },
+    {
+      "scheme": "value",
+      "theta": 0.9,
+      "n_feas": 40,
+      "k0": 6,
+      "delta": 0.15,
+      "need_n": 6.667,
+      "caps_min": 1,
+      "caps_med": 2,
+      "caps_max": 5,
+      "n_groups": 3,
+      "groups": [
+        {
+          "group": "tight",
+          "n": 5,
+          "share": 0.125,
+          "q": 0.75,
+          "floor_plain": 0,
+          "floor_mrg": 1
+        },
+        {
+          "group": "two",
+          "n": 26,
+          "share": 0.65,
+          "q": 3.9,
+          "floor_plain": 3,
+          "floor_mrg": 3
+        },
+        {
+          "group": "ample",
+          "n": 9,
+          "share": 0.225,
+          "q": 1.35,
+          "floor_plain": 1,
+          "floor_mrg": 1
+        }
+      ],
+      "floor_zero_groups": [
+        "tight"
+      ],
+      "mrg_blocked": [],
+      "mrg_changed": true,
+      "state": "激活且绑定",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 74,
+      "coverage_gqc": 74,
+      "gap_a": 0.0583,
+      "gap_gqc": 0.125,
+      "gap_mrg": 0.15,
+      "theta_violations": 0,
+      "seed": 4
+    },
+    {
+      "scheme": "value",
+      "theta": 0.0,
+      "n_feas": 40,
+      "k0": 6,
+      "delta": 0.15,
+      "need_n": 6.667,
+      "caps_min": 4,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 40,
+          "share": 1.0,
+          "q": 6.0,
+          "floor_plain": 6,
+          "floor_mrg": 6
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 78,
+      "coverage_gqc": 78,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0,
+      "seed": 5
+    },
+    {
+      "scheme": "value",
+      "theta": 0.1,
+      "n_feas": 40,
+      "k0": 6,
+      "delta": 0.15,
+      "need_n": 6.667,
+      "caps_min": 4,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 40,
+          "share": 1.0,
+          "q": 6.0,
+          "floor_plain": 6,
+          "floor_mrg": 6
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 78,
+      "coverage_gqc": 78,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0,
+      "seed": 5
+    },
+    {
+      "scheme": "value",
+      "theta": 0.2,
+      "n_feas": 40,
+      "k0": 6,
+      "delta": 0.15,
+      "need_n": 6.667,
+      "caps_min": 3,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 40,
+          "share": 1.0,
+          "q": 6.0,
+          "floor_plain": 6,
+          "floor_mrg": 6
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 78,
+      "coverage_gqc": 78,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0,
+      "seed": 5
+    },
+    {
+      "scheme": "value",
+      "theta": 0.3,
+      "n_feas": 40,
+      "k0": 6,
+      "delta": 0.15,
+      "need_n": 6.667,
+      "caps_min": 2,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 2,
+      "groups": [
+        {
+          "group": "two",
+          "n": 1,
+          "share": 0.025,
+          "q": 0.15,
+          "floor_plain": 0,
+          "floor_mrg": 0
+        },
+        {
+          "group": "ample",
+          "n": 39,
+          "share": 0.975,
+          "q": 5.85,
+          "floor_plain": 5,
+          "floor_mrg": 5
+        }
+      ],
+      "floor_zero_groups": [
+        "two"
+      ],
+      "mrg_blocked": [
+        "two"
+      ],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 78,
+      "coverage_gqc": 78,
+      "gap_a": 0.025,
+      "gap_gqc": 0.025,
+      "gap_mrg": 0.025,
+      "theta_violations": 0,
+      "seed": 5
+    },
+    {
+      "scheme": "value",
+      "theta": 0.4,
+      "n_feas": 40,
+      "k0": 6,
+      "delta": 0.15,
+      "need_n": 6.667,
+      "caps_min": 2,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 2,
+      "groups": [
+        {
+          "group": "two",
+          "n": 3,
+          "share": 0.075,
+          "q": 0.45,
+          "floor_plain": 0,
+          "floor_mrg": 0
+        },
+        {
+          "group": "ample",
+          "n": 37,
+          "share": 0.925,
+          "q": 5.55,
+          "floor_plain": 5,
+          "floor_mrg": 5
+        }
+      ],
+      "floor_zero_groups": [
+        "two"
+      ],
+      "mrg_blocked": [
+        "two"
+      ],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 78,
+      "coverage_gqc": 78,
+      "gap_a": 0.075,
+      "gap_gqc": 0.075,
+      "gap_mrg": 0.075,
+      "theta_violations": 0,
+      "seed": 5
+    },
+    {
+      "scheme": "value",
+      "theta": 0.5,
+      "n_feas": 40,
+      "k0": 6,
+      "delta": 0.15,
+      "need_n": 6.667,
+      "caps_min": 2,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 2,
+      "groups": [
+        {
+          "group": "two",
+          "n": 5,
+          "share": 0.125,
+          "q": 0.75,
+          "floor_plain": 0,
+          "floor_mrg": 1
+        },
+        {
+          "group": "ample",
+          "n": 35,
+          "share": 0.875,
+          "q": 5.25,
+          "floor_plain": 5,
+          "floor_mrg": 5
+        }
+      ],
+      "floor_zero_groups": [
+        "two"
+      ],
+      "mrg_blocked": [],
+      "mrg_changed": true,
+      "state": "激活且绑定",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 78,
+      "coverage_gqc": 78,
+      "gap_a": 0.125,
+      "gap_gqc": 0.125,
+      "gap_mrg": 0.0417,
+      "theta_violations": 0,
+      "seed": 5
+    },
+    {
+      "scheme": "value",
+      "theta": 0.6,
+      "n_feas": 40,
+      "k0": 6,
+      "delta": 0.15,
+      "need_n": 6.667,
+      "caps_min": 2,
+      "caps_med": 4,
+      "caps_max": 5,
+      "n_groups": 2,
+      "groups": [
+        {
+          "group": "two",
+          "n": 8,
+          "share": 0.2,
+          "q": 1.2,
+          "floor_plain": 1,
+          "floor_mrg": 1
+        },
+        {
+          "group": "ample",
+          "n": 32,
+          "share": 0.8,
+          "q": 4.8,
+          "floor_plain": 4,
+          "floor_mrg": 4
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 78,
+      "coverage_gqc": 78,
+      "gap_a": 0.2,
+      "gap_gqc": 0.0333,
+      "gap_mrg": 0.0333,
+      "theta_violations": 0,
+      "seed": 5
+    },
+    {
+      "scheme": "value",
+      "theta": 0.7,
+      "n_feas": 40,
+      "k0": 6,
+      "delta": 0.15,
+      "need_n": 6.667,
+      "caps_min": 2,
+      "caps_med": 4,
+      "caps_max": 5,
+      "n_groups": 2,
+      "groups": [
+        {
+          "group": "two",
+          "n": 10,
+          "share": 0.25,
+          "q": 1.5,
+          "floor_plain": 1,
+          "floor_mrg": 1
+        },
+        {
+          "group": "ample",
+          "n": 30,
+          "share": 0.75,
+          "q": 4.5,
+          "floor_plain": 4,
+          "floor_mrg": 4
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 78,
+      "coverage_gqc": 78,
+      "gap_a": 0.25,
+      "gap_gqc": 0.0833,
+      "gap_mrg": 0.0833,
+      "theta_violations": 0,
+      "seed": 5
+    },
+    {
+      "scheme": "value",
+      "theta": 0.8,
+      "n_feas": 40,
+      "k0": 7,
+      "delta": 0.175,
+      "need_n": 5.714,
+      "caps_min": 1,
+      "caps_med": 3,
+      "caps_max": 5,
+      "n_groups": 3,
+      "groups": [
+        {
+          "group": "tight",
+          "n": 1,
+          "share": 0.025,
+          "q": 0.175,
+          "floor_plain": 0,
+          "floor_mrg": 0
+        },
+        {
+          "group": "two",
+          "n": 19,
+          "share": 0.475,
+          "q": 3.325,
+          "floor_plain": 3,
+          "floor_mrg": 3
+        },
+        {
+          "group": "ample",
+          "n": 20,
+          "share": 0.5,
+          "q": 3.5,
+          "floor_plain": 3,
+          "floor_mrg": 3
+        }
+      ],
+      "floor_zero_groups": [
+        "tight"
+      ],
+      "mrg_blocked": [
+        "tight"
+      ],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 76,
+      "coverage_gqc": 76,
+      "gap_a": 0.0714,
+      "gap_gqc": 0.0714,
+      "gap_mrg": 0.0714,
+      "theta_violations": 0,
+      "seed": 5
+    },
+    {
+      "scheme": "value",
+      "theta": 0.9,
+      "n_feas": 39,
+      "k0": 6,
+      "delta": 0.1538,
+      "need_n": 6.5,
+      "caps_min": 1,
+      "caps_med": 2,
+      "caps_max": 4,
+      "n_groups": 3,
+      "groups": [
+        {
+          "group": "tight",
+          "n": 8,
+          "share": 0.2051,
+          "q": 1.2308,
+          "floor_plain": 1,
+          "floor_mrg": 1
+        },
+        {
+          "group": "two",
+          "n": 20,
+          "share": 0.5128,
+          "q": 3.0769,
+          "floor_plain": 3,
+          "floor_mrg": 3
+        },
+        {
+          "group": "ample",
+          "n": 11,
+          "share": 0.2821,
+          "q": 1.6923,
+          "floor_plain": 1,
+          "floor_mrg": 1
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 71,
+      "coverage_gqc": 69,
+      "gap_a": 0.2179,
+      "gap_gqc": 0.1538,
+      "gap_mrg": 0.1538,
+      "theta_violations": 0,
+      "seed": 5
+    },
+    {
+      "scheme": "value",
+      "theta": 0.0,
+      "n_feas": 40,
+      "k0": 6,
+      "delta": 0.15,
+      "need_n": 6.667,
+      "caps_min": 4,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 40,
+          "share": 1.0,
+          "q": 6.0,
+          "floor_plain": 6,
+          "floor_mrg": 6
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 79,
+      "coverage_gqc": 79,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0,
+      "seed": 6
+    },
+    {
+      "scheme": "value",
+      "theta": 0.1,
+      "n_feas": 40,
+      "k0": 6,
+      "delta": 0.15,
+      "need_n": 6.667,
+      "caps_min": 4,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 40,
+          "share": 1.0,
+          "q": 6.0,
+          "floor_plain": 6,
+          "floor_mrg": 6
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 79,
+      "coverage_gqc": 79,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0,
+      "seed": 6
+    },
+    {
+      "scheme": "value",
+      "theta": 0.2,
+      "n_feas": 40,
+      "k0": 6,
+      "delta": 0.15,
+      "need_n": 6.667,
+      "caps_min": 4,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 40,
+          "share": 1.0,
+          "q": 6.0,
+          "floor_plain": 6,
+          "floor_mrg": 6
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 79,
+      "coverage_gqc": 79,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0,
+      "seed": 6
+    },
+    {
+      "scheme": "value",
+      "theta": 0.3,
+      "n_feas": 40,
+      "k0": 6,
+      "delta": 0.15,
+      "need_n": 6.667,
+      "caps_min": 4,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 40,
+          "share": 1.0,
+          "q": 6.0,
+          "floor_plain": 6,
+          "floor_mrg": 6
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 79,
+      "coverage_gqc": 79,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0,
+      "seed": 6
+    },
+    {
+      "scheme": "value",
+      "theta": 0.4,
+      "n_feas": 40,
+      "k0": 6,
+      "delta": 0.15,
+      "need_n": 6.667,
+      "caps_min": 2,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 2,
+      "groups": [
+        {
+          "group": "two",
+          "n": 1,
+          "share": 0.025,
+          "q": 0.15,
+          "floor_plain": 0,
+          "floor_mrg": 0
+        },
+        {
+          "group": "ample",
+          "n": 39,
+          "share": 0.975,
+          "q": 5.85,
+          "floor_plain": 5,
+          "floor_mrg": 5
+        }
+      ],
+      "floor_zero_groups": [
+        "two"
+      ],
+      "mrg_blocked": [
+        "two"
+      ],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 79,
+      "coverage_gqc": 79,
+      "gap_a": 0.025,
+      "gap_gqc": 0.025,
+      "gap_mrg": 0.025,
+      "theta_violations": 0,
+      "seed": 6
+    },
+    {
+      "scheme": "value",
+      "theta": 0.5,
+      "n_feas": 40,
+      "k0": 6,
+      "delta": 0.15,
+      "need_n": 6.667,
+      "caps_min": 2,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 2,
+      "groups": [
+        {
+          "group": "two",
+          "n": 4,
+          "share": 0.1,
+          "q": 0.6,
+          "floor_plain": 0,
+          "floor_mrg": 1
+        },
+        {
+          "group": "ample",
+          "n": 36,
+          "share": 0.9,
+          "q": 5.4,
+          "floor_plain": 5,
+          "floor_mrg": 5
+        }
+      ],
+      "floor_zero_groups": [
+        "two"
+      ],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "激活但不绑定",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 77,
+      "coverage_gqc": 77,
+      "gap_a": 0.1,
+      "gap_gqc": 0.0667,
+      "gap_mrg": 0.0667,
+      "theta_violations": 0,
+      "seed": 6
+    },
+    {
+      "scheme": "value",
+      "theta": 0.6,
+      "n_feas": 40,
+      "k0": 6,
+      "delta": 0.15,
+      "need_n": 6.667,
+      "caps_min": 2,
+      "caps_med": 4,
+      "caps_max": 5,
+      "n_groups": 2,
+      "groups": [
+        {
+          "group": "two",
+          "n": 4,
+          "share": 0.1,
+          "q": 0.6,
+          "floor_plain": 0,
+          "floor_mrg": 1
+        },
+        {
+          "group": "ample",
+          "n": 36,
+          "share": 0.9,
+          "q": 5.4,
+          "floor_plain": 5,
+          "floor_mrg": 5
+        }
+      ],
+      "floor_zero_groups": [
+        "two"
+      ],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "激活但不绑定",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 75,
+      "coverage_gqc": 77,
+      "gap_a": 0.1,
+      "gap_gqc": 0.0667,
+      "gap_mrg": 0.0667,
+      "theta_violations": 0,
+      "seed": 6
+    },
+    {
+      "scheme": "value",
+      "theta": 0.7,
+      "n_feas": 40,
+      "k0": 6,
+      "delta": 0.15,
+      "need_n": 6.667,
+      "caps_min": 2,
+      "caps_med": 3,
+      "caps_max": 5,
+      "n_groups": 2,
+      "groups": [
+        {
+          "group": "two",
+          "n": 10,
+          "share": 0.25,
+          "q": 1.5,
+          "floor_plain": 1,
+          "floor_mrg": 1
+        },
+        {
+          "group": "ample",
+          "n": 30,
+          "share": 0.75,
+          "q": 4.5,
+          "floor_plain": 4,
+          "floor_mrg": 4
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 75,
+      "coverage_gqc": 74,
+      "gap_a": 0.25,
+      "gap_gqc": 0.0833,
+      "gap_mrg": 0.0833,
+      "theta_violations": 0,
+      "seed": 6
+    },
+    {
+      "scheme": "value",
+      "theta": 0.8,
+      "n_feas": 40,
+      "k0": 6,
+      "delta": 0.15,
+      "need_n": 6.667,
+      "caps_min": 2,
+      "caps_med": 3,
+      "caps_max": 5,
+      "n_groups": 2,
+      "groups": [
+        {
+          "group": "two",
+          "n": 20,
+          "share": 0.5,
+          "q": 3.0,
+          "floor_plain": 3,
+          "floor_mrg": 3
+        },
+        {
+          "group": "ample",
+          "n": 20,
+          "share": 0.5,
+          "q": 3.0,
+          "floor_plain": 3,
+          "floor_mrg": 3
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 77,
+      "coverage_gqc": 71,
+      "gap_a": 0.3333,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0,
+      "seed": 6
+    },
+    {
+      "scheme": "value",
+      "theta": 0.9,
+      "n_feas": 39,
+      "k0": 6,
+      "delta": 0.1538,
+      "need_n": 6.5,
+      "caps_min": 1,
+      "caps_med": 2,
+      "caps_max": 4,
+      "n_groups": 3,
+      "groups": [
+        {
+          "group": "tight",
+          "n": 3,
+          "share": 0.0769,
+          "q": 0.4615,
+          "floor_plain": 0,
+          "floor_mrg": 0
+        },
+        {
+          "group": "two",
+          "n": 23,
+          "share": 0.5897,
+          "q": 3.5385,
+          "floor_plain": 3,
+          "floor_mrg": 3
+        },
+        {
+          "group": "ample",
+          "n": 13,
+          "share": 0.3333,
+          "q": 2.0,
+          "floor_plain": 2,
+          "floor_mrg": 2
+        }
+      ],
+      "floor_zero_groups": [
+        "tight"
+      ],
+      "mrg_blocked": [
+        "tight"
+      ],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 77,
+      "coverage_gqc": 74,
+      "gap_a": 0.5,
+      "gap_gqc": 0.1667,
+      "gap_mrg": 0.1667,
+      "theta_violations": 0,
+      "seed": 6
+    },
+    {
+      "scheme": "value",
+      "theta": 0.0,
+      "n_feas": 40,
+      "k0": 7,
+      "delta": 0.175,
+      "need_n": 5.714,
+      "caps_min": 3,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 40,
+          "share": 1.0,
+          "q": 7.0,
+          "floor_plain": 7,
+          "floor_mrg": 7
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 78,
+      "coverage_gqc": 78,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0,
+      "seed": 7
+    },
+    {
+      "scheme": "value",
+      "theta": 0.1,
+      "n_feas": 40,
+      "k0": 7,
+      "delta": 0.175,
+      "need_n": 5.714,
+      "caps_min": 3,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 40,
+          "share": 1.0,
+          "q": 7.0,
+          "floor_plain": 7,
+          "floor_mrg": 7
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 78,
+      "coverage_gqc": 78,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0,
+      "seed": 7
+    },
+    {
+      "scheme": "value",
+      "theta": 0.2,
+      "n_feas": 40,
+      "k0": 7,
+      "delta": 0.175,
+      "need_n": 5.714,
+      "caps_min": 3,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 40,
+          "share": 1.0,
+          "q": 7.0,
+          "floor_plain": 7,
+          "floor_mrg": 7
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 78,
+      "coverage_gqc": 78,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0,
+      "seed": 7
+    },
+    {
+      "scheme": "value",
+      "theta": 0.3,
+      "n_feas": 40,
+      "k0": 7,
+      "delta": 0.175,
+      "need_n": 5.714,
+      "caps_min": 3,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 40,
+          "share": 1.0,
+          "q": 7.0,
+          "floor_plain": 7,
+          "floor_mrg": 7
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 78,
+      "coverage_gqc": 78,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0,
+      "seed": 7
+    },
+    {
+      "scheme": "value",
+      "theta": 0.4,
+      "n_feas": 40,
+      "k0": 7,
+      "delta": 0.175,
+      "need_n": 5.714,
+      "caps_min": 3,
+      "caps_med": 5,
+      "caps_max": 5,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 40,
+          "share": 1.0,
+          "q": 7.0,
+          "floor_plain": 7,
+          "floor_mrg": 7
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 78,
+      "coverage_gqc": 78,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0,
+      "seed": 7
+    },
+    {
+      "scheme": "value",
+      "theta": 0.5,
+      "n_feas": 40,
+      "k0": 7,
+      "delta": 0.175,
+      "need_n": 5.714,
+      "caps_min": 3,
+      "caps_med": 4,
+      "caps_max": 5,
+      "n_groups": 1,
+      "groups": [
+        {
+          "group": "ample",
+          "n": 40,
+          "share": 1.0,
+          "q": 7.0,
+          "floor_plain": 7,
+          "floor_mrg": 7
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 77,
+      "coverage_gqc": 77,
+      "gap_a": 0.0,
+      "gap_gqc": 0.0,
+      "gap_mrg": 0.0,
+      "theta_violations": 0,
+      "seed": 7
+    },
+    {
+      "scheme": "value",
+      "theta": 0.6,
+      "n_feas": 40,
+      "k0": 7,
+      "delta": 0.175,
+      "need_n": 5.714,
+      "caps_min": 2,
+      "caps_med": 4,
+      "caps_max": 5,
+      "n_groups": 2,
+      "groups": [
+        {
+          "group": "two",
+          "n": 7,
+          "share": 0.175,
+          "q": 1.225,
+          "floor_plain": 1,
+          "floor_mrg": 1
+        },
+        {
+          "group": "ample",
+          "n": 33,
+          "share": 0.825,
+          "q": 5.775,
+          "floor_plain": 5,
+          "floor_mrg": 5
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 77,
+      "coverage_gqc": 77,
+      "gap_a": 0.1107,
+      "gap_gqc": 0.1107,
+      "gap_mrg": 0.1107,
+      "theta_violations": 0,
+      "seed": 7
+    },
+    {
+      "scheme": "value",
+      "theta": 0.7,
+      "n_feas": 40,
+      "k0": 7,
+      "delta": 0.175,
+      "need_n": 5.714,
+      "caps_min": 2,
+      "caps_med": 3,
+      "caps_max": 5,
+      "n_groups": 2,
+      "groups": [
+        {
+          "group": "two",
+          "n": 10,
+          "share": 0.25,
+          "q": 1.75,
+          "floor_plain": 1,
+          "floor_mrg": 1
+        },
+        {
+          "group": "ample",
+          "n": 30,
+          "share": 0.75,
+          "q": 5.25,
+          "floor_plain": 5,
+          "floor_mrg": 5
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 77,
+      "coverage_gqc": 77,
+      "gap_a": 0.0357,
+      "gap_gqc": 0.0357,
+      "gap_mrg": 0.0357,
+      "theta_violations": 0,
+      "seed": 7
+    },
+    {
+      "scheme": "value",
+      "theta": 0.8,
+      "n_feas": 40,
+      "k0": 7,
+      "delta": 0.175,
+      "need_n": 5.714,
+      "caps_min": 1,
+      "caps_med": 3,
+      "caps_max": 5,
+      "n_groups": 3,
+      "groups": [
+        {
+          "group": "tight",
+          "n": 1,
+          "share": 0.025,
+          "q": 0.175,
+          "floor_plain": 0,
+          "floor_mrg": 0
+        },
+        {
+          "group": "two",
+          "n": 19,
+          "share": 0.475,
+          "q": 3.325,
+          "floor_plain": 3,
+          "floor_mrg": 3
+        },
+        {
+          "group": "ample",
+          "n": 20,
+          "share": 0.5,
+          "q": 3.5,
+          "floor_plain": 3,
+          "floor_mrg": 3
+        }
+      ],
+      "floor_zero_groups": [
+        "tight"
+      ],
+      "mrg_blocked": [
+        "tight"
+      ],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 77,
+      "coverage_gqc": 77,
+      "gap_a": 0.0964,
+      "gap_gqc": 0.0964,
+      "gap_mrg": 0.0964,
+      "theta_violations": 0,
+      "seed": 7
+    },
+    {
+      "scheme": "value",
+      "theta": 0.9,
+      "n_feas": 37,
+      "k0": 7,
+      "delta": 0.1892,
+      "need_n": 5.286,
+      "caps_min": 1,
+      "caps_med": 2,
+      "caps_max": 4,
+      "n_groups": 3,
+      "groups": [
+        {
+          "group": "tight",
+          "n": 6,
+          "share": 0.1622,
+          "q": 1.1351,
+          "floor_plain": 1,
+          "floor_mrg": 1
+        },
+        {
+          "group": "two",
+          "n": 21,
+          "share": 0.5676,
+          "q": 3.973,
+          "floor_plain": 3,
+          "floor_mrg": 3
+        },
+        {
+          "group": "ample",
+          "n": 10,
+          "share": 0.2703,
+          "q": 1.8919,
+          "floor_plain": 1,
+          "floor_mrg": 1
+        }
+      ],
+      "floor_zero_groups": [],
+      "mrg_blocked": [],
+      "mrg_changed": false,
+      "state": "惰性",
+      "floor_ok": true,
+      "quota_ok": true,
+      "coverage_a": 76,
+      "coverage_gqc": 73,
+      "gap_a": 0.3012,
+      "gap_gqc": 0.1583,
+      "gap_mrg": 0.1583,
+      "theta_violations": 0,
+      "seed": 7
+    }
+  ]
+}

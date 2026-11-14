@@ -1,0 +1,424 @@
+{
+  "dataset": "tdrive",
+  "n": 3,
+  "backend": "siliconflow",
+  "model": "siliconflow:Qwen/Qwen2.5-72B-Instruct",
+  "methods": [
+    "RN",
+    "TVPG",
+    "TCPG",
+    "MSA",
+    "MSAGI",
+    "GraphDP",
+    "GPT-4.1-mini",
+    "MAPUS"
+  ],
+  "scales": {
+    "large": {
+      "RN": {
+        "coverage": 5.3212,
+        "coverage_std": 0.012,
+        "pss": 0.7013,
+        "pss_std": 0.0975,
+        "runtime": 0.001,
+        "n_selected": 5.0,
+        "cost": 93.0,
+        "detail": {
+          "coverage": {
+            "mean": 5.3212,
+            "std": 0.012
+          },
+          "pss": {
+            "mean": 0.7013,
+            "std": 0.0975
+          },
+          "runtime": {
+            "mean": 0.001,
+            "std": 0.0002
+          },
+          "n_selected": {
+            "mean": 5.0,
+            "std": 0.0
+          },
+          "cost": {
+            "mean": 93.0,
+            "std": 4.3205
+          },
+          "avg_overlap": {
+            "mean": 0.0072,
+            "std": 0.007
+          },
+          "entropy": {
+            "mean": 4.1096,
+            "std": 0.0421
+          },
+          "count": {
+            "mean": 92.6667,
+            "std": 3.8586
+          }
+        }
+      },
+      "TVPG": {
+        "coverage": 5.3754,
+        "coverage_std": 0.0412,
+        "pss": 0.7377,
+        "pss_std": 0.1075,
+        "runtime": 0.32,
+        "n_selected": 4.67,
+        "cost": 96.0,
+        "detail": {
+          "coverage": {
+            "mean": 5.3754,
+            "std": 0.0412
+          },
+          "pss": {
+            "mean": 0.7377,
+            "std": 0.1075
+          },
+          "runtime": {
+            "mean": 0.3196,
+            "std": 0.0881
+          },
+          "n_selected": {
+            "mean": 4.6667,
+            "std": 0.4714
+          },
+          "cost": {
+            "mean": 96.0,
+            "std": 5.6569
+          },
+          "avg_overlap": {
+            "mean": 0.0018,
+            "std": 0.0013
+          },
+          "entropy": {
+            "mean": 4.1684,
+            "std": 0.0051
+          },
+          "count": {
+            "mean": 96.0,
+            "std": 5.6569
+          }
+        }
+      },
+      "TCPG": {
+        "coverage": 5.3328,
+        "coverage_std": 0.0292,
+        "pss": 0.7759,
+        "pss_std": 0.0973,
+        "runtime": 0.421,
+        "n_selected": 4.33,
+        "cost": 91.33,
+        "detail": {
+          "coverage": {
+            "mean": 5.3328,
+            "std": 0.0292
+          },
+          "pss": {
+            "mean": 0.7759,
+            "std": 0.0973
+          },
+          "runtime": {
+            "mean": 0.421,
+            "std": 0.0373
+          },
+          "n_selected": {
+            "mean": 4.3333,
+            "std": 0.4714
+          },
+          "cost": {
+            "mean": 91.3333,
+            "std": 4.1899
+          },
+          "avg_overlap": {
+            "mean": 0.0,
+            "std": 0.0
+          },
+          "entropy": {
+            "mean": 4.154,
+            "std": 0.0083
+          },
+          "count": {
+            "mean": 91.3333,
+            "std": 4.1899
+          }
+        }
+      },
+      "MSA": {
+        "coverage": 5.3542,
+        "coverage_std": 0.0381,
+        "pss": 0.6936,
+        "pss_std": 0.044,
+        "runtime": 2.171,
+        "n_selected": 5.0,
+        "cost": 94.67,
+        "detail": {
+          "coverage": {
+            "mean": 5.3542,
+            "std": 0.0381
+          },
+          "pss": {
+            "mean": 0.6936,
+            "std": 0.044
+          },
+          "runtime": {
+            "mean": 2.1709,
+            "std": 0.0593
+          },
+          "n_selected": {
+            "mean": 5.0,
+            "std": 0.0
+          },
+          "cost": {
+            "mean": 94.6667,
+            "std": 4.1899
+          },
+          "avg_overlap": {
+            "mean": 0.0037,
+            "std": 0.0053
+          },
+          "entropy": {
+            "mean": 4.1451,
+            "std": 0.0182
+          },
+          "count": {
+            "mean": 94.6667,
+            "std": 4.1899
+          }
+        }
+      },
+      "MSAGI": {
+        "coverage": 5.3782,
+        "coverage_std": 0.0429,
+        "pss": 0.7541,
+        "pss_std": 0.151,
+        "runtime": 2.65,
+        "n_selected": 4.67,
+        "cost": 96.0,
+        "detail": {
+          "coverage": {
+            "mean": 5.3782,
+            "std": 0.0429
+          },
+          "pss": {
+            "mean": 0.7541,
+            "std": 0.151
+          },
+          "runtime": {
+            "mean": 2.6497,
+            "std": 0.1852
+          },
+          "n_selected": {
+            "mean": 4.6667,
+            "std": 0.4714
+          },
+          "cost": {
+            "mean": 96.0,
+            "std": 5.6569
+          },
+          "avg_overlap": {
+            "mean": 0.001,
+            "std": 0.0013
+          },
+          "entropy": {
+            "mean": 4.1741,
+            "std": 0.0035
+          },
+          "count": {
+            "mean": 96.0,
+            "std": 5.6569
+          }
+        }
+      },
+      "GraphDP": {
+        "coverage": 5.2855,
+        "coverage_std": 0.0148,
+        "pss": 0.7167,
+        "pss_std": 0.103,
+        "runtime": 0.103,
+        "n_selected": 5.0,
+        "cost": 100.0,
+        "detail": {
+          "coverage": {
+            "mean": 5.2855,
+            "std": 0.0148
+          },
+          "pss": {
+            "mean": 0.7167,
+            "std": 0.103
+          },
+          "runtime": {
+            "mean": 0.1026,
+            "std": 0.0257
+          },
+          "n_selected": {
+            "mean": 5.0,
+            "std": 0.0
+          },
+          "cost": {
+            "mean": 100.0,
+            "std": 0.0
+          },
+          "avg_overlap": {
+            "mean": 0.0067,
+            "std": 0.0095
+          },
+          "entropy": {
+            "mean": 3.9272,
+            "std": 0.0295
+          },
+          "count": {
+            "mean": 100.0,
+            "std": 0.0
+          }
+        }
+      },
+      "GPT-4.1-mini": {
+        "coverage": 5.266,
+        "coverage_std": 0.073,
+        "pss": 0.636,
+        "pss_std": 0.0428,
+        "runtime": 0.552,
+        "n_selected": 5.0,
+        "cost": 84.0,
+        "detail": {
+          "coverage": {
+            "mean": 5.266,
+            "std": 0.073
+          },
+          "pss": {
+            "mean": 0.636,
+            "std": 0.0428
+          },
+          "runtime": {
+            "mean": 0.5525,
+            "std": 0.0548
+          },
+          "n_selected": {
+            "mean": 5.0,
+            "std": 0.0
+          },
+          "cost": {
+            "mean": 84.0,
+            "std": 7.7889
+          },
+          "avg_overlap": {
+            "mean": 0.0071,
+            "std": 0.0101
+          },
+          "entropy": {
+            "mean": 4.146,
+            "std": 0.0111
+          },
+          "count": {
+            "mean": 84.0,
+            "std": 7.7889
+          }
+        }
+      },
+      "MAPUS": {
+        "coverage": 5.3487,
+        "coverage_std": 0.0045,
+        "pss": 0.7909,
+        "pss_std": 0.026,
+        "runtime": 286.494,
+        "n_selected": 4.0,
+        "cost": 91.67,
+        "detail": {
+          "coverage": {
+            "mean": 5.3487,
+            "std": 0.0045
+          },
+          "pss": {
+            "mean": 0.7909,
+            "std": 0.026
+          },
+          "runtime": {
+            "mean": 286.4941,
+            "std": 174.5273
+          },
+          "n_selected": {
+            "mean": 4.0,
+            "std": 0.0
+          },
+          "cost": {
+            "mean": 91.6667,
+            "std": 0.4714
+          },
+          "n_accepted": {
+            "mean": 53.3333,
+            "std": 0.9428
+          },
+          "n_refused": {
+            "mean": 6.6667,
+            "std": 0.9428
+          },
+          "llm_calls_gen": {
+            "mean": 107.3333,
+            "std": 2.4944
+          },
+          "llm_invalid": {
+            "mean": 48.3333,
+            "std": 8.34
+          },
+          "llm_repaired": {
+            "mean": 48.0,
+            "std": 7.874
+          },
+          "refines_accepted": {
+            "mean": 15.6667,
+            "std": 4.4969
+          },
+          "sel_llm_ties": {
+            "mean": 3.3333,
+            "std": 0.4714
+          },
+          "neg_attempts": {
+            "mean": 0.0,
+            "std": 0.0
+          },
+          "neg_accepted": {
+            "mean": 0.0,
+            "std": 0.0
+          },
+          "neg_rejected": {
+            "mean": 0.0,
+            "std": 0.0
+          },
+          "neg_failed_pairs": {
+            "mean": 0.0,
+            "std": 0.0
+          },
+          "avg_overlap": {
+            "mean": 0.004,
+            "std": 0.0031
+          },
+          "pre_neg_overlap": {
+            "mean": 0.004,
+            "std": 0.0031
+          },
+          "pre_neg_coverage": {
+            "mean": 5.3487,
+            "std": 0.0045
+          },
+          "pre_neg_pss": {
+            "mean": 0.7909,
+            "std": 0.026
+          },
+          "entropy": {
+            "mean": 4.1792,
+            "std": 0.0098
+          },
+          "pre_neg_entropy": {
+            "mean": 4.1792,
+            "std": 0.0098
+          },
+          "count": {
+            "mean": 91.6667,
+            "std": 0.4714
+          }
+        }
+      }
+    }
+  }
+}

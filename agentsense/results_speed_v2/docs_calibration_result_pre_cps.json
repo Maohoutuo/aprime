@@ -1,0 +1,137 @@
+{
+  "e_scale": 4.0,
+  "settings": {
+    "small": {
+      "RN": {
+        "ours": 4.538,
+        "paper": 4.505,
+        "err_pct": 0.7,
+        "cost": 38.7,
+        "q": 36.7
+      },
+      "TVPG": {
+        "ours": 4.597,
+        "paper": 4.565,
+        "err_pct": 0.7,
+        "cost": 38.3,
+        "q": 38.0
+      },
+      "TCPG": {
+        "ours": 4.601,
+        "paper": 4.588,
+        "err_pct": 0.3,
+        "cost": 39.0,
+        "q": 38.3
+      },
+      "MSA": {
+        "ours": 4.627,
+        "paper": 4.662,
+        "err_pct": -0.8,
+        "cost": 40.0,
+        "q": 40.0
+      },
+      "MSAGI": {
+        "ours": 4.621,
+        "paper": 4.702,
+        "err_pct": -1.7,
+        "cost": 39.0,
+        "q": 39.0
+      },
+      "GraphDP": {
+        "ours": 4.59,
+        "paper": 4.78,
+        "err_pct": -4.0,
+        "cost": 39.7,
+        "q": 39.7
+      }
+    },
+    "medium": {
+      "RN": {
+        "ours": 4.859,
+        "paper": 4.706,
+        "err_pct": 3.3,
+        "cost": 55.3,
+        "q": 55.3
+      },
+      "TVPG": {
+        "ours": 4.91,
+        "paper": 4.761,
+        "err_pct": 3.1,
+        "cost": 58.0,
+        "q": 58.0
+      },
+      "TCPG": {
+        "ours": 4.888,
+        "paper": 5.118,
+        "err_pct": -4.5,
+        "cost": 56.7,
+        "q": 56.7
+      },
+      "MSA": {
+        "ours": 4.871,
+        "paper": 5.086,
+        "err_pct": -4.2,
+        "cost": 55.3,
+        "q": 55.3
+      },
+      "MSAGI": {
+        "ours": 4.916,
+        "paper": 5.09,
+        "err_pct": -3.4,
+        "cost": 58.0,
+        "q": 58.0
+      },
+      "GraphDP": {
+        "ours": 4.883,
+        "paper": 5.205,
+        "err_pct": -6.2,
+        "cost": 59.7,
+        "q": 59.7
+      }
+    },
+    "large": {
+      "RN": {
+        "ours": 5.269,
+        "paper": 5.029,
+        "err_pct": 4.8,
+        "cost": 97.0,
+        "q": 97.0
+      },
+      "TVPG": {
+        "ours": 5.275,
+        "paper": 5.602,
+        "err_pct": -5.8,
+        "cost": 95.3,
+        "q": 95.3
+      },
+      "TCPG": {
+        "ours": 5.281,
+        "paper": 5.544,
+        "err_pct": -4.7,
+        "cost": 97.3,
+        "q": 97.3
+      },
+      "MSA": {
+        "ours": 5.286,
+        "paper": 5.631,
+        "err_pct": -6.1,
+        "cost": 98.0,
+        "q": 98.0
+      },
+      "MSAGI": {
+        "ours": 5.285,
+        "paper": 5.682,
+        "err_pct": -7.0,
+        "cost": 96.7,
+        "q": 96.7
+      },
+      "GraphDP": {
+        "ours": 5.242,
+        "paper": 5.701,
+        "err_pct": -8.1,
+        "cost": 99.7,
+        "q": 99.7
+      }
+    }
+  }
+}

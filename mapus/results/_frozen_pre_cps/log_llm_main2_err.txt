@@ -1,0 +1,67 @@
+Traceback (most recent call last):
+  File "D:\composition\mapus\experiments\run_main.py", line 115, in <module>
+    main()
+    ~~~~^^
+  File "D:\composition\mapus\experiments\run_main.py", line 64, in main
+    rows = run_instances(_one, list(range(args.n)), parallel=parallel)
+  File "D:\composition\mapus\experiments\common.py", line 99, in run_instances
+    return list(ex.map(fn, indices))
+  File "C:\Users\35626\AppData\Local\Programs\Python\Python314\Lib\concurrent\futures\_base.py", line 645, in result_iterator
+    yield _result_or_cancel(fs.pop())
+          ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\35626\AppData\Local\Programs\Python\Python314\Lib\concurrent\futures\_base.py", line 312, in _result_or_cancel
+    return fut.result(timeout)
+           ~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\35626\AppData\Local\Programs\Python\Python314\Lib\concurrent\futures\_base.py", line 454, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\35626\AppData\Local\Programs\Python\Python314\Lib\concurrent\futures\_base.py", line 396, in __get_result
+    raise self._exception
+  File "C:\Users\35626\AppData\Local\Programs\Python\Python314\Lib\concurrent\futures\thread.py", line 86, in run
+    result = ctx.run(self.task)
+  File "C:\Users\35626\AppData\Local\Programs\Python\Python314\Lib\concurrent\futures\thread.py", line 73, in run
+    return fn(*args, **kwargs)
+  File "D:\composition\mapus\experiments\run_main.py", line 63, in _one
+    return run_method(_name, inst, cfg, llm, seed=1000 + i)
+  File "D:\composition\mapus\experiments\common.py", line 75, in run_method
+    run = run_mapus(inst, inst.urban, inst.profiles, cfg, DEFAULT_ENV, llm, seed=seed,
+                    parallel=getattr(llm, "_parallel", 8))
+  File "D:\composition\mapus\mapus\pipeline.py", line 81, in run_mapus
+    accepted, gen_stats, n_refuse, reasons = _stage1(
+                                             ~~~~~~~^
+        instance, workers, profiles, urban, cfg, env_cfg, llm, seed, parallel)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\composition\mapus\mapus\pipeline.py", line 61, in _stage1
+    results = list(ex.map(_one, [w.wid for w in workers]))
+  File "C:\Users\35626\AppData\Local\Programs\Python\Python314\Lib\concurrent\futures\_base.py", line 645, in result_iterator
+    yield _result_or_cancel(fs.pop())
+          ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\35626\AppData\Local\Programs\Python\Python314\Lib\concurrent\futures\_base.py", line 312, in _result_or_cancel
+    return fut.result(timeout)
+           ~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\35626\AppData\Local\Programs\Python\Python314\Lib\concurrent\futures\_base.py", line 447, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\35626\AppData\Local\Programs\Python\Python314\Lib\concurrent\futures\_base.py", line 396, in __get_result
+    raise self._exception
+  File "C:\Users\35626\AppData\Local\Programs\Python\Python314\Lib\concurrent\futures\thread.py", line 86, in run
+    result = ctx.run(self.task)
+  File "C:\Users\35626\AppData\Local\Programs\Python\Python314\Lib\concurrent\futures\thread.py", line 73, in run
+    return fn(*args, **kwargs)
+  File "D:\composition\mapus\mapus\pipeline.py", line 49, in _one
+    accept, reason = pa.decide_accept(instance.budget)
+                     ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "D:\composition\mapus\mapus\agents\participant.py", line 66, in decide_accept
+    text = self.llm.complete(system, user, json_mode=True,
+                             meta={"kind": "accept", "worker": self.worker,
+                                   "profile": self.profile, "instance": self.instance,
+                                   "urban": self.urban, "cfg": self.cfg, "env_cfg": self.env_cfg})
+  File "D:\composition\mapus\mapus\llm_backend.py", line 101, in complete
+    raise last  # type: ignore[misc]
+    ^^^^^^^^^^
+  File "D:\composition\mapus\mapus\llm_backend.py", line 91, in complete
+    text = self.client.complete(system, user, json_mode=json_mode)
+  File "D:\composition\agentsense\agentsense\llm.py", line 107, in complete
+    raise RuntimeError(f"LLM call failed after {self.retries} retries: {last_err}")#生成一个错误
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: LLM call failed after 4 retries: HTTP 429: {"code":50602,"message":"Request was rejected due to rate limiting. Details: TPM limit reached.","data":null}

@@ -1,0 +1,86 @@
+{
+  "dataset": "tdrive",
+  "n": 5,
+  "backend": "surrogate",
+  "model": "surrogate",
+  "runtime": {
+    "small": {
+      "RN": {
+        "mean": 0.0001
+      },
+      "TVPG": {
+        "mean": 0.0525
+      },
+      "TCPG": {
+        "mean": 0.0762
+      },
+      "MSA": {
+        "mean": 0.7864
+      },
+      "MSAGI": {
+        "mean": 0.7902
+      },
+      "GraphDP": {
+        "mean": 0.0078
+      },
+      "GPT-4.1-mini": {
+        "mean": 0.0376
+      },
+      "MAPUS": {
+        "mean": 0.1841
+      }
+    },
+    "medium": {
+      "RN": {
+        "mean": 0.0001
+      },
+      "TVPG": {
+        "mean": 0.1254
+      },
+      "TCPG": {
+        "mean": 0.16
+      },
+      "MSA": {
+        "mean": 0.9958
+      },
+      "MSAGI": {
+        "mean": 1.1164
+      },
+      "GraphDP": {
+        "mean": 0.0367
+      },
+      "GPT-4.1-mini": {
+        "mean": 0.1624
+      },
+      "MAPUS": {
+        "mean": 0.7051
+      }
+    },
+    "large": {
+      "RN": {
+        "mean": 0.0001
+      },
+      "TVPG": {
+        "mean": 0.2923
+      },
+      "TCPG": {
+        "mean": 0.4226
+      },
+      "MSA": {
+        "mean": 1.9974
+      },
+      "MSAGI": {
+        "mean": 2.2831
+      },
+      "GraphDP": {
+        "mean": 0.0862
+      },
+      "GPT-4.1-mini": {
+        "mean": 0.4952
+      },
+      "MAPUS": {
+        "mean": 2.2297
+      }
+    }
+  }
+}

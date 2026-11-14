@@ -1,0 +1,25 @@
+[grab/small] RN             cov 4.631±0.028  pss 0.768±0.070  n 5.7  t 0.0s  | paper 4.236/0.727  dCov +9.3%  dPSS +0.041
+[grab/small] TVPG           cov 4.699±0.041  pss 0.781±0.075  n 5.3  t 0.1s  | paper 4.342/0.714  dCov +8.2%  dPSS +0.067
+[grab/small] TCPG           cov 4.657±0.045  pss 0.888±0.087  n 5.3  t 0.1s  | paper 4.232/0.730  dCov +10.0%  dPSS +0.158
+[grab/small] MSA            cov 4.696±0.023  pss 0.875±0.058  n 5.7  t 0.7s  | paper 4.372/0.744  dCov +7.4%  dPSS +0.131
+[grab/small] MSAGI          cov 4.731±0.018  pss 0.863±0.115  n 5.3  t 0.8s  | paper 4.392/0.752  dCov +7.7%  dPSS +0.111
+[grab/small] GraphDP        cov 4.668±0.003  pss 0.751±0.084  n 5.7  t 0.0s  | paper 4.369/0.749  dCov +6.8%  dPSS +0.002
+[grab/small] GPT-4.1-mini   cov 4.384±0.119  pss 0.752±0.042  n 4.7  t 19.4s  | paper 4.293/0.782  dCov +2.1%  dPSS -0.030
+[grab/small] MAPUS          cov 4.641±0.016  pss 0.799±0.085  n 5.7  t 112.3s  | paper 4.386/0.854  dCov +5.8%  dPSS -0.055
+[grab/medium] RN             cov 4.935±0.026  pss 0.791±0.231  n 4.3  t 0.0s  | paper 4.710/0.696  dCov +4.8%  dPSS +0.095
+[grab/medium] TVPG           cov 5.001±0.029  pss 0.787±0.045  n 4.0  t 0.1s  | paper 4.737/0.695  dCov +5.6%  dPSS +0.092
+[grab/medium] TCPG           cov 4.984±0.007  pss 0.836±0.101  n 4.0  t 0.1s  | paper 4.806/0.703  dCov +3.7%  dPSS +0.133
+[grab/medium] MSA            cov 4.982±0.042  pss 0.853±0.205  n 4.3  t 1.2s  | paper 4.900/0.699  dCov +1.7%  dPSS +0.154
+[grab/medium] MSAGI          cov 5.015±0.030  pss 0.848±0.116  n 4.0  t 1.3s  | paper 4.887/0.714  dCov +2.6%  dPSS +0.134
+[grab/medium] GraphDP        cov 4.915±0.018  pss 0.731±0.144  n 4.3  t 0.0s  | paper 4.913/0.719  dCov +0.0%  dPSS +0.012
+[grab/medium] GPT-4.1-mini   cov 4.880±0.065  pss 0.675±0.042  n 4.7  t 34.1s  | paper 4.755/0.742  dCov +2.6%  dPSS -0.067
+[grab/medium] MAPUS          cov 5.012±0.008  pss 0.842±0.017  n 4.0  t 97.8s  | paper 4.890/0.834  dCov +2.5%  dPSS +0.008
+[grab/large] RN             cov 5.332±0.012  pss 0.816±0.186  n 4.0  t 0.0s  | paper 5.399/0.648  dCov -1.2%  dPSS +0.168
+[grab/large] TVPG           cov 5.347±0.041  pss 0.905±0.131  n 3.3  t 0.2s  | paper 5.406/0.640  dCov -1.1%  dPSS +0.265
+[grab/large] TCPG           cov 5.316±0.051  pss 0.826±0.054  n 3.3  t 0.3s  | paper 5.587/0.658  dCov -4.8%  dPSS +0.168
+[grab/large] MSA            cov 5.380±0.029  pss 0.937±0.120  n 4.0  t 1.7s  | paper 5.586/0.655  dCov -3.7%  dPSS +0.282
+[grab/large] MSAGI          cov 5.353±0.042  pss 0.853±0.072  n 3.3  t 1.8s  | paper 5.567/0.653  dCov -3.8%  dPSS +0.200
+[grab/large] GraphDP        cov 5.237±0.020  pss 0.548±0.023  n 4.0  t 0.1s  | paper 5.611/0.700  dCov -6.7%  dPSS -0.152
+[grab/large] GPT-4.1-mini   cov 5.325±0.049  pss 0.708±0.092  n 4.0  t 97.3s  | paper 5.413/0.729  dCov -1.6%  dPSS -0.021
+[grab/large] MAPUS          cov 5.339±0.019  pss 0.885±0.037  n 3.0  t 289.1s  | paper 5.701/0.831  dCov -6.4%  dPSS +0.054
+wrote results\main_grab_qwen72b_n3.json

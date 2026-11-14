@@ -1,0 +1,64 @@
+{
+  "model": "deepseek-ai/DeepSeek-V3.2",
+  "scale": "small",
+  "n": 2,
+  "temperature": 0.5,
+  "rows": {
+    "bad_weather": {
+      "SR": 100.0,
+      "AIR": 0.41733910010803627,
+      "ANI": 1.0,
+      "ACS": 0.0,
+      "n": 2,
+      "tokens": 6731
+    },
+    "area_blocked": {
+      "SR": 50.0,
+      "AIR": 1.1536561813162716,
+      "ANI": 3.0,
+      "ACS": -1.0,
+      "n": 2,
+      "tokens": 29339
+    },
+    "worker_unavailable": {
+      "SR": 100.0,
+      "AIR": 1.500112936168732,
+      "ANI": 2.0,
+      "ACS": -2.0,
+      "n": 2,
+      "tokens": 13395
+    },
+    "traffic_congestion": {
+      "SR": 100.0,
+      "AIR": 3.9340824302166615,
+      "ANI": 1.0,
+      "ACS": -4.5,
+      "n": 2,
+      "tokens": 5674
+    },
+    "time_window_shift": {
+      "SR": 100.0,
+      "AIR": 1.0352382242885099,
+      "ANI": 1.0,
+      "ACS": 0.5,
+      "n": 2,
+      "tokens": 6480
+    },
+    "budget_cut": {
+      "SR": 50.0,
+      "AIR": 0.0,
+      "ANI": 2.0,
+      "ACS": 0.0,
+      "n": 2,
+      "tokens": 14422
+    },
+    "task_priority_change": {
+      "SR": 50.0,
+      "AIR": 0.9094733474855785,
+      "ANI": 1.0,
+      "ACS": 1.0,
+      "n": 2,
+      "tokens": 12952
+    }
+  }
+}

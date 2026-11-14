@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AgentSense 复现报告 · arXiv:2510.19661v2</title>
+<style>
+  :root{
+    --bg:#f4f5f8;
+    --panel:#ffffff;
+    --ink:#0f1219;
+    --ink2:#333a4a;
+    --muted:#71778a;
+    --line:#e5e7ef;
+    --line2:#eef0f5;
+    --brand:#4f46e5;
+    --brand-soft:#eef0ff;
+    --teal:#0d9488;
+    --teal-soft:#e6f6f4;
+    --ok:#059669;
+    --warn:#d97706;
+    --bad:#dc2626;
+    --blue:#2563eb;
+    --radius:16px;
+    --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:system-ui,-apple-system,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  .num{font-variant-numeric:tabular-nums;white-space:nowrap}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+
+  /* ---------------- hero ---------------- */
+  .hero{
+    position:relative;
+    overflow:hidden;
+    background:
+      radial-gradient(900px 400px at 12% -10%, rgba(99,102,241,.55), transparent 60%),
+      radial-gradient(700px 400px at 88% 0%, rgba(13,148,136,.38), transparent 62%),
+      linear-gradient(160deg,#0a0e1a 0%,#111a30 55%,#0c1322 100%);
+    color:#fff;
+    padding:64px 0 72px;
+  }
+  .hero::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.045) 1px, transparent 1px);
+    background-size:44px 44px;
+    mask-image:radial-gradient(circle at 30% 20%, #000 10%, transparent 78%);
+    pointer-events:none;
+  }
+  .hero .wrap{position:relative;z-index:1}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;
+    color:#a5b4fc;font-weight:600;
+    border:1px solid rgba(165,180,252,.35);
+    background:rgba(99,102,241,.14);
+    padding:5px 12px;border-radius:999px;
+  }
+  .hero h1{
+    font-size:clamp(38px,6vw,60px);
+    line-height:1.05;
+    letter-spacing:-.03em;
+    margin:20px 0 10px;
+    font-weight:800;
+  }
+  .hero h1 span{
+    background:linear-gradient(90deg,#a5b4fc,#5eead4);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero .sub{
+    max-width:640px;margin:0;
+    color:#c7cddb;font-size:16.5px;line-height:1.6;
+  }
+  .hero .meta{
+    display:flex;flex-wrap:wrap;gap:10px;margin-top:28px;
+  }
+  .chip{
+    font-size:13px;padding:6px 13px;border-radius:999px;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.14);
+    color:#dbe2f0;
+  }
+  .chip b{color:#fff;font-weight:600}
+  .chip.ok{background:rgba(16,185,129,.16);border-color:rgba(16,185,129,.4);color:#a7f3d0}
+  .chip.todo{background:rgba(251,191,36,.13);border-color:rgba(251,191,36,.35);color:#fde68a}
+
+  /* ---------------- kpi ---------------- */
+  .kpis{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:16px;
+    margin-top:-38px;position:relative;z-index:2;
+  }
+  .kpi{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:20px 20px 18px;
+    box-shadow:0 12px 28px -18px rgba(15,18,25,.22);
+  }
+  .kpi .lab{font-size:12.5px;color:var(--muted);font-weight:600;letter-spacing:.02em}
+  .kpi .val{font-size:31px;font-weight:800;letter-spacing:-.02em;line-height:1.15;margin-top:6px}
+  .kpi .val small{font-size:15px;font-weight:600;color:var(--muted);margin-left:3px}
+  .kpi .fx{font-size:12.5px;color:var(--muted);margin-top:4px}
+  .kpi.a{--c:var(--brand)} .kpi.b{--c:var(--teal)} .kpi.c{--c:var(--warn)} .kpi.d{--c:var(--blue)}
+  .kpi .val{color:var(--c)}
+
+  /* ---------------- sections ---------------- */
+  section{margin:56px 0}
+  .shead{display:flex;gap:16px;align-items:flex-start;margin-bottom:20px}
+  .snum{
+    flex:none;width:34px;height:34px;border-radius:10px;
+    display:grid;place-items:center;
+    background:var(--brand-soft);color:var(--brand);
+    font-weight:800;font-size:14px;margin-top:3px;
+  }
+  .shead h2{margin:0;font-size:23px;letter-spacing:-.015em;font-weight:750}
+  .shead p{margin:4px 0 0;color:var(--muted);font-size:14.5px;max-width:820px}
+
+  .card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    box-shadow:0 10px 24px -20px rgba(15,18,25,.25);
+    overflow:hidden;
+  }
+  .card-pad{padding:20px 22px}
+
+  /* ---------------- tabs ---------------- */
+  .tabs{display:flex;gap:6px;flex-wrap:wrap;padding:0 0 16px}
+  .tab{
+    font:inherit;font-size:13.5px;font-weight:600;
+    border:1px solid var(--line);background:#fff;color:var(--ink2);
+    padding:7px 15px;border-radius:999px;cursor:pointer;
+    transition:.16s ease;
+  }
+  .tab:hover{border-color:#c9cddd;background:#fafbff}
+  .tab[aria-selected="true"]{
+    background:var(--brand);border-color:var(--brand);color:#fff;
+    box-shadow:0 6px 16px -8px rgba(79,70,229,.7);
+  }
+
+  /* ---------------- tables ---------------- */
+  .tw{overflow-x:auto}
+  .tw table{min-width:800px}
+  td.mech{min-width:180px;line-height:1.5}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  thead th{
+    text-align:left;font-weight:650;font-size:12px;letter-spacing:.05em;text-transform:uppercase;
+    color:var(--muted);background:#fafbfd;
+    padding:11px 14px;border-bottom:1px solid var(--line);
+    white-space:nowrap;
+  }
+  tbody td{padding:11px 14px;border-bottom:1px solid var(--line2);vertical-align:middle}
+  tbody tr:last-child td{border-bottom:none}
+  tbody tr:hover{background:#fafbff}
+  .name{font-weight:650}
+  .tag{
+    display:inline-block;font-size:11.5px;font-weight:650;padding:2px 8px;border-radius:6px;
+    background:#f1f2f7;color:var(--ink2);letter-spacing:.02em;
+  }
+  .tag.small{background:#eef0ff;color:#4338ca}
+  .tag.medium{background:#e6f6f4;color:#0f766e}
+  .tag.large{background:#fef0e6;color:#b45309}
+
+  /* dumbbell */
+  .dumb{display:flex;align-items:center;gap:10px;min-width:210px}
+  .dumb-track{
+    position:relative;flex:1;height:22px;border-radius:6px;
+    background:linear-gradient(90deg,#f3f4f8,#eceef5);
+  }
+  .dumb-track::before{
+    content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:#dfe2ec;
+  }
+  .dot{
+    position:absolute;top:50%;width:11px;height:11px;border-radius:50%;
+    transform:translate(-50%,-50%);
+  }
+  .dot.paper{background:#fff;border:2px solid #9aa1b8;z-index:2}
+  .dot.ours{background:var(--brand);box-shadow:0 0 0 3px rgba(79,70,229,.16);z-index:3}
+  .vs{font-size:12px;color:var(--muted);min-width:52px;text-align:right}
+  .vs b{color:var(--ink);font-weight:650}
+
+  .err{
+    display:inline-flex;align-items:center;gap:5px;
+    font-weight:650;font-size:13px;padding:2px 9px;border-radius:999px;
+    font-variant-numeric:tabular-nums;
+  }
+  .err.g{background:#e8f7f0;color:#047857}
+  .err.a{background:#fef4e6;color:#b45309}
+  .err.r{background:#fdeaea;color:#b91c1c}
+
+  /* AIR bars */
+  .airbar{position:relative;height:22px;min-width:140px;border-radius:6px;background:#f3f4f8}
+  .airbar .zero{position:absolute;left:50%;top:-2px;bottom:-2px;width:1px;background:#cfd3e0}
+  .airbar .bar{position:absolute;top:50%;height:10px;border-radius:5px;transform:translateY(-50%)}
+  .airbar .bar.p{background:linear-gradient(90deg,#7c7cf0,#4f46e5)}
+  .airbar .bar.n{background:linear-gradient(90deg,#93b4fb,#2563eb)}
+  .airval{font-variant-numeric:tabular-nums;font-weight:650;font-size:13px}
+  .airval.p{color:#4338ca} .airval.n{color:#1d4ed8} .airval.z{color:var(--muted)}
+
+  .sr{display:inline-flex;align-items:center;gap:7px;font-weight:650;font-variant-numeric:tabular-nums}
+  .sr i{display:inline-block;width:44px;height:6px;border-radius:99px;background:#eceef5;position:relative;overflow:hidden}
+  .sr i b{position:absolute;inset:0;border-radius:99px;background:linear-gradient(90deg,#34d399,#059669)}
+
+  /* method compare */
+  .mc{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .mcard{border:1px solid var(--line);border-radius:14px;padding:18px 18px 14px;background:#fff}
+  .mcard.hi{border-color:#c7cbfb;background:linear-gradient(180deg,#fbfbff,#fff);box-shadow:0 10px 30px -24px rgba(79,70,229,.8)}
+  .mcard h3{margin:0 0 2px;font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px}
+  .mcard .sm{font-size:12.5px;color:var(--muted);margin-bottom:14px}
+  .mrow{display:flex;justify-content:space-between;align-items:baseline;padding:8px 0;border-top:1px dashed var(--line2)}
+  .mrow:first-of-type{border-top:none}
+  .mrow span{font-size:13px;color:var(--ink2)}
+  .mrow b{font-size:17px;font-weight:750;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+
+  /* notes / gaps */
+  .gap{
+    display:flex;gap:14px;padding:16px 18px;
+    border:1px solid var(--line);border-radius:14px;background:#fff;
+  }
+  .gap .ico{
+    flex:none;width:28px;height:28px;border-radius:8px;display:grid;place-items:center;
+    font-size:13px;font-weight:800;background:#fef4e6;color:#b45309;
+  }
+  .gap h4{margin:0 0 4px;font-size:14.5px;font-weight:700}
+  .gap p{margin:0;font-size:13.5px;color:var(--ink2);line-height:1.62}
+  .gap.ok .ico{background:#e8f7f0;color:#047857}
+
+  .callout{
+    display:flex;gap:12px;
+    border-left:3px solid var(--brand);
+    background:linear-gradient(90deg,var(--brand-soft),#fbfbff);
+    border-radius:0 12px 12px 0;
+    padding:14px 18px;font-size:14px;color:var(--ink2);
+  }
+  .callout.warn{border-left-color:var(--warn);background:linear-gradient(90deg,#fef7ec,#fffdfa)}
+  .callout b{color:var(--ink)}
+
+  details{border:1px solid var(--line);border-radius:14px;background:#fff;padding:0 18px}
+  details+details{margin-top:10px}
+  details summary{
+    cursor:pointer;padding:15px 0;font-weight:650;font-size:14.5px;list-style:none;
+    display:flex;align-items:center;gap:10px;
+  }
+  details summary::-webkit-details-marker{display:none}
+  details summary::before{
+    content:"+";width:20px;height:20px;border-radius:6px;display:grid;place-items:center;
+    background:var(--brand-soft);color:var(--brand);font-weight:800;font-size:13px;flex:none;
+  }
+  details[open] summary::before{content:"−"}
+  details .body{padding:0 0 16px 30px;font-size:13.8px;color:var(--ink2);line-height:1.7}
+  details .body ol{margin:0;padding-left:20px}
+  details .body li{margin:6px 0}
+
+  pre{
+    margin:0;padding:16px 18px;background:#0d1220;color:#d6dced;
+    border-radius:12px;overflow-x:auto;font-family:var(--mono);font-size:12.8px;line-height:1.75;
+  }
+  pre .c{color:#7c8aa8}
+  code.inl{
+    font-family:var(--mono);font-size:12.5px;background:#f1f2f7;color:#3b3f52;
+    padding:1.5px 6px;border-radius:5px;
+  }
+
+  footer{
+    margin-top:64px;padding:36px 0 56px;border-top:1px solid var(--line);
+    color:var(--muted);font-size:13px;
+  }
+  footer .files{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+  footer .files span{
+    font-family:var(--mono);font-size:11.8px;background:#fff;border:1px solid var(--line);
+    padding:3px 9px;border-radius:6px;color:var(--ink2);
+  }
+
+  .src{font-size:12px;color:var(--muted);padding:10px 14px;background:#fafbfd;border-top:1px solid var(--line)}
+
+  @media (max-width:900px){
+    .kpis{grid-template-columns:repeat(2,1fr)}
+    .mc,.grid2,.grid3{grid-template-columns:1fr}
+  }
+  @media (max-width:560px){
+    .kpis{grid-template-columns:1fr}
+    .hero{padding:44px 0 56px}
+    .wrap{padding:0 16px}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">论文复现报告 · arXiv:2510.19661v2</div>
+    <h1>Agent<span>Sense</span></h1>
+    <p class="sub">
+      LLMs Empower Generalizable and Explainable<br>
+      Web-Based Participatory Urban Sensing
+    </p>
+    <div class="meta">
+      <span class="chip">数据集 <b>T-Drive / Grab-Posisi</b></span>
+      <span class="chip">模型 <b>DeepSeek-V3.2</b></span>
+      <span class="chip">规模 <b>Small · 8×8×8</b></span>
+      <span class="chip ok">W1–W4 完成</span>
+      <span class="chip todo">Medium / Large 真实 LLM 待跑</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="kpis">
+    <div class="kpi a">
+      <div class="lab">基线校准可行率</div>
+      <div class="val">100<small>%</small></div>
+      <div class="fx">6 基线 × 3 规模 × 20 实例</div>
+    </div>
+    <div class="kpi b">
+      <div class="lab">Small 档最大误差</div>
+      <div class="val">±3.3<small>%</small></div>
+      <div class="fx">相对论文表 4 Base Obj.</div>
+    </div>
+    <div class="kpi c">
+      <div class="lab">扰动类型跑通</div>
+      <div class="val">7<small>/ 7</small></div>
+      <div class="fx">真实 LLM，成功案例 AIR ≥ 0</div>
+    </div>
+    <div class="kpi d">
+      <div class="lab">表 3 总消耗</div>
+      <div class="val">35.1<small>k tokens</small></div>
+      <div class="fx">单 Agent + AgentSense，n=5</div>
+    </div>
+  </div>
+
+  <!-- ============ 0. 一页看懂 ============ -->
+  <section>
+    <div class="shead">
+      <div class="snum">0</div>
+      <div>
+        <h2>一页看懂</h2>
+        <p>这篇论文要解决的问题、它的方法，以及本工程复现到了哪一步。</p>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="card card-pad">
+        <h3 style="margin:0 0 10px;font-size:15px">问题：在预算内安排移动工作者去采集数据</h3>
+        <p style="margin:0 0 12px;font-size:14px;color:var(--ink2)">
+          城市被切成网格，时间被切成时段。每个 <code class="inl">(x, y, t)</code> 单元是一个「感知任务」。
+          每个工作者有固定起点、终点和可用时间窗，每移动一步都要付费。
+        </p>
+        <p style="margin:0;font-size:14px;color:var(--ink2)">
+          目标是在预算内，让采集到的数据
+          <b>数量多</b>（Q，覆盖的不同单元数）且
+          <b>分布均匀</b>（E，层次化熵）。
+          两者互相拉扯 —— 这就是全部难点。
+        </p>
+      </div>
+
+      <div class="card card-pad">
+        <h3 style="margin:0 0 10px;font-size:15px">方法：不重排，而是在已有方案上迭代改</h3>
+        <p style="margin:0 0 12px;font-size:14px;color:var(--ink2)">
+          先用传统规划器排出一个可行方案 S₀，再让三个 LLM Agent 轮流加工：
+        </p>
+        <ul style="margin:0;padding-left:20px;font-size:14px;color:var(--ink2);line-height:1.9">
+          <li><b>Solver</b> 改方案（唯一动手的）</li>
+          <li><b>Eval</b> 用代码验算并给建议（数字不交给模型）</li>
+          <li><b>Memory</b> 记录哪次改动有用，供下一轮参考</li>
+        </ul>
+        <p style="margin:10px 0 0;font-size:14px;color:var(--ink2)">
+          取得「可行 且 J &gt; J_base」即停，最多 10 轮。
+        </p>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:16px">
+      <span>✦</span>
+      <div>
+        <b>核心结论：</b>基线校准在 Small / Medium 已进入 ±5%，Large 仍偏低 5–8% 且无法通过调参消除；
+        真实 LLM 链路已完整跑通，AgentSense 的 SR 与 AIR 均优于单 Agent，但样本量（n=5 / n=2）不足以支撑强结论。
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 1. 表 4 ============ -->
+  <section>
+    <div class="shead">
+      <div class="snum">1</div>
+      <div>
+        <h2>表 4 复现 · 基线规划器校准</h2>
+        <p>这一步不涉及 LLM，只检验「环境 + 目标函数」是否被还原对了。
+           实心点 = 本工程得分，空心点 = 论文报告值，两点越近说明校准越好。</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-pad" style="padding-bottom:6px">
+        <div class="tabs" id="tab4"></div>
+      </div>
+      <div class="tw">
+        <table>
+          <thead>
+            <tr>
+              <th>基线</th><th>规模</th>
+              <th style="min-width:250px">得分对比（ours · paper）</th>
+              <th>误差</th><th>平均成本</th><th>可行率</th><th>用时</th>
+            </tr>
+          </thead>
+          <tbody id="body4"></tbody>
+        </table>
+      </div>
+      <div class="src" id="src4"></div>
+    </div>
+
+    <div class="callout warn" style="margin-top:16px">
+      <span>!</span>
+      <div>
+        <b>怎么读这张表：</b>Small 档误差普遍在 ±3.3% 以内，说明目标函数的形状是对的；
+        Medium 出现 ±5%，Large 系统性偏低 5–8% —— 原因是论文的层次化熵 E(D) 定义在引文 [18] 中且未开源，
+        本工程用单参数标定尺度（<code class="inl">e_scale = 4.2</code>），在相对归一化下 Large 的理论上限约
+        <b>J_max ≈ 5.42</b>，低于论文报告的 5.70 —— 这不是调参能补上的差距。
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 2. 表 3 ============ -->
+  <section>
+    <div class="shead">
+      <div class="snum">2</div>
+      <div>
+        <h2>表 3 复现 · 单 Agent vs AgentSense</h2>
+        <p>同一个基线与同一批实例，只改变「是否使用三 Agent 闭环」。
+           下表给出两次独立运行的完整结果 —— 两次差异本身就是一个结论。</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-pad" style="padding-bottom:6px">
+        <div class="tabs" id="tab3"></div>
+      </div>
+      <div class="card-pad" style="padding-top:4px">
+        <div class="mc" id="body3"></div>
+      </div>
+      <div class="src" id="src3"></div>
+    </div>
+
+    <div class="grid3" style="margin-top:16px">
+      <div class="gap ok">
+        <div class="ico">↑</div>
+        <div>
+          <h4>SR 稳定在 100%</h4>
+          <p id="t3-note-sr">两次运行中 AgentSense 均为 100%，单 Agent 一次 60%、一次 100%。</p>
+        </div>
+      </div>
+      <div class="gap ok">
+        <div class="ico">↑</div>
+        <div>
+          <h4>AIR 两次都更高</h4>
+          <p id="t3-note-air">+1.025% vs +0.552%；+0.680% vs +0.295%，方向一致。</p>
+        </div>
+      </div>
+      <div class="gap">
+        <div class="ico">~</div>
+        <div>
+          <h4>代价是 token</h4>
+          <p id="t3-note-tok">AgentSense 消耗约为单 Agent 的 1.7–2.1 倍，换 SR 与 AIR 的稳定性。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout warn" style="margin-top:16px">
+      <span>!</span>
+      <div>
+        <b>样本量警戒线：</b>n=5 时，单 Agent 的 SR 在两次运行中从 60% 跳到 100%。
+        这说明 SR 的置信区间极宽，<b>不能据此宣称统计显著</b>。论文用的是 n=20。
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3. 表 5 ============ -->
+  <section>
+    <div class="shead">
+      <div class="snum">3</div>
+      <div>
+        <h2>表 5 复现 · 七类扰动的鲁棒性</h2>
+        <p>扰动会改变实例本身（封路、砍预算、减少工作者…），检验方法能否「在计划赶不上变化时」重新适配。
+           切换数据源可对比 Mock 替身与真实 LLM。</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-pad" style="padding-bottom:6px">
+        <div class="tabs" id="tab5"></div>
+      </div>
+      <div class="tw">
+        <table>
+          <thead>
+            <tr>
+              <th>扰动类型</th><th>机制</th>
+              <th style="min-width:230px">AIR（相对基线的提升）</th>
+              <th>SR</th><th>ANI</th><th>ACS</th><th>tokens</th>
+            </tr>
+          </thead>
+          <tbody id="body5"></tbody>
+        </table>
+      </div>
+      <div class="src" id="src5"></div>
+    </div>
+
+    <div class="grid2" style="margin-top:16px">
+      <div class="gap ok">
+        <div class="ico">✓</div>
+        <div>
+          <h4>真实 LLM：成功案例 AIR 全部 ≥ 0</h4>
+          <p>没有出现「靠牺牲覆盖度换合规」的退化。结构性扰动（<code class="inl">area_blocked</code>、
+             <code class="inl">budget_cut</code>、<code class="inl">task_priority_change</code>）在 3 轮内只有一半达标，
+             ANI 明显上升 —— 与论文「扰动越硬、迭代越多」的趋势一致。</p>
+        </div>
+      </div>
+      <div class="gap">
+        <div class="ico">~</div>
+        <div>
+          <h4>Mock 替身出现负 AIR</h4>
+          <p>Mock 用确定性算法假扮 LLM，不具推理能力。
+             <code class="inl">traffic_congestion</code> 的 −10.0% 说明它只会「少跑几步省钱」，
+             而非重新规划路线 —— 这正是真实 LLM 与 Mock 的关键分野，也说明 Mock 结果不能当作方法有效性证据。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4. 差距 ============ -->
+  <section>
+    <div class="shead">
+      <div class="snum">4</div>
+      <div>
+        <h2>与论文的已知差距</h2>
+        <p>必须与论文结论区分开的部分。前三条是「无法从论文文本恢复」的硬差距，后两条是实验规模的限制。</p>
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="gap">
+        <div class="ico">1</div>
+        <div>
+          <h4>E(D) 的精确定义不可恢复</h4>
+          <p>论文式 2 只给出形式，分层熵定义在引文 [18]，且 [18] / [41] 均未开源。
+             这里用单参数标定尺度；Medium / Large 作为留出验证，Large 系统性偏低 5–8%。</p>
+        </div>
+      </div>
+      <div class="gap">
+        <div class="ico">2</div>
+        <div>
+          <h4>Large 档触到理论上限</h4>
+          <p>相对归一化下 Large 的 J_max ≈ 5.42，低于论文的 5.602。
+             说明原文的 E(D) 尺度随规模增长，该形式无法从论文文本推导。</p>
+        </div>
+      </div>
+      <div class="gap">
+        <div class="ico">3</div>
+        <div>
+          <h4>GraphDP 仍偏低</h4>
+          <p>Small −4.0% / Medium −6.2% / Large −8.1%。论文中它是最强基线；
+             当前实现用 <code class="inl">1/(1+count)²</code> 近似「边际熵增益」，属近似而非等价。</p>
+        </div>
+      </div>
+      <div class="gap">
+        <div class="ico">4</div>
+        <div>
+          <h4>真实 LLM 的可测提升依赖基线强度</h4>
+          <p>本工程的 DP 基线（TVPG / MSAGI）在 Small 上已接近最优，从它们出发 AIR ≈ 0。
+             表 3 / 表 5 的提升必须用较弱基线（RN）才可观察 —— 与论文的基线强度不可直接对齐。</p>
+        </div>
+      </div>
+      <div class="gap">
+        <div class="ico">5</div>
+        <div>
+          <h4>样本量与规模都不够</h4>
+          <p>表 3 为 n=5、表 5 为 n=2（论文为 20），且只跑了 Small。
+             Medium / Large 的方案 JSON 超过 <code class="inl">max_tokens=2048</code> 会被截断，
+             需要先解决输出长度上限。</p>
+        </div>
+      </div>
+      <div class="gap ok">
+        <div class="ico">✓</div>
+        <div>
+          <h4>已完成的部分</h4>
+          <p>环境与目标函数、6 个基线、三 Agent 闭环、5 个工具、扰动解析器、
+             表 4 校准、真实 LLM 表 3 / 表 5 —— 20 个单元测试全部通过。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5. 方法修正 ============ -->
+  <section>
+    <div class="shead">
+      <div class="snum">5</div>
+      <div>
+        <h2>为跑通真实模型所做的方法修正</h2>
+        <p>这些问题是 Mock 下看不到的。展开查看每一条的动机与做法。</p>
+      </div>
+    </div>
+
+    <details>
+      <summary>7 条修正：从「模型必然失败」到「模型可用」</summary>
+      <div class="body">
+        <ol>
+          <li><b>把 worker 约束注入 prompt。</b>原始 Solver prompt 不含每个工作者的起终点与时间窗，
+              模型必然造出非法路径。现在由 <code class="inl">workers_spec()</code> 显式给出硬约束。</li>
+          <li><b>确定性可行性修复。</b><code class="inl">repair.py</code> 只修终点、时间戳、连续性等必要处，
+              <b>保留模型给出的路线形状</b>，避免像 DP 重规划那样把 LLM 的编辑整条抹掉 —— 这是最初 AIR ≈ 0 的直接原因。</li>
+          <li><b>单 Agent 对照的口径。</b>原 <code class="inl">refine_single()</code> 仍会调用 Eval Agent，
+              不符合「一次调用」定义。现在严格只做一次 Solver 调用，评估全在本地完成，并用单测锁定调用次数。</li>
+          <li><b>建议必须可执行。</b><code class="inl">advice.py</code> 把「下一步」算成具体动作
+              （招募哪个 worker、重路由哪个 worker、指向哪些未覆盖格），否则模型倾向于「不改动」。</li>
+          <li><b>保留历史最佳可行解。</b>循环可能因相邻轮次退化而覆盖已有提升，
+              现在返回 best-feasible，指标读取实际返回的解（<code class="inl">RunRecord.final_override</code>）。</li>
+          <li><b>扰动下的公平比较。</b><code class="inl">worker_unavailable</code> 会让基线引用已移除的工作者；
+              现在先在扰动后的实例上把基线修复为可行解，再算 J_base。成功判据也改为「合规 <b>且</b> 不劣于基线」。</li>
+          <li><b>失效引用容错。</b><code class="inl">workers_spec</code> / <code class="inl">SolverAgent.propose</code> /
+              <code class="inl">refine</code> 都会清洗指向已移除 worker 的引用，否则抛 <code class="inl">KeyError</code>。</li>
+        </ol>
+      </div>
+    </details>
+
+    <details>
+      <summary>复现命令</summary>
+      <div class="body">
+<pre><span class="c"># 环境自检 + 表 4 校准（不需要 API key）</span>
+py -3.14 experiments\smoke.py
+py -3.14 experiments\run_table4.py --n 20 --out results\table4_n20.md
+
+<span class="c"># 真实 LLM（key 写在本地 .env，已被 .gitignore 排除）</span>
+py -3.14 experiments\run_llm.py --mode table3 --n 5  --scale small --planner RN --max-iter 3
+py -3.14 experiments\run_llm.py --mode table5 --n 2  --scale small --planner RN --max-iter 3
+
+<span class="c"># 实时观察 agent 流水线</span>
+py -3.14 practice.py "现在几点？再算 (17*23+45)/4" --verbose</pre>
+      </div>
+    </details>
+
+    <details>
+      <summary>下一步计划</summary>
+      <div class="body">
+        <ol>
+          <li>Medium / Large 规模的真实模型实验（需先解决输出长度上限）</li>
+          <li>图 7 消融的真实模型实验（<code class="inl">--mode ablation</code> 已实现）</li>
+          <li>GPT-4.1 / Gemini-2.0-Flash 的对照（需对应 provider 的 key）</li>
+          <li>把表 3 / 表 5 的样本量提到 n=20，让 SR 具备统计意义</li>
+        </ol>
+      </div>
+    </details>
+  </section>
+
+  <footer>
+    <div><b style="color:var(--ink)">数据来源</b> · 全部数字由本仓库脚本直接产出，可重跑</div>
+    <div class="files">
+      <span>results/table4_n20.json</span>
+      <span>results/table4_n5.json</span>
+      <span>results/real_table3_rn_small.json</span>
+      <span>results/real_table3_rn_small_n5.json</span>
+      <span>results/real_table5_rn_small.json</span>
+      <span>results/mock_table5.json</span>
+      <span>docs/llm_experiment.md</span>
+      <span>docs/calibration.md</span>
+      <span>README.md</span>
+    </div>
+    <div style="margin-top:16px">
+      环境：Python 3.14 · 模型 deepseek-ai/DeepSeek-V3.2 (T=0.5) · 数据集 T-Drive (synthetic)
+    </div>
+  </footer>
+</div>
+
+<script>
+/* ================= 数据 ================= */
+/* T4:START */
+const T4 = {
+  "n=20": {
+    "small/RN": {
+      "ours": 4.6522,
+      "paper": 4.505,
+      "err": 3.27,
+      "cost": 39.1,
+      "sec": 0.0
+    },
+    "small/TVPG": {
+      "ours": 4.7043,
+      "paper": 4.565,
+      "err": 3.05,
+      "cost": 38.75,
+      "sec": 0.71
+    },
+    "small/TCPG": {
+      "ours": 4.7076,
+      "paper": 4.588,
+      "err": 2.61,
+      "cost": 39.2,
+      "sec": 0.86
+    },
+    "small/MSA": {
+      "ours": 4.7271,
+      "paper": 4.662,
+      "err": 1.4,
+      "cost": 39.9,
+      "sec": 42.32
+    },
+    "small/MSAGI": {
+      "ours": 4.73,
+      "paper": 4.702,
+      "err": 0.6,
+      "cost": 39.45,
+      "sec": 50.55
+    },
+    "small/GraphDP": {
+      "ours": 4.6873,
+      "paper": 4.78,
+      "err": -1.94,
+      "cost": 39.9,
+      "sec": 0.5
+    },
+    "medium/RN": {
+      "ours": 4.9479,
+      "paper": 4.706,
+      "err": 5.14,
+      "cost": 55.75,
+      "sec": 0.02
+    },
+    "medium/TVPG": {
+      "ours": 5.002,
+      "paper": 4.761,
+      "err": 5.06,
+      "cost": 57.6,
+      "sec": 7.35
+    },
+    "medium/TCPG": {
+      "ours": 4.9969,
+      "paper": 5.118,
+      "err": -2.37,
+      "cost": 57.5,
+      "sec": 8.82
+    },
+    "medium/MSA": {
+      "ours": 4.9984,
+      "paper": 5.086,
+      "err": -1.72,
+      "cost": 57.5,
+      "sec": 58.31
+    },
+    "medium/MSAGI": {
+      "ours": 5.0151,
+      "paper": 5.09,
+      "err": -1.47,
+      "cost": 58.1,
+      "sec": 67.21
+    },
+    "medium/GraphDP": {
+      "ours": 4.9896,
+      "paper": 5.205,
+      "err": -4.14,
+      "cost": 59.85,
+      "sec": 3.21
+    },
+    "large/RN": {
+      "ours": 5.345,
+      "paper": 5.029,
+      "err": 6.28,
+      "cost": 95.05,
+      "sec": 0.03
+    },
+    "large/TVPG": {
+      "ours": 5.3644,
+      "paper": 5.602,
+      "err": -4.24,
+      "cost": 94.05,
+      "sec": 16.65
+    },
+    "large/TCPG": {
+      "ours": 5.3702,
+      "paper": 5.544,
+      "err": -3.13,
+      "cost": 95.75,
+      "sec": 22.65
+    },
+    "large/MSA": {
+      "ours": 5.3754,
+      "paper": 5.631,
+      "err": -4.54,
+      "cost": 97.25,
+      "sec": 112.01
+    },
+    "large/MSAGI": {
+      "ours": 5.3729,
+      "paper": 5.682,
+      "err": -5.44,
+      "cost": 94.95,
+      "sec": 115.94
+    },
+    "large/GraphDP": {
+      "ours": 5.3508,
+      "paper": 5.701,
+      "err": -6.14,
+      "cost": 99.85,
+      "sec": 7.33
+    }
+  },
+  "n=5": {
+    "small/RN": {
+      "ours": 4.614,
+      "paper": 4.505,
+      "err": 2.42,
+      "cost": 39.0,
+      "sec": 0.0
+    },
+    "small/TVPG": {
+      "ours": 4.7537,
+      "paper": 4.565,
+      "err": 4.13,
+      "cost": 38.8,
+      "sec": 0.12
+    },
+    "small/TCPG": {
+      "ours": 4.7454,
+      "paper": 4.588,
+      "err": 3.43,
+      "cost": 39.6,
+      "sec": 0.2
+    },
+    "small/MSA": {
+      "ours": 4.7702,
+      "paper": 4.662,
+      "err": 2.32,
+      "cost": 39.8,
+      "sec": 2.38
+    },
+    "small/MSAGI": {
+      "ours": 4.7888,
+      "paper": 4.702,
+      "err": 1.85,
+      "cost": 38.8,
+      "sec": 9.09
+    },
+    "small/GraphDP": {
+      "ours": 4.6668,
+      "paper": 4.78,
+      "err": -2.37,
+      "cost": 39.8,
+      "sec": 0.11
+    },
+    "medium/RN": {
+      "ours": 4.7209,
+      "paper": 4.706,
+      "err": 0.32,
+      "cost": 55.2,
+      "sec": 0.0
+    },
+    "medium/TVPG": {
+      "ours": 4.862,
+      "paper": 4.761,
+      "err": 2.12,
+      "cost": 57.8,
+      "sec": 0.91
+    },
+    "medium/TCPG": {
+      "ours": 4.8588,
+      "paper": 5.118,
+      "err": -5.06,
+      "cost": 59.0,
+      "sec": 1.24
+    },
+    "medium/MSA": {
+      "ours": 4.8275,
+      "paper": 5.086,
+      "err": -5.08,
+      "cost": 56.0,
+      "sec": 11.98
+    },
+    "medium/MSAGI": {
+      "ours": 4.8863,
+      "paper": 5.09,
+      "err": -4.0,
+      "cost": 57.8,
+      "sec": 12.26
+    },
+    "medium/GraphDP": {
+      "ours": 4.8087,
+      "paper": 5.205,
+      "err": -7.61,
+      "cost": 59.8,
+      "sec": 0.58
+    },
+    "large/RN": {
+      "ours": 5.0741,
+      "paper": 5.029,
+      "err": 0.9,
+      "cost": 97.2,
+      "sec": 0.01
+    },
+    "large/TVPG": {
+      "ours": 5.1531,
+      "paper": 5.602,
+      "err": -8.01,
+      "cost": 96.6,
+      "sec": 1.42
+    },
+    "large/TCPG": {
+      "ours": 5.1096,
+      "paper": 5.544,
+      "err": -7.84,
+      "cost": 96.6,
+      "sec": 1.75
+    },
+    "large/MSA": {
+      "ours": 5.156,
+      "paper": 5.631,
+      "err": -8.43,
+      "cost": 97.8,
+      "sec": 21.76
+    },
+    "large/MSAGI": {
+      "ours": 5.1606,
+      "paper": 5.682,
+      "err": -9.18,
+      "cost": 96.6,
+      "sec": 23.1
+    },
+    "large/GraphDP": {
+      "ours": 5.0801,
+      "paper": 5.701,
+      "err": -10.89,
+      "cost": 99.8,
+      "sec": 1.64
+    }
+  }
+};
+/* T4:END */
+
+/* T3:START */
+const T3 = {
+  "运行 A · 13:35": {
+    "src": "real_table3_rn_small_n5.json · n=5 · small · T=0.5",
+    "rows": {
+      "单 Agent": {
+        "SR": 100.0,
+        "AIR": 0.2949320204088001,
+        "ANI": 1.0,
+        "ACS": 0.0,
+        "tokens": 11415
+      },
+      "AgentSense": {
+        "SR": 100.0,
+        "AIR": 0.6800464763182749,
+        "ANI": 1.2,
+        "ACS": 0.2,
+        "tokens": 19376
+      }
+    }
+  },
+  "运行 B · 15:26": {
+    "src": "real_table3_rn_small.json · n=5 · small · T=0.5",
+    "rows": {
+      "单 Agent": {
+        "SR": 60.0,
+        "AIR": 0.5517602572886168,
+        "ANI": 1.0,
+        "ACS": 0.0,
+        "tokens": 11222
+      },
+      "AgentSense": {
+        "SR": 100.0,
+        "AIR": 1.0251525148217888,
+        "ANI": 1.4,
+        "ACS": -0.6,
+        "tokens": 23837
+      }
+    }
+  }
+};
+/* T3:END */
+
+/* T5:START */
+const T5 = {
+  "真实 LLM · n=2": {
+    "src": "real_table5_rn_small.json · deepseek-ai/DeepSeek-V3.2 · small · T=0.5",
+    "rows": {
+      "bad_weather": {
+        "mech": "30% 的格子价值降到 0.3",
+        "SR": 100.0,
+        "AIR": 0.41733910010803627,
+        "ANI": 1.0,
+        "ACS": 0.0,
+        "tokens": 6731
+      },
+      "area_blocked": {
+        "mech": "10% 的格子被封锁，不可进入",
+        "SR": 50.0,
+        "AIR": 1.1536561813162716,
+        "ANI": 3.0,
+        "ACS": -1.0,
+        "tokens": 29339
+      },
+      "worker_unavailable": {
+        "mech": "随机移除 N/8 名工作者（≤3）",
+        "SR": 100.0,
+        "AIR": 1.500112936168732,
+        "ANI": 2.0,
+        "ACS": -2.0,
+        "tokens": 13395
+      },
+      "traffic_congestion": {
+        "mech": "时间窗缩短 30%",
+        "SR": 100.0,
+        "AIR": 3.9340824302166615,
+        "ANI": 1.0,
+        "ACS": -4.5,
+        "tokens": 5674
+      },
+      "time_window_shift": {
+        "mech": "所有时间窗后移 2 个时段",
+        "SR": 100.0,
+        "AIR": 1.0352382242885099,
+        "ANI": 1.0,
+        "ACS": 0.5,
+        "tokens": 6480
+      },
+      "budget_cut": {
+        "mech": "预算削减 25%",
+        "SR": 50.0,
+        "AIR": 0.0,
+        "ANI": 2.0,
+        "ACS": 0.0,
+        "tokens": 14422
+      },
+      "task_priority_change": {
+        "mech": "α 由 0.5 变为 0.3",
+        "SR": 50.0,
+        "AIR": 0.9094733474855785,
+        "ANI": 1.0,
+        "ACS": 1.0,
+        "tokens": 12952
+      }
+    }
+  },
+  "Mock 替身 · n=2": {
+    "src": "mock_table5.json · 确定性算法假扮 LLM，不代表方法有效性",
+    "rows": {
+      "bad_weather": {
+        "mech": "30% 的格子价值降到 0.3",
+        "SR": 100.0,
+        "AIR": 1.1950714099779232,
+        "ANI": 1.0,
+        "ACS": 0.0,
+        "tokens": null
+      },
+      "area_blocked": {
+        "mech": "10% 的格子被封锁，不可进入",
+        "SR": 100.0,
+        "AIR": 0.2041202410558166,
+        "ANI": 1.0,
+        "ACS": -1.0,
+        "tokens": null
+      },
+      "worker_unavailable": {
+        "mech": "随机移除 N/8 名工作者（≤3）",
+        "SR": 100.0,
+        "AIR": -1.7270778417677746,
+        "ANI": 1.0,
+        "ACS": 3.0,
+        "tokens": null
+      },
+      "traffic_congestion": {
+        "mech": "时间窗缩短 30%",
+        "SR": 100.0,
+        "AIR": -10.044436672164895,
+        "ANI": 1.0,
+        "ACS": 18.0,
+        "tokens": null
+      },
+      "time_window_shift": {
+        "mech": "所有时间窗后移 2 个时段",
+        "SR": 100.0,
+        "AIR": 0.36095854478672834,
+        "ANI": 1.0,
+        "ACS": -1.0,
+        "tokens": null
+      },
+      "budget_cut": {
+        "mech": "预算削减 25%",
+        "SR": 100.0,
+        "AIR": -6.88773544132422,
+        "ANI": 1.0,
+        "ACS": 14.5,
+        "tokens": null
+      },
+      "task_priority_change": {
+        "mech": "α 由 0.5 变为 0.3",
+        "SR": 100.0,
+        "AIR": 0.5693513622627491,
+        "ANI": 1.0,
+        "ACS": -1.0,
+        "tokens": null
+      }
+    }
+  }
+};
+/* T5:END */
+
+/* ================= 小工具 ================= */
+const $ = (s) => document.querySelector(s);
+const f = (v, d = 2) => Number(v).toFixed(d);
+const pct = (v) => (v > 0 ? "+" : "") + f(v, 3) + "%";
+
+function errClass(e) {
+  const a = Math.abs(e);
+  if (a < 2) return "g";
+  if (a < 5) return "a";
+  return "r";
+}
+
+/* ================= 表 4 ================= */
+function renderT4(key) {
+  const data = T4[key];
+  const byScale = {};
+  Object.entries(data).forEach(([k, v]) => {
+    const [scale, base] = k.split("/");
+    (byScale[scale] = byScale[scale] || []).push({ base, ...v });
+  });
+
+  const order = ["small", "medium", "large"];
+  const label = { small: "Small", medium: "Medium", large: "Large" };
+  let html = "";
+
+  order.forEach((scale) => {
+    const rows = byScale[scale] || [];
+    if (!rows.length) return;
+
+    const vals = rows.flatMap((r) => [r.ours, r.paper]);
+    const lo = Math.min(...vals) - 0.06;
+    const hi = Math.max(...vals) + 0.06;
+    const pos = (v) => ((v - lo) / (hi - lo)) * 100;
+
+    rows.forEach((r, i) => {
+      html += `<tr>
+        <td class="name">${r.base}</td>
+        <td><span class="tag ${scale}">${label[scale]}</span></td>
+        <td>
+          <div class="dumb">
+            <div class="dumb-track">
+              <span class="dot paper" style="left:${pos(r.paper)}%"></span>
+              <span class="dot ours"  style="left:${pos(r.ours)}%"></span>
+            </div>
+            <span class="vs"><b>${f(r.ours, 3)}</b> / ${f(r.paper, 3)}</span>
+          </div>
+        </td>
+        <td><span class="err ${errClass(r.err)}">${r.err > 0 ? "+" : ""}${f(r.err, 1)}%</span></td>
+        <td class="num">${f(r.cost, 1)} / ${scale === "small" ? 40 : scale === "medium" ? 60 : 100}</td>
+        <td><span class="sr"><i><b style="width:100%"></b></i>100%</span></td>
+        <td class="num" style="color:var(--muted)">${r.sec < 0.1 ? "&lt;0.1" : f(r.sec, 1)}s</td>
+      </tr>`;
+    });
+  });
+
+  $("#body4").innerHTML = html;
+  $("#src4").textContent =
+    key === "n=20"
+      ? "results/table4_n20.json · 每个配置 20 个实例取平均 · 用时为单轮平均"
+      : "results/table4_n5.json · 每个配置 5 个实例取平均（样本更少，误差波动更大）";
+}
+
+/* ================= 表 3 ================= */
+function renderT3(key) {
+  const { rows, src } = T3[key];
+  const single = rows["单 Agent"];
+  const ours = rows["AgentSense"];
+
+  const card = (name, r, hl) => `
+    <div class="mcard ${hl ? "hi" : ""}">
+      <h3>${name} ${hl ? '<span class="tag small">闭环</span>' : ""}</h3>
+      <div class="sm">${hl ? "Solver + Eval + Memory，最多 3 轮" : "一次 LLM 调用，无工具、无反馈、无记忆"}</div>
+      <div class="mrow"><span>成功率 SR</span><b>${f(r.SR, 1)}%</b></div>
+      <div class="mrow"><span>平均提升率 AIR</span>
+        <b style="color:${hl ? "#4338ca" : "var(--ink)"}">${pct(r.AIR)}</b></div>
+      <div class="mrow"><span>平均迭代数 ANI</span><b>${f(r.ANI, 1)}</b></div>
+      <div class="mrow"><span>成本节省 ACS</span>
+        <b style="color:${r.ACS < 0 ? "var(--bad)" : "var(--ok)"}">${r.ACS > 0 ? "+" : ""}${f(r.ACS, 2)}</b></div>
+      <div class="mrow"><span>tokens</span><b>${r.tokens.toLocaleString()}</b></div>
+    </div>`;
+
+  $("#body3").innerHTML = card("单 Agent", single, false) + card("AgentSense", ours, true);
+  $("#src3").textContent = src;
+
+  // 同步表 3 下方三张小卡片的数字
+  const dSR = ours.SR - single.SR;
+  const dtok = ours.tokens / single.tokens;
+  $("#t3-note-sr").textContent =
+    `单 Agent ${f(single.SR, 0)}% → AgentSense ${f(ours.SR, 0)}%（${dSR >= 0 ? "+" : ""}${f(dSR, 1)} 个百分点）`;
+  $("#t3-note-air").textContent =
+    `单 Agent ${pct(single.AIR)} → AgentSense ${pct(ours.AIR)}（差额 ${f(ours.AIR - single.AIR, 3)} 个百分点）`;
+  $("#t3-note-tok").textContent =
+    `AgentSense 消耗为单 Agent 的 ${f(dtok, 2)} 倍（${ours.tokens.toLocaleString()} vs ${single.tokens.toLocaleString()}），换 SR 与 AIR 的稳定性。`;
+}
+
+/* ================= 表 5 ================= */
+function renderT5(key) {
+  const { rows, src } = T5[key];
+  const maxAbs = Math.max(...Object.values(rows).map((r) => Math.abs(r.AIR)), 1);
+
+  let html = "";
+  Object.entries(rows).forEach(([name, r]) => {
+    const w = (Math.abs(r.AIR) / maxAbs) * 50;     // 半幅最多 50%
+    const isPos = r.AIR > 0;
+    const isZero = Math.abs(r.AIR) < 1e-9;
+    const barStyle = isZero
+      ? "left:50%;width:2px"
+      : isPos
+        ? `left:50%;width:${w}%`
+        : `left:${50 - w}%;width:${w}%`;
+    const barCls = isPos ? "p" : "n";
+    const valCls = isZero ? "z" : isPos ? "p" : "n";
+
+    html += `<tr>
+      <td class="name" style="font-family:var(--mono);font-size:13px">${name}</td>
+      <td class="mech" style="color:var(--muted);font-size:13px">${r.mech}</td>
+      <td>
+        <div style="display:flex;align-items:center;gap:12px">
+          <div class="airbar"><div class="zero"></div>
+            <div class="bar ${barCls}" style="${barStyle}"></div>
+          </div>
+          <span class="airval ${valCls}">${pct(r.AIR)}</span>
+        </div>
+      </td>
+      <td><span class="sr"><i><b style="width:${r.SR}%"></b></i>${f(r.SR, 0)}%</span></td>
+      <td class="num">${f(r.ANI, 1)}</td>
+      <td class="num" style="color:${r.ACS < 0 ? "var(--bad)" : "var(--muted)"}">${r.ACS > 0 ? "+" : ""}${f(r.ACS, 2)}</td>
+      <td class="num" style="color:var(--muted)">${r.tokens == null ? "—" : r.tokens.toLocaleString()}</td>
+    </tr>`;
+  });
+
+  $("#body5").innerHTML = html;
+  $("#src5").textContent = src;
+}
+
+/* ================= tabs ================= */
+function buildTabs(mount, keys, onPick, initial) {
+  const box = $(mount);
+  box.innerHTML = "";
+  const startAt = Math.max(0, keys.indexOf(initial ?? keys[0]));
+  keys.forEach((k, i) => {
+    const b = document.createElement("button");
+    b.className = "tab";
+    b.type = "button";
+    b.textContent = k;
+    b.setAttribute("aria-selected", i === startAt ? "true" : "false");
+    b.addEventListener("click", () => {
+      [...box.children].forEach((c) => c.setAttribute("aria-selected", "false"));
+      b.setAttribute("aria-selected", "true");
+      onPick(k);
+    });
+    box.appendChild(b);
+  });
+  return keys[startAt];
+}
+
+/* ================= init ================= */
+/* 默认选中「最新一次」运行，避免标签与实际数据错位 */
+renderT4(buildTabs("#tab4", Object.keys(T4), renderT4, Object.keys(T4)[0]));
+renderT3(buildTabs("#tab3", Object.keys(T3), renderT3, Object.keys(T3).slice(-1)[0]));
+renderT5(buildTabs("#tab5", Object.keys(T5), renderT5, Object.keys(T5)[0]));
+</script>
+</body>
+</html>

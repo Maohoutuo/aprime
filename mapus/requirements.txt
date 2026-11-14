@@ -1,0 +1,4 @@
+numpy>=1.26
+# 复用同目录下的 agentsense 工程（PUS 环境 / 覆盖目标函数 / 6 个经典基线）
+# 安装方式见 README：py -3.14 -m pip install -e ..\agentsense
+agentsense>=0.1.0

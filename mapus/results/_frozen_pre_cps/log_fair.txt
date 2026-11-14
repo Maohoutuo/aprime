@@ -1,0 +1,18 @@
+  task 1/60 done  (0s)
+  task 5/60 done  (445s)
+  task 10/60 done  (1316s)
+  task 15/60 done  (2196s)
+  task 20/60 done  (3042s)
+  task 25/60 done  (3939s)
+  task 30/60 done  (4781s)
+  task 35/60 done  (5625s)
+  task 40/60 done  (6529s)
+  task 45/60 done  (7416s)
+  task 50/60 done  (8279s)
+  task 55/60 done  (9126s)
+  task 60/60 done  (10005s)
+UR   cov 4.483 pss 0.790 gini 0.167 max 17 std 2.78
+LS   cov 4.472 pss 0.780 gini 0.026 max 9 std 0.47
+CG   cov 4.789 pss 0.778 gini 0.581 max 35 std 9.15
+FPS  cov 4.628 pss 0.900 gini 0.007 max 9 std 0.25
+wrote results/fairness.json

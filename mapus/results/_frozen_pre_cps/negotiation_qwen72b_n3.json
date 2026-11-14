@@ -1,0 +1,40 @@
+{
+  "scale": "medium",
+  "n": 3,
+  "backend": "siliconflow",
+  "model": "siliconflow:Qwen/Qwen2.5-72B-Instruct",
+  "datasets": {
+    "tdrive": {
+      "pre_neg_overlap": 0.0191,
+      "avg_overlap": 0.0175,
+      "pre_neg_coverage": 5.0353,
+      "coverage": 5.0421,
+      "pre_neg_entropy": 4.1638,
+      "entropy": 4.1773,
+      "pre_neg_count": 60.0,
+      "count": 60.0,
+      "pre_neg_pss": 0.7244,
+      "pss": 0.7041,
+      "neg_attempts": 2.3333,
+      "neg_accepted": 2.0,
+      "neg_rejected": 2.0,
+      "n_selected": 4.0
+    },
+    "grab": {
+      "pre_neg_overlap": 0.0716,
+      "avg_overlap": 0.0698,
+      "pre_neg_coverage": 5.0285,
+      "coverage": 5.0124,
+      "pre_neg_entropy": 4.1665,
+      "entropy": 4.1424,
+      "pre_neg_count": 59.3333,
+      "count": 59.0,
+      "pre_neg_pss": 0.8485,
+      "pss": 0.8418,
+      "neg_attempts": 4.6667,
+      "neg_accepted": 4.0,
+      "neg_rejected": 4.0,
+      "n_selected": 4.0
+    }
+  }
+}
