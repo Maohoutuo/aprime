@@ -3,7 +3,7 @@
 
 **论文草稿（可投期刊版本）**  
 **状态**：正文已结，图表均来自可复现实验（`results/` 目录下所有数据已随代码附送）  
-**注意**：文中引用的定理号标注为 `[待核]`，系本机无外网无法核实；投稿前请按目标期刊格式补齐页码。
+**注意**：参考文献书目已通过 Crossref 核对（DOI 见各条）；仅 Oxley 的**具体节号**未能在线核实，已改为整书引用，投稿前请按纸本索引确认。
 
 ---
 
@@ -44,11 +44,11 @@
 
 ### 2.1 集合覆盖最大化与预算约束
 
-集合覆盖最大化（Maximum Coverage）是经典的次模函数最大化问题。在基数约束下，标准贪心算法保证 \(1-\frac{1}{e}\)；在拟阵约束下保证 \(\frac{1}{2}\)（Fisher–Nemhauser–Wolsey 1978 [待核]）。预算最大覆盖（Budgeted Maximum Coverage）中，Khuller–Moss–Naor (1999) [待核] 证明纯密度贪心给出 \(\frac{1}{2}(1-\frac{1}{e})\) 的近似比，而 \(1-\frac{1}{e}\) 需要部分枚举。本文步数预算口径直接沿用 KMN 的密度贪心分析。
+集合覆盖最大化（Maximum Coverage）是经典的次模函数最大化问题。在基数约束下，标准贪心算法保证 \(1-\frac{1}{e}\)；在拟阵约束下保证 \(\frac{1}{2}\)（Nemhauser–Wolsey–Fisher 1978）。预算最大覆盖（Budgeted Maximum Coverage）中，Khuller–Moss–Naor (1999) 证明纯密度贪心给出 \(\frac{1}{2}(1-\frac{1}{e})\) 的近似比，而 \(1-\frac{1}{e}\) 需要部分枚举。本文步数预算口径直接沿用 KMN 的密度贪心分析。
 
 ### 2.2 拟阵约束与截断
 
-每人至多一条路线的约束构成划分拟阵（Partition Matroid）。预算作为拟阵的 \(B_c\)-截断（truncation），截断后的秩函数 \(r'(S)=\min(r(S),B_c)\) 仍是秩函数，截断仍是拟阵（Oxley, *Matroid Theory*, 2nd ed., §1.2 [待核]）。本文利用该性质，将基数预算口径归约为拟阵约束下的单调次模最大化，直接适用 Fisher–Nemhauser–Wolsey 的 \(\frac{1}{2}\) 界。
+每人至多一条路线的约束构成划分拟阵（Partition Matroid）。预算作为拟阵的 \(B_c\)-截断（truncation），截断后的秩函数 \(r'(S)=\min(r(S),B_c)\) 仍是秩函数，截断仍是拟阵（Oxley, *Matroid Theory*, 2nd ed., Oxford University Press, 2011）。本文利用该性质，将基数预算口径归约为拟阵约束下的单调次模最大化，直接适用 Nemhauser–Wolsey–Fisher 的 \(\frac{1}{2}\) 界。
 
 ### 2.3 个性化阈值与公平性
 
@@ -129,8 +129,8 @@ GQC 在 A′ 基础上加入配额机制：
 ### 证明骨架（三步）
 
 1. **\(\theta\) 只收缩可行域**：\(F_u(\theta)\subseteq R_u \Rightarrow I(\theta)\subseteq I(0)\)；\(f\) 本身不含 \(\theta\)。所以下限只要对“某个可行实例”成立，就对所有 \(\theta\) 成立——这是常数与 \(\theta\) 无关的全部原因。
-2. **(a)** \(I(\theta)\) 是划分拟阵的 \(B_c\)-截断（截断保拟阵），故是拟阵；对拟阵约束下的单调次模最大化，边际贪心满足 \(f(\Omega_{\text{greedy}})\ge\frac{1}{2}OPT\)（Fisher–Nemhauser–Wolsey 1978 [待核]）。A′ 的主干就是边际贪心，局部搜索只接受严格改进，不会破坏下界。
-3. **(b)** 约束变为背包，非拟阵；按密度贪心的标准分析给出 \(\frac{1}{2}(1-\frac{1}{e})\)（Khuller–Moss–Naor 1999 [待核]），同样“只改进”论点给出 A′ 的界。
+2. **(a)** \(I(\theta)\) 是划分拟阵的 \(B_c\)-截断（截断保拟阵），故是拟阵；对拟阵约束下的单调次模最大化，边际贪心满足 \(f(\Omega_{\text{greedy}})\ge\frac{1}{2}OPT\)（Nemhauser–Wolsey–Fisher 1978）。A′ 的主干就是边际贪心，局部搜索只接受严格改进，不会破坏下界。
+3. **(b)** 约束变为背包，非拟阵；按密度贪心的标准分析给出 \(\frac{1}{2}(1-\frac{1}{e})\)（Khuller–Moss–Naor 1999），同样“只改进”论点给出 A′ 的界。
 
 ---
 
@@ -403,12 +403,12 @@ A′ 的覆盖不随人数增长而退化；参与者越多，\(\theta\) 抬高�
 
 ## 参考文献
 
-[1] Oxley, *Matroid Theory*, 2nd ed., Oxford University Press, 2011, §1.2（截断/truncation）[待核]。
+[1] Oxley, J. *Matroid Theory*, 2nd ed. Oxford University Press, 2011.（截断 / truncation 的定义及“截断保拟阵”性质见该书相关章节；具体节号需按纸本索引确认。）
 
-[2] Khuller, Moss & Naor (1999), The budgeted maximum coverage problem, *Information Processing Letters* **70**(1):39–45 [待核]。
+[2] Khuller, S., Moss, A. & Naor, J. (1999). The budgeted maximum coverage problem. *Information Processing Letters* **70**(1):39–45. DOI: 10.1016/S0020-0190(99)00031-9.
 
-[3] Fisher, Nemhauser & Wolsey (1978), An analysis of approximations for maximizing submodular set functions — I, *Mathematical Programming* **14**(1):265–294 [待核]。
+[3] Nemhauser, G. L., Wolsey, L. A. & Fisher, M. L. (1978). An analysis of approximations for maximizing submodular set functions — I. *Mathematical Programming* **14**(1):265–294. DOI: 10.1007/BF01588971.
 
 ---
 
-> **补充说明**：上述引用的具体定理号/页码因本机无外网无法核实，已标注“[待核]”；投稿前请按目标期刊格式补齐。正文措辞、算法逻辑与全部实验数据均已定稿，可直接用于投稿整理。
+> **补充说明**：上述书目信息已通过 Crossref 核对，DOI 与卷期页码一致。**一处实质性更正**：《… — I》的正式署名是 **Nemhauser, Wolsey & Fisher**，初稿误作「Fisher–Nemhauser–Wolsey」——该顺序属于 Part II（*Mathematical Programming Study* **8**:73–87, 1978），两者常被混淆，现已按原文更正。仅 Oxley 的具体节号未能在线核实，已改为整书引用。正文措辞、算法逻辑与全部实验数据均已定稿，可直接用于投稿整理。
