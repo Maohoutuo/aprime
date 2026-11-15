@@ -225,7 +225,7 @@ def convert_file(src: str, out: str):
         t = line.strip()
         if not t:
             return True
-        if re.match(r"^#{1,4}\s+", t):
+        if re.match(r"^#{1,6}\s+", t):
             return True
         if t.startswith("|") or t.startswith(">"):
             return True
@@ -259,9 +259,13 @@ def convert_file(src: str, out: str):
             continue
 
         # 标题（可连续出现，不要求空行分隔）
-        m = re.match(r"^(#{1,4})\s+(.*)$", s)
+        m = re.match(r"^(#{1,6})\s+(.*)$", s)
         if m:
-            p = doc.add_heading("", level=min(len(m.group(1)), 4))
+            lvl = min(len(m.group(1)), 6)
+            try:
+                p = doc.add_heading("", level=lvl)
+            except KeyError:
+                p = doc.add_heading("", level=4)
             add_rich(p, m.group(2))
             STATS["headings"] += 1
             i += 1
