@@ -24,8 +24,10 @@ venv/
 *.egg-info/
 
 # ── 体积控制 ──────────────────────────────────────────
-# 论文 PDF 是生成物，不入库（每次重编都是一份新的二进制）
+# 论文产物是生成物，不入库。重建：
+#   py experiments/md_to_docx.py && py experiments/docx_to_pdf.py
 aprime/paper_draft.pdf
+aprime/paper_draft.docx
 # 临时运行日志
 _run_*.log
 *.log
