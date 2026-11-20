@@ -49,32 +49,52 @@ def test_abstract_experiments_stay_runnable():
         avail.require_available(eid)  # 不抛错即通过
 
 
-def test_e0_1_is_blocked_and_says_how_to_unblock():
+def test_e0_1_readiness_flows_from_signed_verdict(monkeypatch, tmp_path):
+    """E0.1 就绪由签收凭据决定：没有 pass 就是 blocked，有 pass 才能 require_available。"""
+    fake = tmp_path / "manifest.json"
+    monkeypatch.setattr(avail, "_TDRIVE_MANIFEST", str(fake))
+
+    fake.write_text(json.dumps({"time_field_verdict": "partial: 等 D5"}), encoding="utf-8")
     assert avail.status_of("E0.1") == "blocked"
-    with pytest.raises(avail.DataUnavailable) as excinfo:
+    with pytest.raises(avail.DataUnavailable):
         avail.require_available("E0.1")
+
+    fake.write_text(json.dumps({"time_field_verdict": "pass: A1–A8 全过"}), encoding="utf-8")
+    assert avail.status_of("E0.1") == "ready"
+    avail.require_available("E0.1")  # 不抛错即通过
+
+    # 注：本机 data/tdrive/manifest.json 已实测 pass（audit_time_field.py 跑过），
+    # 所以本仓库工作副本上的 E0.1 是 ready；新检出需先重跑审计再产出真实数据结果。
+
+
+def test_e0_1b_is_blocked_and_says_why():
+    """gMission 不能承载轨迹级 E0.1，降级为匹配级且持续 blocked。"""
+    assert avail.status_of("E0.1b") == "blocked"
+    with pytest.raises(avail.DataUnavailable) as excinfo:
+        avail.require_available("E0.1b")
     msg = str(excinfo.value)
     assert "blocked" in msg
-    assert "解冻条件" in msg
     assert "gmission" in msg
-    assert "e0_1_data_access_plan.md" in msg
+    assert "数据集 gmission 不可用" in msg
 
 
 def test_shelved_lists_real_data_experiments_only():
     shelved = dict(avail.shelved())
-    assert "E0.1" in shelved and shelved["E0.1"] == "blocked"
-    assert "E1.1" in shelved
+    # 剩下 blocked 的：E0.1b（数据结构不可满足）、E1.2（管线未实现）；
+    # E0.1/E1.1/E2.3/E3.1/E5.1/SEC6/CROSS 已解冻为 ready
+    assert shelved == {"E0.1b": "blocked", "E1.2": "blocked"}, shelved
     assert "E2.1" not in shelved
-    # 列表按 id 排序，便于直接贴进汇报
     ids = [eid for eid, _ in avail.shelved()]
     assert ids == sorted(ids)
 
 
-def test_shelve_switch_only_lifts_deferred(monkeypatch):
-    """关掉全局闸门：deferred 变 ready，但 blocked 仍然拦住。"""
-    monkeypatch.setattr(avail, "SHELVE_REAL_DATA", False)
-    assert avail.status_of("E1.1") == "ready"
-    assert avail.status_of("E0.1") == "blocked"  # 缺数据不是开关能解决的
+def test_shelve_switch_lifts_only_deferred(monkeypatch):
+    """关掉全局闸门：deferred 变 ready，blocked 仍然拦住。"""
+    monkeypatch.setattr(avail, "SHELVE_REAL_DATA", True)
+    assert avail.status_of("E1.1") == "deferred"
+    assert avail.status_of("CROSS") == "deferred"
+    assert avail.status_of("E0.1b") == "blocked"
+    assert avail.status_of("E1.2") == "blocked"
 
 
 def test_unknown_ids_are_rejected():
@@ -82,6 +102,23 @@ def test_unknown_ids_are_rejected():
         avail.status_of("E9.9")
     with pytest.raises(KeyError):
         avail.dataset_available("no_such_dataset")
+
+
+def test_tdrive_verdict_probe_needs_pass_manifest(tmp_path, monkeypatch):
+    """只有 time_field_verdict 为 pass 的 manifest 才算 E0.1 签收。"""
+    monkeypatch.setattr(avail, "_TDRIVE_MANIFEST", str(tmp_path / "manifest.json"))
+    assert avail._probe_tdrive_verdict() is False  # 文件不存在
+
+    (tmp_path / "manifest.json").write_text("{}", encoding="utf-8")
+    assert avail._probe_tdrive_verdict() is False  # 有 manifest 但没填 verdict
+
+    (tmp_path / "manifest.json").write_text(
+        json.dumps({"time_field_verdict": "partial: 车次不足"}), encoding="utf-8")
+    assert avail._probe_tdrive_verdict() is False  # 未验收不得解冻
+
+    (tmp_path / "manifest.json").write_text(
+        json.dumps({"time_field_verdict": "pass: A1–A8 全过"}), encoding="utf-8")
+    assert avail._probe_tdrive_verdict() is True
 
 
 def test_gmission_probe_needs_manifest_and_nonempty_raw(tmp_path, monkeypatch):

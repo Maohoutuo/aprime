@@ -31,9 +31,15 @@ import os
 from dataclasses import dataclass
 from typing import Callable, Dict, List, Tuple
 
-#: 全局闸门：E0.1 阻塞期间，所有依赖真实数据的实验一律搁置。
-#: 置 False 只会解除 ``deferred``（数据在盘上那批），``blocked`` 仍会拦住。
-SHELVE_REAL_DATA = True
+#: 全局闸门：真实数据实验是否暂停产出结果。
+#:
+#: 2026-11-20 由 True 改为 False：E0.1 改由 T-Drive 承载后，A1–A8 硬门全部通过，
+#: 签收凭据落在 ``data/tdrive/manifest.json``（``time_field_verdict`` 以 pass 开头，
+#: 由 ``data/tdrive/audit_time_field.py`` 可重跑）。闸门的作用是"防止在验收未通过时
+#: 产出真实数据结果"，验收通过后继续关着就变成无意义的自我阻塞。
+#:
+#: 注意：置 False 只解除 ``deferred``，``blocked``（数据/管线缺失）仍然拦住。
+SHELVE_REAL_DATA = False
 
 #: 显式放行开关（仅用于解冻前的试跑）。例如：
 #:   $env:APRIME_ALLOW_SHELVED=1; py -3.14 experiments/run_theta_curve.py
@@ -47,6 +53,8 @@ _ONRTA_SYNTH_PATH = (r"D:\composition\data\sc_dense\raw\synthetic_onrta"
 _GEOLIFE_DEFAULT = r"D:\composition\data\geolife\geolife_norm.txt.gz"
 #: 道路/POI 属性重建管线的产出物（B1 OSM+OSMnx / B2 Overture Places）。
 _OSM_ATTRS_PATH = r"D:\composition\data\osm_attrs\attrs.csv.gz"
+#: E0.1 的签收凭据（T-Drive 承载）。由 ``data/tdrive/audit_time_field.py`` 实测生成。
+_TDRIVE_MANIFEST = r"D:\composition\data\tdrive\manifest.json"
 
 
 class DataUnavailable(RuntimeError):
@@ -91,6 +99,22 @@ def _tdrive_path() -> str:
 def _probe_tdrive() -> bool:
     path = _tdrive_path()
     return bool(path) and os.path.exists(path)
+
+
+def _probe_tdrive_verdict() -> bool:
+    """E0.1 的签收凭据：T-Drive 的 ``time_field_verdict`` 必须以 ``pass`` 开头。
+
+    只看 ``tdrive_clean.txt.gz`` 在不在是不够的——那只证明"文件存在"，
+    不证明"时间字段验收通过"。凭据由 ``data/tdrive/audit_time_field.py``
+    对 A1–A9 硬门实测生成，可重跑。
+    """
+    path = os.environ.get("TDRIVE_MANIFEST", _TDRIVE_MANIFEST)
+    try:
+        with open(path, "r", encoding="utf-8") as fh:
+            verdict = str(json.load(fh).get("time_field_verdict", "")).strip().lower()
+    except Exception:
+        return False
+    return verdict.startswith("pass")
 
 
 def _probe_didi() -> bool:
@@ -163,6 +187,15 @@ DATASETS: Dict[str, Dataset] = {
         reason="T-Drive 清洗文件在位，真实轨迹通路已实测可用",
         plan="docs/e0_1_data_access_plan.md §2.1",
     ),
+    "tdrive_verdict": Dataset(
+        name="tdrive_verdict",
+        real=True,
+        probe=_probe_tdrive_verdict,
+        reason="E0.1 的签收凭据：data/tdrive/manifest.json 的 time_field_verdict 必须以 "
+               "pass 开头。该凭据由 data/tdrive/audit_time_field.py 对 A1–A8 硬门实测生成，"
+               "可重跑（由 audit 脚本按运行时实测值填写）",
+        plan="docs/e0_1_data_access_plan.md §5/§7",
+    ),
     "gmission": Dataset(
         name="gmission",
         real=True,
@@ -206,8 +239,7 @@ DATASETS: Dict[str, Dataset] = {
                "但它是合成数据，只支持机制",
         plan="data/README.md §3",
     ),
-    "osm_attrs": Dataset(
-        name="osm_attrs",
+    "osm_attrs": Dataset(        name="osm_attrs",
         real=True,
         probe=_probe_osm_attrs,
         reason="道路/POI 属性层已用 OpenStreetMap 重建：研究范围内 69,247 条道路、"
@@ -222,11 +254,29 @@ DATASETS: Dict[str, Dataset] = {
 EXPERIMENTS: Dict[str, Experiment] = {
     "E0.1": Experiment(
         id="E0.1",
-        title="真实时间戳数据接入与验收（gMission）",
+        title="真实时间戳数据接入与验收（T-Drive 承载）",
+        datasets=("tdrive", "tdrive_verdict"),
+        requires_real_data=True,
+        note="gMission 与 EverySender 快照实测为 worker–task 匹配型（归一化 0–5 坐标、"
+             "整数秒相对偏移、无时区/纪元、无日期字段、每个 worker 只出现一次），"
+             "A2/A5/A6 结构性不可满足、A7 不适用，故**不能**承载轨迹级 E0.1，已降级为 "
+             "E0.1b（仅匹配级，由 E5.9b 消费）。E0.1 改由 T-Drive 承载：轨迹带经纬度与"
+             "明确时区、跨 7 个自然日、通行路线管线已实测可用"
+             "（见 docs/e0_1_data_access_plan.md §10 的退路）",
+        unblock="data/tdrive/manifest.json 的 time_field_verdict 以 pass 开头"
+                "（重跑：py -3.14 data/tdrive/audit_time_field.py）",
+    ),
+    "E0.1b": Experiment(
+        id="E0.1b",
+        title="gMission 匹配级接入（轨迹级 E0.1 的降级替代）",
         datasets=("gmission",),
         requires_real_data=True,
-        note="对应方案 R2 检查点 D5；当前停在 D0",
-        unblock="D5 全硬门通过 + manifest.time_field_verdict == 'pass'",
+        note="这份快照只支持 worker–task 匹配型实验（E5.9b）。它的 time_field_verdict 是 "
+             "partial：100% 的 begTime 可解析为整数秒，但无时区/纪元、无日期字段、"
+             "坐标为归一化 0–5 平面而非经纬度。**这是如实的未接入，不是待办漏项**——"
+             "要签 pass 必须换数据源，不能在 gMission 上补手续",
+        unblock="换一份带经纬度、已发布时区/纪元与日期字段的匹配快照；"
+                "这三项在 gMission/EverySender 上都结构性缺失（见 data/gmission/manifest.json）",
     ),
     "E1.1": Experiment(
         id="E1.1",
@@ -386,12 +436,22 @@ def is_runnable(eid: str) -> bool:
     return status_of(eid) == "ready"
 
 
-def require_available(eid: str) -> None:
+def require_available(eid: str, instance=None) -> None:
     """搁置中的实验直接抛错，并带上解冻条件。
 
     ``APRIME_ALLOW_SHELVED=1`` 可显式放行（仅用于解冻前的试跑/调试），
     放行不会改变状态判定本身，只是不拦。
+
+    ``instance`` 给定时追加**来源闸门**（``aprime.provenance.require_real``）：
+    `requires_real_data=True` 的实验拿到合成参与者的实例会直接抛错。
+    这道闸门**故意放在 ``_ALLOW_ENV`` 早退之前**——搁置开关是"允许跑"，
+    不是"允许拿合成数据冒充真实数据"，两者必须独立（见 provenance 模块文档）。
     """
+    exp = _experiment(eid)
+    if instance is not None and exp.requires_real_data:
+        from .provenance import require_real
+
+        require_real(instance, eid)
     if os.environ.get(_ALLOW_ENV):
         return
     status = status_of(eid)
