@@ -60,14 +60,22 @@ from mapus.config import LAND_USE  # noqa: E402
 #: (轨迹来源, 用地来源, 犯罪来源, 短标签)。只换这三个维度，其余全固定。
 #: 最后一行是"实测城市属性"组：用地与犯罪均为实测，用于主结果表。
 COMBOS = (
-    ("synthetic", "synthetic", "synthetic", "全合成"),
-    ("tdrive", "synthetic", "synthetic", "仅T-Drive轨迹"),
-    ("geolife", "synthetic", "synthetic", "仅GeoLife轨迹"),
-    ("synthetic", "osm", "synthetic", "仅OSM用地"),
-    ("synthetic", "synthetic", "zhang2025", "仅犯罪实测"),
-    ("geolife", "osm", "synthetic", "轨迹+用地均实测"),
-    ("geolife", "osm", "zhang2025", "轨迹+用地+犯罪均实测"),
+    ("synthetic", "synthetic", "synthetic", "全合成", "archetype"),
+    ("tdrive", "synthetic", "synthetic", "仅T-Drive轨迹", "archetype"),
+    ("geolife", "synthetic", "synthetic", "仅GeoLife轨迹", "archetype"),
+    ("synthetic", "osm", "synthetic", "仅OSM用地", "archetype"),
+    ("synthetic", "synthetic", "zhang2025", "仅犯罪实测", "archetype"),
+    ("geolife", "osm", "synthetic", "轨迹+用地均实测", "archetype"),
+    ("geolife", "osm", "zhang2025", "轨迹+用地+犯罪均实测", "archetype"),
+    ("tdrive", "osm", "zhang2025", "T-Drive+OSM+犯罪实测（手写偏好对照）", "archetype"),
+    ("tdrive", "osm", "zhang2025", "T-Drive+OSM+犯罪实测（显示性偏好）", "revealed"),
 )
+
+
+def _pref_for(wsrc: str, usrc: str, csrc: str) -> str:
+    """仅对全实测 T-Drive 组合启用显示性偏好，保留其它组合历史口径。"""
+    return ("revealed" if (wsrc, usrc, csrc) == ("tdrive", "osm", "zhang2025")
+            else "archetype")
 
 
 def _m(xs: List[float]) -> float:
@@ -105,11 +113,11 @@ def main() -> None:
     print("共 %d 个求解单元（%d 种子 × %d θ × %d 组合）"
           % (len(combos), args.seeds, len(thetas), len(COMBOS)))
 
-    for n, (seed, theta, (wsrc, usrc, csrc, label)) in enumerate(combos, start=1):
+    for n, (seed, theta, (wsrc, usrc, csrc, label, pref_source)) in enumerate(combos, start=1):
         inst = make_dense_instance(
             "tdrive", args.scale, n_workers=args.n_workers, budget=args.budget,
             seed=seed, index=seed, source=wsrc, urban_source=usrc,
-            crime_source=csrc)
+            crime_source=csrc, pref_source=pref_source)
         cands = build_candidates(inst, k=args.k, seed=seed)
         prob = make_problem(inst, cands,
                             APrimeConfig(theta=theta, budget_kind="steps", k_cand=args.k,
@@ -129,6 +137,7 @@ def main() -> None:
         rows.append({
             "seed": seed, "theta": theta,
             "worker_source": wsrc, "urban_source": usrc, "crime_source": csrc,
+            "pref_source": pref_source,
             "label": label,
             "lu_entropy": round(_lu_entropy(inst.urban.land_use), 4),
             "urban_coverage": round(float(inst.urban.coverage), 4),
@@ -153,18 +162,20 @@ def main() -> None:
         if n % 5 == 0 or n == len(combos):
             print("  %d/%d  %.0fs" % (n, len(combos), time.time() - t0))
 
-    def sub(wsrc, usrc, csrc, theta=None) -> List[dict]:
+    def sub(wsrc, usrc, csrc, theta=None, pref_source="archetype") -> List[dict]:
         out = [r for r in rows if r["worker_source"] == wsrc
-               and r["urban_source"] == usrc and r["crime_source"] == csrc]
+               and r["urban_source"] == usrc and r["crime_source"] == csrc
+               and r["pref_source"] == pref_source]
         if theta is not None:
             out = [r for r in out if abs(r["theta"] - theta) < 1e-9]
         return out
 
-    def agg(wsrc, usrc, csrc, key):
-        return _m([r[key] for r in sub(wsrc, usrc, csrc)])
+    def agg(wsrc, usrc, csrc, key, pref_source="archetype"):
+        return _m([r[key] for r in sub(wsrc, usrc, csrc, pref_source=pref_source)])
 
-    def _elig(wsrc, usrc, csrc, t):
-        return _m([r["eligible"] for r in sub(wsrc, usrc, csrc, theta=t)])
+    def _elig(wsrc, usrc, csrc, t, pref_source="archetype"):
+        return _m([r["eligible"] for r in sub(wsrc, usrc, csrc, theta=t,
+                                                pref_source=pref_source)])
 
     # ---- 汇总
     lines = ["# CROSS 试跑：轨迹来源 × 用地来源 × 犯罪来源 的因子对照", "",
@@ -177,8 +188,8 @@ def main() -> None:
              "| 覆盖(A′) | `gqc_gap`(A′) | PSS 均值(GQC) | 覆盖(GQC) | `gqc_gap`(GQC) | θ 违规 |",
              "|---|---|---|---|---|---|---|---|---|---|---|---|"]
 
-    for wsrc, usrc, csrc, label in COMBOS:
-        rows_c = sub(wsrc, usrc, csrc)
+    for wsrc, usrc, csrc, label, pref_source in COMBOS:
+        rows_c = sub(wsrc, usrc, csrc, pref_source=pref_source)
         lines.append("| %s | %.3f | %.0f | %.0f | **%.4f** | %.4f | %.1f | **%.4f** "
                      "| %.4f | %.1f | %.4f | %d |" % (
                          label,
@@ -200,8 +211,8 @@ def main() -> None:
     lines += ["", "## 2. 满意度尺度（θ 跨数据集不可比的根源）", "",
               "| 组合 | 最佳满意度中位 | 全部候选 P5 | P50 | P95 |",
               "|---|---|---|---|---|"]
-    for wsrc, usrc, csrc, label in COMBOS:
-        rows_c = sub(wsrc, usrc, csrc)
+    for wsrc, usrc, csrc, label, pref_source in COMBOS:
+        rows_c = sub(wsrc, usrc, csrc, pref_source=pref_source)
         lines.append("| %s | %.3f | %.3f | %.3f | %.3f |" % (
             label,
             _m([r["sat_best_med"] for r in rows_c]),
@@ -211,8 +222,9 @@ def main() -> None:
 
     lines += ["", "同一批实例下，**合法池随 θ 的收缩速度**：", "",
               "| 组合 | %s |" % hdr, "|---|%s|" % sep]
-    for wsrc, usrc, csrc, label in COMBOS:
-        cells = ["%.0f" % _elig(wsrc, usrc, csrc, t) for t in thetas]
+    for wsrc, usrc, csrc, label, pref_source in COMBOS:
+        cells = ["%.0f" % _elig(wsrc, usrc, csrc, t, pref_source=pref_source)
+                 for t in thetas]
         lines.append("| %s | %s |" % (label, " | ".join(cells)))
 
     base = ("synthetic", "synthetic", "synthetic")
@@ -240,13 +252,15 @@ def main() -> None:
     lines += ["", "## 3. 逐因子归因（相对全合成基线）", "",
               "| 改动 | ΔPSS(A′) | ΔPSS最小值 | Δ覆盖 | Δ`gqc_gap` |",
               "|---|---|---|---|---|"]
-    for wsrc, usrc, csrc, label in COMBOS[1:]:
+    for wsrc, usrc, csrc, label, pref_source in COMBOS[1:]:
+        def _a(key, _w=wsrc, _u=usrc, _c=csrc, _ps=pref_source):
+            return _m([r[key] for r in sub(_w, _u, _c, pref_source=_ps)])
         lines.append("| %s | %+.4f | %+.4f | %+.1f | %+.4f |" % (
             label,
-            agg(wsrc, usrc, csrc, "pss_mean_a") - agg(*base, key="pss_mean_a"),
-            agg(wsrc, usrc, csrc, "pss_min_a") - agg(*base, key="pss_min_a"),
-            agg(wsrc, usrc, csrc, "cov_a") - agg(*base, key="cov_a"),
-            agg(wsrc, usrc, csrc, "gap_a") - agg(*base, key="gap_a")))
+            _a("pss_mean_a") - agg(*base, key="pss_mean_a"),
+            _a("pss_min_a") - agg(*base, key="pss_min_a"),
+            _a("cov_a") - agg(*base, key="cov_a"),
+            _a("gap_a") - agg(*base, key="gap_a")))
 
     # ---- 交互项：两个因子一起换，是否等于各自效应之和
     def d(wsrc, usrc, csrc, key):
@@ -283,7 +297,20 @@ def main() -> None:
               "这个合成动作会把分布推向均匀；而满意度下降的主因是"
               "**绝对水平下移**，两者不是同一件事。"
               % (agg("synthetic", "osm", "synthetic", "lu_entropy"),
-                 agg(*base, key="lu_entropy")), ""]
+                 agg(*base, key="lu_entropy")),
+              "* **偏好口径配对**：`T-Drive+OSM+犯罪实测` 出现两行，输入完全相同，"
+              "只差 `p_u` 的来源（手写 archetype vs 显示性走廊）。两者 PSS 均值差 "
+              "**%+.4f**、覆盖差 %+.1f 格、`gqc_gap` 差 %+.4f。"
+              "这说明 **`p_u` 不是可在结论里忽略的自由度**：在同一批实测输入上，"
+              "换偏好来源带来的移动量级与换数据源相当。因此**不能只报其中一种口径**，"
+              "正式结果必须两行并列，或明确声明用的是哪一种。"
+              % (agg("tdrive", "osm", "zhang2025", "pss_mean_a", pref_source="revealed")
+                 - agg("tdrive", "osm", "zhang2025", "pss_mean_a", pref_source="archetype"),
+                 agg("tdrive", "osm", "zhang2025", "cov_a", pref_source="revealed")
+                 - agg("tdrive", "osm", "zhang2025", "cov_a", pref_source="archetype"),
+                 agg("tdrive", "osm", "zhang2025", "gap_a", pref_source="revealed")
+                 - agg("tdrive", "osm", "zhang2025", "gap_a", pref_source="archetype")),
+              ""]
 
     os.makedirs(args.out_dir, exist_ok=True)
     # 文件名带上口径，否则 absolute / relative 两次跑会互相覆盖
