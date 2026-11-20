@@ -38,23 +38,27 @@ LABELS = {
     ("synthetic", "synthetic", "zhang2025"): "仅犯罪实测",
     ("geolife", "osm", "synthetic"): "轨迹+用地均实测",
     ("geolife", "osm", "zhang2025"): "轨迹+用地+犯罪均实测",
+    ("tdrive", "osm", "zhang2025"): "T-Drive+OSM+犯罪实测+显示偏好",
 }
 BASE = ("synthetic", "synthetic", "synthetic")
 
 
-def _agg(rows: List[dict], wsrc: str, usrc: str, csrc: str, key: str) -> float:
+def _agg(rows: List[dict], wsrc: str, usrc: str, csrc: str, key: str,
+         pref_source: str = "archetype") -> float:
     vals = [r[key] for r in rows
             if r["worker_source"] == wsrc and r["urban_source"] == usrc
-            and r["crime_source"] == csrc]
+            and r["crime_source"] == csrc
+            and r.get("pref_source", "archetype") == pref_source]
     return float(mean(vals)) if vals else float("nan")
 
 
 def _mean_se(rows: List[dict], wsrc: str, usrc: str, csrc: str,
-             key: str) -> Tuple[float, float]:
+             key: str, pref_source: str = "archetype") -> Tuple[float, float]:
     """均值与标准误（跨种子 × θ 的格子）。"""
     vals = [r[key] for r in rows
             if r["worker_source"] == wsrc and r["urban_source"] == usrc
-            and r["crime_source"] == csrc]
+            and r["crime_source"] == csrc
+            and r.get("pref_source", "archetype") == pref_source]
     if not vals:
         return float("nan"), float("nan")
     if len(vals) < 2:
@@ -114,6 +118,19 @@ def effects(rows: List[dict], thetas: List[float]) -> Dict[str, Tuple[float, flo
             math.sqrt(_p(*BASE, "sat_best_med")[1] ** 2
                       + _p("synthetic", "osm", "synthetic", "sat_best_med")[1] ** 2)),
     }
+
+    def pref_delta(key: str) -> Tuple[float, float]:
+        """同一真实输入下，显示性偏好相对手写偏好的变化。"""
+        m_r, s_r = _mean_se(rows, "tdrive", "osm", "zhang2025", key, "revealed")
+        m_a, s_a = _mean_se(rows, "tdrive", "osm", "zhang2025", key, "archetype")
+        if s_r != s_r or s_a != s_a:
+            return m_r - m_a, float("nan")
+        return m_r - m_a, math.sqrt(s_r * s_r + s_a * s_a)
+
+    e["PSS·显示性偏好−手写偏好"] = pref_delta("pss_mean_a")
+    e["覆盖·显示性偏好−手写偏好"] = pref_delta("cov_a")
+    e["公平差距·显示性偏好−手写偏好"] = pref_delta("gap_a")
+
     w_osm = (_p("synthetic", "osm", "synthetic", "sat_p95")[0]
              - _p("synthetic", "osm", "synthetic", "sat_p05")[0])
     w_base = (_p(*BASE, "sat_p95")[0] - _p(*BASE, "sat_p05")[0])
@@ -254,9 +271,12 @@ def main() -> None:
         lines += ["## 未显著项（两个尺度上都与 0 无法区分）", "",
                   "下列结论**不要写进论文**，或必须先扩到更大尺度/更多种子：", ""]
         for k in weak:
-            lines.append(f"* **{k}**：z = "
-                         f"{es[0][1][k][0] / es[0][1][k][1]:+.1f} / "
-                         f"{es[-1][1][k][0] / es[-1][1][k][1]:+.1f}")
+            a, b = es[0][1][k], es[-1][1][k]
+            za = a[0] / a[1] if a[1] else float("nan")
+            zb = b[0] / b[1] if b[1] else float("nan")
+            sa = "%+.1f" % za if za == za else "—（SE=0）"
+            sb = "%+.1f" % zb if zb == zb else "—（SE=0）"
+            lines.append(f"* **{k}**：z = {sa} / {sb}")
         lines.append("")
 
     # 稳健项：可以直接进论文的
