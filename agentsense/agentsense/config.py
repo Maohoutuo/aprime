@@ -37,6 +37,11 @@ class Setting:
     #: 该字段是成本口径的唯一真源：生成器写进 meta["cells_per_step"]，
     #: 并直接作为 ``Worker.speed``；所有步数一律走 ``steps_for()``（= ceil(d/cps)）。
     cells_per_step: int = 1
+    #: 经纬度边界框 ``(lon_min, lat_min, lon_max, lat_max)``，用于把真实轨迹
+    #: 离散到网格。**必须随数据集走**：把它写死在 T-Drive 的北京框里，换一份
+    #: 别的城市的数据后所有点都会被静默过滤掉，得到空轨迹。
+    #: 见 ``aprime/docs/e0_1_data_access_plan.md`` §3.4。
+    bbox: tuple = (116.20, 39.80, 116.55, 40.05)
 
     @property
     def n_slots(self) -> int:

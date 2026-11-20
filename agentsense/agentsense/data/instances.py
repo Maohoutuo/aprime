@@ -94,12 +94,17 @@ def synthetic_workers(setting: Setting, rng: random.Random) -> List[Worker]:
 # --------------------------------------------------------------------------- T-Drive
 def _load_tdrive_traces(
     path: str,
-    bbox: Tuple[float, float, float, float] = (116.20, 39.80, 116.55, 40.05),
+    bbox: Tuple[float, float, float, float],
     grid: Tuple[int, int] = (8, 8),
     slot_min: int = 15,
     limit_taxis: Optional[int] = None,
 ) -> Dict[str, List[Tuple[int, Cell]]]:
     """读取 T-Drive 样本，返回 {taxi_id: [(slot_index, (x, y)), ...]}。
+
+    ``bbox`` 无默认值是**故意的**：它是"数据属于哪个城市"的唯一真源，
+    默认值会让调用方在换数据源时忘记改框，把轨迹静默过滤成空
+    （见 ``aprime/docs/e0_1_data_access_plan.md`` §3.4）。调用方应从
+    ``Setting.bbox`` 取值。
 
     期望的原始格式（微软 T-Drive 样本，逗号分隔）：
         taxi_id,2008-02-02 15:36:08,116.38545,39.90776
@@ -149,7 +154,7 @@ def _cached_traces(path: str, bbox: Tuple[float, float, float, float],
 
 def load_tdrive_traces(
     path: str,
-    bbox: Tuple[float, float, float, float] = (116.20, 39.80, 116.55, 40.05),
+    bbox: Tuple[float, float, float, float],
     grid: Tuple[int, int] = (8, 8),
     slot_min: int = 15,
     limit_taxis: Optional[int] = None,
@@ -201,7 +206,7 @@ def tdrive_workers(
     setting: Setting,
     rng: random.Random,
     path: Optional[str] = None,
-    bbox: Tuple[float, float, float, float] = (116.20, 39.80, 116.55, 40.05),
+    bbox: Optional[Tuple[float, float, float, float]] = None,
     theta: float = 0.55,
     min_slack: Optional[float] = None,
 ) -> List[Worker]:
@@ -224,9 +229,16 @@ def tdrive_workers(
     if not path:
         raise FileNotFoundError("T-Drive 数据路径未提供")
     cps = max(1, int(setting.cells_per_step))
+    # bbox 随数据集走（Setting.bbox），不再写死北京
+    bbox = tuple(bbox) if bbox is not None else tuple(setting.bbox)
     traces = load_tdrive_traces(
         path, bbox=bbox, grid=(setting.grid_x, setting.grid_y), slot_min=setting.slot_min
     )
+    if not traces:
+        raise ValueError(
+            "bbox %s 内没有任何轨迹点——几乎一定是 bbox 与数据所在城市不匹配"
+            "（不是数据缺失）。可用 Setting.bbox 或显式 bbox= 修正，"
+            "见 aprime/docs/e0_1_data_access_plan.md §3.4。" % (bbox,))
     T = setting.n_slots
 
     cands: List[Tuple[Cell, Cell, int]] = []
@@ -283,13 +295,14 @@ def make_instance(
     used_source = source
     workers: List[Worker]
     if source == "tdrive":
-        try:
-            workers = tdrive_workers(setting, rng, path=tdrive_path)
-        except Exception:
-            workers = synthetic_workers(setting, rng)
-            used_source = "synthetic(fallback)"
-    else:
+        # 显式要求真实轨迹时**不允许**静默回退：回退会把"数据没接上"变成
+        # "数字看起来像真实数据"，正是 e0_1_data_access_plan.md §3.4/§10 要防的。
+        workers = tdrive_workers(setting, rng, path=tdrive_path)
+    elif source == "synthetic":
         workers = synthetic_workers(setting, rng)
+    else:
+        raise ValueError("未知的数据来源 source=%r（可选 'synthetic' / 'tdrive'）"
+                         % (source,))
     return Instance(
         setting_name=setting.name,
         index=index,

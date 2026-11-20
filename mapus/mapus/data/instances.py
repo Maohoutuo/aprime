@@ -10,7 +10,6 @@ from __future__ import annotations
 
 import os
 import random
-import sys
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional
 
@@ -67,11 +66,29 @@ REAL_TRAJECTORY_SOURCES = {
     "geolife": _geolife_source,
 }
 
+#: gMission / EverySender 快照目录（worker–task 匹配型，归一化坐标、无轨迹）。
+#: 不参与 REAL_TRAJECTORY_SOURCES：只有起终点（x,y）和整数秒，既不能切出行段，
+#: 也不能还原地理 bbox。只用于匹配级实验（E5.9b / E0.1b）。
+GMISSION_DIR = os.environ.get("GMISSION_DIR", r"D:\composition\data\gmission")
+
+
+def _gmission_snapshots():
+    raw = os.path.join(GMISSION_DIR, "raw")
+    if not os.path.isdir(raw):
+        return []
+    return sorted(d for d in os.listdir(raw)
+                  if os.path.isdir(os.path.join(raw, d)))
+
 
 def data_source_label(dataset: str) -> str:
     """结果文件里记录的数据来源标签，避免把合成数据误写成官方数据集复现。"""
     if dataset == "grab":
         return "grab_official" if GRAB_OFFICIAL_DATA else "synthetic(grab_layout)"
+    if dataset == "gmission":
+        # 标签必须点明 "matching-only"：gMission 没有轨迹、无时区/日期/地理框，
+        # 若只写 gmission(real) 会被读成路线级真实复现（制造 E0.1 伪造假阳性）。
+        return ("gmission(real,matching-only)" if _gmission_snapshots()
+                else "synthetic(gmission_layout)")
     return "tdrive(real)" if _tdrive_source() else "synthetic(tdrive_layout)"
 
 
@@ -132,20 +149,33 @@ def make_mapus_instance(setting_name: str, index: int = 0, source: str = "synthe
     seed = instance_seed(setting, index)
     rng = random.Random(seed)
     used_source = source
-    if source == "tdrive":
-        base = None
+    base = None
+    if source == "synthetic":
+        pass
+    elif source == "tdrive":
+        # 显式要求真实轨迹时**不允许**静默回退：回退会把"数据没接上"变成
+        # "数字看起来像真实数据"，正是 e0_1_data_access_plan.md §3.4/§10 要防的。
         path = _tdrive_source()
         if path is None:
-            print("[instances] T-Drive 清洗文件缺失，回退合成数据", file=sys.stderr)
-        else:
-            try:
-                base = make_instance(setting_name, index, source="tdrive",
-                                     tdrive_path=path)
-            except Exception as exc:
-                print("[instances] T-Drive 加载失败（%s），回退合成数据" % exc,
-                      file=sys.stderr)
+            raise FileNotFoundError(
+                "请求了真实轨迹源 'tdrive'，但本机缺失 %r；拒绝回退合成数据"
+                "（空结果必须是异常，见 docs/e0_1_data_access_plan.md §3.4/§10）"
+                % TDRIVE_PATH)
+        base = make_instance(setting_name, index, source="tdrive",
+                             tdrive_path=path)
+    elif source == "geolife":
+        raise NotImplementedError(
+            "GeoLife 文件已落盘（%s），但 agentsense 尚未对它做轨迹加载；"
+            "在 agentsense/data/instances.py::make_instance 中追加与 tdrive"
+            "对称的分支后可用于 E0.1 的第二份真实轨迹" % GEOLIFE_PATH)
+    elif source == "gmission":
+        raise NotImplementedError(
+            "gMission 是 worker–task 匹配快照（归一化坐标、整数秒、无日期/时区），"
+            "没有轨迹，无法构造路线级参与者；匹配级实验请用 E5.9b"
+            "(data/gmission/load_gmission.py)")
     else:
-        base = None
+        raise ValueError("未知的数据来源 source=%r（可选 'synthetic' / 'tdrive' / "
+                         "'geolife' / 'gmission'）" % (source,))
     if base is None:
         workers = mapus_workers(setting, rng)
         base = Instance(setting_name=setting.name, index=index,
