@@ -28,7 +28,7 @@ from mapus.data.instances import (
     REAL_TRAJECTORY_SOURCES,
     mapus_workers,
 )
-from mapus.env.urban import make_urban_grid
+from mapus.env.urban import make_urban_grid, urban_note
 from mapus.profiles import build_profiles
 
 
@@ -37,21 +37,28 @@ def make_dense_instance(dataset: str = "tdrive", scale: str = "small",
                         slack: float = 0.55, seed: int = 0, index: int = 0,
                         profile_seed: int = 20260325,
                         source: str = "synthetic",
-                        urban_source: str = "synthetic") -> MapusInstance:
+                        urban_source: str = "synthetic",
+                        crime_source: str = "synthetic",
+                        pref_source: str = "archetype") -> MapusInstance:
     """同栅格、同时间窗、同速度口径，只放大参与者数量。
 
     ``source="tdrive"`` 时参与者改为**真实 T-Drive 出行段**（``t000`` 起编号），
-    栅格/时槽/速度口径不变。这能消掉"参与者是随机采样"这一条最弱的假设，
-    但**偏好与城市属性仍是合成的**，故 ``meta["source"]`` 会如实标注。
+    栅格/时槽/速度口径不变。这能消掉"参与者是随机采样"这一条最弱的假设；
+    城市属性可用 OSM 实测（``urban_source="osm"``），偏好可用显示性暴露
+    （``pref_source="revealed"``，起终点走廊 × 实测用地）。``meta["source"]``、
+    ``urban_note`` 与 ``pref_note`` 如实标注实际使用的口径；**无公开偏好调查数据，
+    不编造偏好向量**。
 
     ``source="geolife"`` 同理，改用 GeoLife 1.3 归一化后的真实轨迹
     （见 ``mapus.data.instances.GEOLIFE_PATH``）——用于 Grab-Posisi 拿不到时的
     跨数据集验证替代，**不要**与 T-Drive 的结果混在一张表里当同一数据源。
 
     ``urban_source="osm"`` 把土地利用从手绘高斯团块换成 **OSM 实测**
-    （见 ``mapus.data.osm_attrs``）。**犯罪层仍是合成的**——北京没有公开的
-    细粒度犯罪数据，别因为用地变真了就宣称"城市属性全真"。
-    只支持方形栅格，非方布局（如 grab 的 8x4）会报错。
+    （见 ``mapus.data.osm_attrs``）。``crime_source="zhang2025"`` 再把犯罪层换成
+    Zhang et al. 2025 北京犯罪栅格（``data/crime/crime_grid_<n>_beijing.csv.gz``，
+    已按附录 B.1 剔除 <10 条格子），仅支持 tdrive 的 8/16/32 方网格。
+    两者独立，可混合：source="osm" + crime_source="zhang2025" 即**土地利用与犯罪均为实测**。
+    非方网格（如 grab 的 8x4）的犯罪层保持合成，会报错。
     """
     base_setting = SETTINGS[(dataset, scale)]
     setting = dataclasses.replace(base_setting, n_workers=int(n_workers))
@@ -68,6 +75,8 @@ def make_dense_instance(dataset: str = "tdrive", scale: str = "small",
         workers = mapus_workers(setting, rng, slack=slack)
         worker_src = f"synthetic(slack={slack})"
 
+    pref_note = ("pref=archetype(手写)" if pref_source == "archetype"
+                 else "pref=revealed(起终点走廊×OSM)")
     base = Instance(
         setting_name=f"{dataset}_{scale}_dense{n_workers}",
         index=index,
@@ -89,12 +98,15 @@ def make_dense_instance(dataset: str = "tdrive", scale: str = "small",
                                       else "proxy(tdrive @same grid/slot)"),
             "density_workers_per_cell": round(n_workers / (setting.grid_x * setting.grid_y), 3),
             "urban_source": urban_source,
-            "urban_note": ("landuse=osm(实测), crime=synthetic" if urban_source == "osm"
-                           else "landuse=synthetic, crime=synthetic"),
+            "crime_source": crime_source,
+            "pref_source": pref_source,
+            "urban_note": urban_note(urban_source, crime_source),
+            "pref_note": pref_note,
         },
     )
     urban = make_urban_grid(dataset, setting.grid_x, setting.grid_y,
-                            source=urban_source)
-    profiles = build_profiles(base, seed=profile_seed + index)
+                            source=urban_source, crime_source=crime_source)
+    profiles = build_profiles(base, seed=profile_seed + index, urban=urban,
+                              pref_source=pref_source)
     return MapusInstance(base=base, urban=urban, profiles=profiles,
                          setting=setting, task_index=index)

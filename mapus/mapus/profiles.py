@@ -1,15 +1,25 @@
 # -*- coding: utf-8 -*-
 """参与者画像（论文附录 B.2，图 10 的模板）。
 
-五个 archetype 各自带一个土地利用偏好向量与人群先验；个体的偏好 = archetype
-向量 + 小幅扰动后归一化。画像同时生成自然语言 description，用于提示词。
+偏好向量 ``p_u`` 有两条来源，由 ``build_profiles(pref_source=...)`` 选择：
+
+* ``"archetype"``（默认）——手写 archetype 向量 + 小幅扰动后归一化。
+  与历史结果**逐位一致**，但向量本身**没有调查数据支撑**，属设计选择。
+* ``"revealed"``——``p_u`` 取自参与者**真实出行走廊**上的土地利用构成
+  （真实轨迹的起终点 × 真实 OSM 用地层），即**显示性暴露**（revealed
+  exposure）。它消除了手写向量，把"偏好"落到可观测行为上；但它把
+  "被暴露"当作"偏好"，与陈述性偏好（stated preference）不是同一件事，
+  论文里必须按此口径表述，不能写成"已用偏好调查标定"。
+
+画像同时生成自然语言 description，用于提示词；无论 ``pref_source`` 取何值，
+age/gender/hobbies 等描述字段仍是合成的（它们不进入目标函数）。
 """
 
 from __future__ import annotations
 
 import random
 from dataclasses import dataclass, field
-from typing import Dict, List
+from typing import Dict, List, Optional, Tuple
 
 import numpy as np
 
@@ -174,16 +184,63 @@ def _pick(rng: random.Random, dist: Dict[str, float]) -> str:
     return rng.choices(keys, weights=[dist[k] for k in keys], k=1)[0]
 
 
+def _manhattan_corridor_cells(origin: Tuple[int, int], dest: Tuple[int, int]) -> List[Tuple[int, int]]:
+    """起终点之间的曼哈顿走廊（含两端），用于把真实轨迹投影成土地利用暴露。
+
+    T-Drive / GeoLife 的清洗样本只保留每段的起终点，不保留完整路径；
+    走廊把实际访问地块最接近地面逼近为连续格点，避免把"没走过"的区域
+    当成该参与者的暴露。
+    """
+    (x0, y0), (x1, y1) = origin, dest
+    cells: List[Tuple[int, int]] = []
+    x, y = x0, y0
+    sx = 1 if x1 > x0 else -1
+    sy = 1 if y1 > y0 else -1
+    while x != x1:
+        cells.append((x, y)); x += sx
+    while y != y1:
+        cells.append((x, y)); y += sy
+    cells.append((x1, y1))
+    return cells
+
+
+def _revealed_pref(urban: "UrbanGrid", worker, mix_uniform: float) -> np.ndarray:
+    """从真实走廊上的土地利用构成导出 ``p_u``（显示性偏好，而非手写）。"""
+    cells = _manhattan_corridor_cells(worker.origin, worker.dest)
+    comp = np.zeros(len(LAND_USE), dtype=np.float64)
+    for x, y in cells:
+        comp += urban.land_use[x, y]
+    if comp.sum() <= 0:
+        comp = np.full(len(LAND_USE), 1.0 / len(LAND_USE))
+    pref = comp / comp.sum()
+    uniform = np.full(len(LAND_USE), 1.0 / len(LAND_USE))
+    pref = (1.0 - mix_uniform) * pref + mix_uniform * uniform
+    pref = pref / pref.sum()
+    return pref
+
+
 def _age_for(rng: random.Random, group: str) -> int:
     return {"young": rng.randint(18, 30),
             "middle_aged": rng.randint(31, 55),
             "senior": rng.randint(56, 75)}[group]
 
 
+def _uses_real_trajectories(instance: Instance) -> bool:
+    """``meta`` 是否记录了真实轨迹来源（``tdrive`` / ``geolife``）。
+
+    ``make_dense_instance`` 写 ``worker_source="tdrive(real)"``；agentsense 的
+    ``make_instance`` 写 ``source="tdrive"``；回退路径一律带 ``synthetic``。
+    """
+    blob = " ".join(str(instance.meta.get(k, "")) for k in ("source", "worker_source")).lower()
+    return ("synthetic" not in blob) and ("tdrive" in blob or "geolife" in blob)
+
+
 def build_profiles(instance: Instance, seed: int = 20260325, jitter: float = 0.35,
                    mix_uniform: float = 0.05,
                    only: List[str] | None = None,
-                   mixture: "str | dict" = "uniform") -> Dict[str, ParticipantProfile]:
+                   mixture: "str | dict" = "uniform",
+                   urban=None,
+                   pref_source: str = "archetype") -> Dict[str, ParticipantProfile]:
     """为实例中的每个 worker 生成画像（确定性：同一 seed 结果一致）。
 
     ``mix_uniform`` 把 archetype 向量与均匀分布混合：真实人群的偏好通常不会极端
@@ -192,7 +249,28 @@ def build_profiles(instance: Instance, seed: int = 20260325, jitter: float = 0.3
     ``mixture`` 选 :data:`PREF_MIXTURES` 里的一个人群构成先验，或直接传一个
     形如 ``{"weights": {...}, "source": ...}`` 的字典。默认 ``"uniform"``
     即原实现的等概率抽样；**所有先验都未经调查数据验证**，见该字典的说明。
+
+    ``pref_source`` 决定 ``p_u`` 的来源，两条路径互斥：
+
+    * ``"archetype"``（默认）——手写向量 + 抖动，与历史结果逐位一致；
+    * ``"revealed"``——``p_u`` 由 ``urban.land_use`` 沿参与者**真实走廊**
+      （起终点曼哈顿路径）的构成归一得到。此时 ``urban`` 必须给出，且实例必须
+      来自真实轨迹（否则"显示性偏好"无从谈起，会直接抛错）。这条路径**不读
+      手写的 ``spec["pref"]`` 与 ``jitter``**，因此结果是可复现的实测导出。
     """
+    if pref_source not in ("archetype", "revealed"):
+        raise ValueError("未知 pref_source=%r（只支持 'archetype' / 'revealed'）"
+                         % (pref_source,))
+    if pref_source == "revealed":
+        if urban is None:
+            raise ValueError(
+                "pref_source='revealed' 需要传入 urban（真实城市属性栅格），"
+                "否则无法把偏好落到实测用地上")
+        if not _uses_real_trajectories(instance):
+            raise ValueError(
+                "pref_source='revealed' 要求参与者来自真实轨迹"
+                "（meta 里需记录 tdrive/geolife），当前来源为 %r"
+                % (instance.meta.get("worker_source") or instance.meta.get("source"),))
     rng = random.Random(seed + instance.index * 977 + len(instance.workers))
     names = only or list(ARCHETYPES)
     out: Dict[str, ParticipantProfile] = {}
@@ -209,11 +287,14 @@ def build_profiles(instance: Instance, seed: int = 20260325, jitter: float = 0.3
         spec = ARCHETYPES[arche]
         group = _pick(rng, spec["age_group"])
         econ = _pick(rng, spec["economic"])
-        base = np.array(spec["pref"], dtype=np.float64)
-        noisy = np.clip(base + np.array([rng.uniform(-jitter, jitter) for _ in range(len(base))]), 1e-3, None)
-        pref = noisy / noisy.sum()
-        pref = (1.0 - mix_uniform) * pref + mix_uniform * uniform
-        pref = pref / pref.sum()
+        if pref_source == "revealed":
+            pref = _revealed_pref(urban, w, mix_uniform)
+        else:
+            base = np.array(spec["pref"], dtype=np.float64)
+            noisy = np.clip(base + np.array([rng.uniform(-jitter, jitter) for _ in range(len(base))]), 1e-3, None)
+            pref = noisy / noisy.sum()
+            pref = (1.0 - mix_uniform) * pref + mix_uniform * uniform
+            pref = pref / pref.sum()
         out[w.wid] = ParticipantProfile(
             wid=w.wid,
             gender=rng.choice(["male", "female", "non-binary"]),

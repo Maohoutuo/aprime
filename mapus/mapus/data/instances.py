@@ -20,7 +20,7 @@ from agentsense.config import SETTINGS, Setting
 from agentsense.data.instances import instance_seed, make_instance, sample_endpoints, synthetic_workers
 from agentsense.env.model import Instance, Worker
 
-from ..env.urban import UrbanGrid, make_urban_grid
+from ..env.urban import UrbanGrid, make_urban_grid, urban_note
 from ..profiles import ParticipantProfile, build_profiles
 
 #: 真实 T-Drive 清洗文件（由 data/tdrive/prep_tdrive.py 生成）。
@@ -124,7 +124,9 @@ def mapus_workers(setting: Setting, rng: random.Random, slack: float = 0.55) -> 
 
 def make_mapus_instance(setting_name: str, index: int = 0, source: str = "synthetic",
                         profile_seed: int = 20260325,
-                        urban_source: str = "synthetic") -> MapusInstance:
+                        urban_source: str = "synthetic",
+                        crime_source: str = "synthetic",
+                        pref_source: str = "archetype") -> MapusInstance:
     dataset, scale = setting_name.split("_")
     setting = SETTINGS[(dataset, scale)]
     seed = instance_seed(setting, index)
@@ -155,19 +157,26 @@ def make_mapus_instance(setting_name: str, index: int = 0, source: str = "synthe
                               "cells_per_step": int(setting.cells_per_step),
                               "cells_per_step_source": _cps_source(dataset)})
         used_source = "synthetic(slack)"
-    urban = make_urban_grid(dataset, base.nx, base.ny, source=urban_source)
-    if urban_source != "synthetic":
+    urban = make_urban_grid(
+        dataset, base.nx, base.ny, source=urban_source, crime_source=crime_source)
+    if urban_source != "synthetic" or crime_source != "synthetic":
         base.meta["urban_source"] = urban_source
-        base.meta["urban_note"] = ("landuse=osm(实测), crime=synthetic"
-                                   if urban_source == "osm"
-                                   else "landuse=synthetic, crime=synthetic")
-    profiles = build_profiles(base, seed=profile_seed)
+        base.meta["urban_note"] = urban_note(urban_source, crime_source)
+    pref_note = ("pref=archetype(手写)" if pref_source == "archetype"
+                 else "pref=revealed(起终点走廊×OSM)")
+    base.meta["pref_source"] = pref_source
+    base.meta["pref_note"] = pref_note
+    profiles = build_profiles(base, seed=profile_seed, urban=urban,
+                              pref_source=pref_source)
     return MapusInstance(base=base, urban=urban, profiles=profiles,
                          setting=setting, task_index=index)
 
 
 def make_pool_instance(dataset: str = "tdrive", scale: str = "medium", pool_size: int = 30,
-                       task_index: int = 0, seed: int = 31415) -> MapusInstance:
+                       task_index: int = 0, seed: int = 31415,
+                       urban_source: str = "synthetic",
+                       crime_source: str = "synthetic",
+                       pref_source: str = "archetype") -> MapusInstance:
     """公平性实验（图 4）：固定 30 人的人才池 + 60 个不同的传感任务。
 
     每个"任务"用一张平滑随机的**兴趣区域权重**来体现（``cell_weights`` 参与
@@ -180,7 +189,9 @@ def make_pool_instance(dataset: str = "tdrive", scale: str = "medium", pool_size
     for i, w in enumerate(workers):
         workers[i] = Worker(wid=f"w{i:03d}", origin=w.origin, dest=w.dest,
                             t_start=w.t_start, t_end=w.t_end, speed=w.speed)
-    urban = make_urban_grid(dataset, setting.grid_x, setting.grid_y)
+    urban = make_urban_grid(
+        dataset, setting.grid_x, setting.grid_y,
+        source=urban_source, crime_source=crime_source)
     base = Instance(
         setting_name=setting.name, index=task_index, grid=(setting.grid_x, setting.grid_y),
         n_slots=setting.n_slots, budget=float(setting.total_budget), workers=workers,
@@ -188,6 +199,13 @@ def make_pool_instance(dataset: str = "tdrive", scale: str = "medium", pool_size
                          "slot_minutes": setting.slot_min, "horizon_minutes": setting.horizon_min,
                          "cells_per_step": int(setting.cells_per_step),
                          "cells_per_step_source": _cps_source(dataset)})
+    if urban_source != "synthetic" or crime_source != "synthetic":
+        base.meta["urban_source"] = urban_source
+        base.meta["urban_note"] = urban_note(urban_source, crime_source)
+    pref_note = ("pref=archetype(手写)" if pref_source == "archetype"
+                 else "pref=revealed(起终点走廊×OSM)")
+    base.meta["pref_source"] = pref_source
+    base.meta["pref_note"] = pref_note
     # 任务兴趣区域：2~3 个高斯斑块，值域 [0.2, 1.0]
     trng = np.random.default_rng(seed + 7919 * task_index)
     xs = (np.arange(setting.grid_x) + 0.5) / setting.grid_x
@@ -201,6 +219,7 @@ def make_pool_instance(dataset: str = "tdrive", scale: str = "medium", pool_size
                                                   + ((gy - cy) ** 2) / (2 * sy ** 2)))
     field = field / (field.max() or 1.0)
     base.meta["cell_weights"] = 0.2 + 0.8 * field
-    profiles = build_profiles(base, seed=20260325 + task_index)
+    profiles = build_profiles(base, seed=20260325 + task_index, urban=urban,
+                              pref_source=pref_source)
     return MapusInstance(base=base, urban=urban, profiles=profiles, setting=setting,
                          task_index=task_index)

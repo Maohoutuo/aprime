@@ -111,15 +111,45 @@ Grab Medium（+0.010）**——之前那句"Grab 重叠继续下降"只对 Large
 结论：以 T-Drive 为主叙事（论文表 2 的口径）时 0.05 明显更好；若单独讨论 Grab Medium，
 需要在报告里如实标注这个例外，不能笼统写"NRR 稳定降低重叠"。
 
-## 4. 偏好先验 `p_u`：**未标定**，只有敏感性界（2026-11-12）
+## 4. 偏好先验 `p_u`：**有显示性路径，仍无陈述性数据**（2026-11-12，2026-11-13 增补）
 
 前三节的常数都至少有一个可对标的锚点（论文表 2 的基线数值）。**偏好向量没有**：
 `mapus/profiles.py` 里 5 个 archetype 的 `pref` 向量是手写的，人群构成用
 `rng.choice` **等概率**抽样。这两件事都**没有任何公开偏好调查数据支撑**。
 
-代码里已把这件事显式化：`PREF_MIXTURES` 的每一项都带 `source` 字段，当前全部标为
-`unvalidated`；`build_profiles(..., mixture=...)` 可切换先验，默认 `"uniform"` 保持
-与原实现**逐位一致**（已验证：重跑 `theta_bounds` 得到 384 行完全相同）。
+### 4.0 已落地：把 `p_u` 换成显示性暴露（`pref_source="revealed"`）
+
+`build_profiles(..., urban=..., pref_source="revealed")` 把 `p_u` 导出为参与者
+**真实出行走廊**（起终点之间的曼哈顿路径，两端都含）上的实测土地利用构成，
+再与均匀分布混合后归一。它读的是 `urban.land_use`（`urban_source="osm"` 时为
+OSM 实测），不读手写的 `spec["pref"]`，也不消耗 `jitter`，因此结果可复现。
+
+口径（必须随结果一起引用）：
+
+* 这是**显示性暴露**（revealed exposure），不是陈述性偏好（stated preference）：
+  把"实际被暴露的用地构成"当作"偏好"，逻辑上会偏爱参与者**已经走过**的走廊；
+  它能消掉"手写一个向量再说这是人的偏好"，但取代不了排序问卷。
+* 只在 `source="tdrive"/"geolife"`（真实轨迹）且 `urban_source` 为实测时才成立；
+  缺少任一条会直接抛错，不允许拿合成起终点冒充显示性偏好。
+* 默认仍是 `pref_source="archetype"`，保证与历史结果（含已发表的表）**逐位一致**。
+
+最小验证（tdrive_small，20 人）：
+
+```text
+urban_note : landuse=osm(实测), crime=real(张等2025)
+pref_note  : pref=revealed(起终点走廊×OSM)
+land_use   : (8, 8, 6)
+p_u 两两余弦均值 0.9343   # 有异质性，但显然比手写向量更集中
+```
+
+**仍不能写**："偏好模型已用调查数据标定"。能写的只有："`p_u` 在
+`pref_source="revealed"` 下由真实轨迹 × 实测用地导出（显示性暴露），
+另有 `archetype` 作为手写对照"。
+
+代码里已把这件事显式化：`PREF_MIXTURES` 的每一项都带 `source` 字段；`build_profiles`
+同时带 `mixture`（人群构成）与 `pref_source`（向量来源），默认
+`"uniform" / "archetype"` 保持与原实现**逐位一致**（已验证：重跑 `theta_bounds`
+得到 384 行完全相同）。
 
 ### 缺什么（按优先级）
 
@@ -130,7 +160,8 @@ Grab Medium（+0.010）**——之前那句"Grab 重叠继续下降"只对 Large
 | 同上 | **环境态度分段调查**（latent class 各类占比） | `eco_enthusiast` |
 | 偏好向量本身 | 土地利用偏好的 **stated-preference / 排序题** 分布 | 6 维 `pref` 的均值与协方差 |
 
-在这些数据到位前，**不能声称"偏好模型符合真实人群"**。
+在这些数据到位前，**不能声称"偏好模型符合真实人群"**。显示性路径（§4.0）只替代了
+"手写向量"，不能替代这张表里的调查数据。
 
 ### 能主张什么：敏感性界（E5.15）
 

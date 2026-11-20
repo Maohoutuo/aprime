@@ -29,27 +29,32 @@ import os
 from statistics import mean, stdev
 from typing import Dict, List, Tuple
 
-#: (轨迹来源, 用地来源) → 展示名。与 run_cross_trial.COMBOS 保持一致。
+#: (轨迹来源, 用地来源, 犯罪来源) → 展示名。与 run_cross_trial.COMBOS 保持一致。
 LABELS = {
-    ("synthetic", "synthetic"): "全合成",
-    ("tdrive", "synthetic"): "仅T-Drive轨迹",
-    ("geolife", "synthetic"): "仅GeoLife轨迹",
-    ("synthetic", "osm"): "仅OSM用地",
-    ("geolife", "osm"): "轨迹+用地均实测",
+    ("synthetic", "synthetic", "synthetic"): "全合成",
+    ("tdrive", "synthetic", "synthetic"): "仅T-Drive轨迹",
+    ("geolife", "synthetic", "synthetic"): "仅GeoLife轨迹",
+    ("synthetic", "osm", "synthetic"): "仅OSM用地",
+    ("synthetic", "synthetic", "zhang2025"): "仅犯罪实测",
+    ("geolife", "osm", "synthetic"): "轨迹+用地均实测",
+    ("geolife", "osm", "zhang2025"): "轨迹+用地+犯罪均实测",
 }
-BASE = ("synthetic", "synthetic")
+BASE = ("synthetic", "synthetic", "synthetic")
 
 
-def _agg(rows: List[dict], wsrc: str, usrc: str, key: str) -> float:
+def _agg(rows: List[dict], wsrc: str, usrc: str, csrc: str, key: str) -> float:
     vals = [r[key] for r in rows
-            if r["worker_source"] == wsrc and r["urban_source"] == usrc]
+            if r["worker_source"] == wsrc and r["urban_source"] == usrc
+            and r["crime_source"] == csrc]
     return float(mean(vals)) if vals else float("nan")
 
 
-def _mean_se(rows: List[dict], wsrc: str, usrc: str, key: str) -> Tuple[float, float]:
+def _mean_se(rows: List[dict], wsrc: str, usrc: str, csrc: str,
+             key: str) -> Tuple[float, float]:
     """均值与标准误（跨种子 × θ 的格子）。"""
     vals = [r[key] for r in rows
-            if r["worker_source"] == wsrc and r["urban_source"] == usrc]
+            if r["worker_source"] == wsrc and r["urban_source"] == usrc
+            and r["crime_source"] == csrc]
     if not vals:
         return float("nan"), float("nan")
     if len(vals) < 2:
@@ -63,52 +68,59 @@ def effects(rows: List[dict], thetas: List[float]) -> Dict[str, Tuple[float, flo
     返回 ``{名称: (效应值, 标准误)}``。标准误用于回答"这个效应是不是伪影"——
     只比两个尺度上的点估计大小是不够的，必须知道它是否能与 0 区分开。
     """
-    def _p(wsrc: str, usrc: str, key: str) -> Tuple[float, float]:
-        return _mean_se(rows, wsrc, usrc, key)
+    def _p(wsrc: str, usrc: str, csrc: str, key: str) -> Tuple[float, float]:
+        return _mean_se(rows, wsrc, usrc, csrc, key)
 
-    def d(wsrc: str, usrc: str, key: str) -> Tuple[float, float]:
+    def d(wsrc: str, usrc: str, csrc: str, key: str) -> Tuple[float, float]:
         """相对基线的差值及其标准误（两独立均值之差的合并 SE）。"""
-        m1, s1 = _p(wsrc, usrc, key)
-        m0, s0 = _p(BASE[0], BASE[1], key)
+        m1, s1 = _p(wsrc, usrc, csrc, key)
+        m0, s0 = _p(*BASE, key)
         if s1 != s1 or s0 != s0:
             return m1 - m0, float("nan")
         return m1 - m0, math.sqrt(s1 * s1 + s0 * s0)
 
-    def d_rel(wsrc: str, usrc: str, key: str) -> Tuple[float, float]:
+    def d_rel(wsrc: str, usrc: str, csrc: str, key: str) -> Tuple[float, float]:
         """相对基线的**比例**变化。覆盖数会随网格变大，绝对值不能跨尺度比。"""
-        m0, _ = _p(BASE[0], BASE[1], key)
+        m0, _ = _p(*BASE, key)
         if not m0:
             return float("nan"), float("nan")
-        v, se = d(wsrc, usrc, key)
+        v, se = d(wsrc, usrc, csrc, key)
         return v / m0, se / abs(m0)
 
     e = {
         # T-Drive 与 GeoLife 分开列：两者都是真实轨迹但结论可能不同——
         # small 上 T-Drive 抬高 PSS 而 GeoLife 压低，到 medium 两者都压低。
         # 只报其中一份会漏掉这个反转。
-        "PSS·仅换T-Drive": d("tdrive", "synthetic", "pss_mean_a"),
-        "PSS·仅换GeoLife": d("geolife", "synthetic", "pss_mean_a"),
-        "PSS·仅换用地": d("synthetic", "osm", "pss_mean_a"),
-        "PSS·两者同换": d("geolife", "osm", "pss_mean_a"),
-        "覆盖·仅换T-Drive(相对)": d_rel("tdrive", "synthetic", "cov_a"),
-        "覆盖·仅换GeoLife(相对)": d_rel("geolife", "synthetic", "cov_a"),
-        "覆盖·仅换用地(相对)": d_rel("synthetic", "osm", "cov_a"),
-        "覆盖·两者同换(相对)": d_rel("geolife", "osm", "cov_a"),
-        "公平差距·仅换轨迹": d("geolife", "synthetic", "gap_a"),
-        "公平差距·仅换用地": d("synthetic", "osm", "gap_a"),
-        "公平差距·两者同换": d("geolife", "osm", "gap_a"),
+        "PSS·仅换T-Drive": d("tdrive", "synthetic", "synthetic", "pss_mean_a"),
+        "PSS·仅换GeoLife": d("geolife", "synthetic", "synthetic", "pss_mean_a"),
+        "PSS·仅换用地": d("synthetic", "osm", "synthetic", "pss_mean_a"),
+        "PSS·仅换犯罪": d("synthetic", "synthetic", "zhang2025", "pss_mean_a"),
+        "PSS·两者同换": d("geolife", "osm", "synthetic", "pss_mean_a"),
+        "PSS·三者同换": d("geolife", "osm", "zhang2025", "pss_mean_a"),
+        "覆盖·仅换T-Drive(相对)": d_rel("tdrive", "synthetic", "synthetic", "cov_a"),
+        "覆盖·仅换GeoLife(相对)": d_rel("geolife", "synthetic", "synthetic", "cov_a"),
+        "覆盖·仅换用地(相对)": d_rel("synthetic", "osm", "synthetic", "cov_a"),
+        "覆盖·仅换犯罪(相对)": d_rel("synthetic", "synthetic", "zhang2025", "cov_a"),
+        "覆盖·两者同换(相对)": d_rel("geolife", "osm", "synthetic", "cov_a"),
+        "覆盖·三者同换(相对)": d_rel("geolife", "osm", "zhang2025", "cov_a"),
+        "公平差距·仅换轨迹": d("geolife", "synthetic", "synthetic", "gap_a"),
+        "公平差距·仅换用地": d("synthetic", "osm", "synthetic", "gap_a"),
+        "公平差距·仅换犯罪": d("synthetic", "synthetic", "zhang2025", "gap_a"),
+        "公平差距·两者同换": d("geolife", "osm", "synthetic", "gap_a"),
+        "公平差距·三者同换": d("geolife", "osm", "zhang2025", "gap_a"),
         # 满意度尺度：水平下移与离散变宽（这是 θ 不可比的机制）
         "满意度水平下移": (
-            _p(BASE[0], BASE[1], "sat_best_med")[0] - _p("synthetic", "osm", "sat_best_med")[0],
-            math.sqrt(_p(BASE[0], BASE[1], "sat_best_med")[1] ** 2
-                      + _p("synthetic", "osm", "sat_best_med")[1] ** 2)),
+            _p(*BASE, "sat_best_med")[0] - _p("synthetic", "osm", "synthetic", "sat_best_med")[0],
+            math.sqrt(_p(*BASE, "sat_best_med")[1] ** 2
+                      + _p("synthetic", "osm", "synthetic", "sat_best_med")[1] ** 2)),
     }
-    w_osm = (_p("synthetic", "osm", "sat_p95")[0] - _p("synthetic", "osm", "sat_p05")[0])
-    w_base = (_p(BASE[0], BASE[1], "sat_p95")[0] - _p(BASE[0], BASE[1], "sat_p05")[0])
-    se_w = math.sqrt((_p("synthetic", "osm", "sat_p95")[1] ** 2
-                      + _p("synthetic", "osm", "sat_p05")[1] ** 2)
-                     + (_p(BASE[0], BASE[1], "sat_p95")[1] ** 2
-                        + _p(BASE[0], BASE[1], "sat_p05")[1] ** 2))
+    w_osm = (_p("synthetic", "osm", "synthetic", "sat_p95")[0]
+             - _p("synthetic", "osm", "synthetic", "sat_p05")[0])
+    w_base = (_p(*BASE, "sat_p95")[0] - _p(*BASE, "sat_p05")[0])
+    se_w = math.sqrt((_p("synthetic", "osm", "synthetic", "sat_p95")[1] ** 2
+                      + _p("synthetic", "osm", "synthetic", "sat_p05")[1] ** 2)
+                     + (_p(*BASE, "sat_p95")[1] ** 2
+                        + _p(*BASE, "sat_p05")[1] ** 2))
     e["满意度离散变宽"] = (w_osm - w_base, se_w)
 
     # 交互项：两者同换 − (仅轨迹 + 仅用地)
@@ -121,11 +133,20 @@ def effects(rows: List[dict], thetas: List[float]) -> Dict[str, Tuple[float, flo
     a2, se_a2 = e["公平差距·仅换用地"]
     e["公平差距·交互项"] = (it - a1 - a2, math.sqrt(se_it ** 2 + se_a1 ** 2 + se_a2 ** 2))
 
+    # 三因子交互项：三者同换 − (仅轨迹 + 仅用地 + 仅犯罪)
+    it, se_it = e["PSS·三者同换"]
+    a1, se_a1 = e["PSS·仅换GeoLife"]
+    a2, se_a2 = e["PSS·仅换用地"]
+    a3, se_a3 = e["PSS·仅换犯罪"]
+    e["PSS·三因子交互"] = (it - a1 - a2 - a3,
+                          math.sqrt(se_it ** 2 + se_a1 ** 2 + se_a2 ** 2 + se_a3 ** 2))
+
     # 合法池在最大 θ 下的绝对人数（这是最直观的"约束强度"证据）
     t_hi = max(thetas)
     hi_rows = [r for r in rows if abs(r["theta"] - t_hi) < 1e-9]
-    e["合法池·全合成@θmax"] = _mean_se(hi_rows, BASE[0], BASE[1], "eligible")
-    e["合法池·两者均实测@θmax"] = _mean_se(hi_rows, "geolife", "osm", "eligible")
+    e["合法池·全合成@θmax"] = _mean_se(hi_rows, *BASE, "eligible")
+    e["合法池·两者均实测@θmax"] = _mean_se(hi_rows, "geolife", "osm", "synthetic", "eligible")
+    e["合法池·三者均实测@θmax"] = _mean_se(hi_rows, "geolife", "osm", "zhang2025", "eligible")
     return e
 
 

@@ -14,6 +14,9 @@
 
 from __future__ import annotations
 
+import csv
+import gzip
+import os
 from dataclasses import dataclass
 from typing import Dict, List, Optional, Tuple
 
@@ -22,6 +25,37 @@ import numpy as np
 from ..config import LAND_USE, LAND_USE_GLYPH
 
 N_CAT = len(LAND_USE)
+
+#: Zhang et al. 2025 北京犯罪栅格产出物（data/crime/build_crime_grid.py 生成）
+#: 各分辨率文件：crime_grid_{n}_beijing.csv.gz，列 res,x,y,crime_count,excluded_below_10
+#: 允许通过 CRIME_GRID_DIR 环境变量在 import 后覆盖目录。
+CRIME_GRID_DIR = os.environ.get("CRIME_GRID_DIR", r"D:\composition\data\crime")
+
+
+def _zhang2025_crime_grid(n: int) -> np.ndarray:
+    """读取 Zhang et al. 2025 北京犯罪栅格，返回 (n, n) 的记录数数组。
+
+    已按 MAPUS 附录 B.1 剔除了 <10 条的格子（置 0）。仅支持 n ∈ {8, 16, 32}，
+    正好对应 tdrive small/medium/large，且 bbox 与 OSM 属性层（data/osm_attrs）
+    完全对齐：经度→x、纬度→y。
+    """
+    if n not in (8, 16, 32):
+        raise ValueError(
+            "张等 2025 犯罪栅格只预生成了 8/16/32 三档（tdrive small/medium/large），"
+            "收到 n=%d；请先跑 data/crime/build_crime_grid.py --res %d" % (n, n))
+    path = os.path.join(CRIME_GRID_DIR, "crime_grid_%d_beijing.csv.gz" % n)
+    if not os.path.exists(path):
+        raise FileNotFoundError(
+            "张等 2025 犯罪栅格缺失：%s\n"
+            "  先跑：py -3.14 data/crime/fetch_china_crime.py   # 落盘 ChinaCrimeDatas.csv\n"
+            "  再跑：py -3.14 data/crime/build_crime_grid.py --res %d" % (path, n))
+    out = np.zeros((n, n), dtype=float)
+    with gzip.open(path, "rt", encoding="utf-8", newline="") as fh:
+        for row in csv.DictReader(fh):
+            if int(row["res"]) != n:
+                continue
+            out[int(row["x"]), int(row["y"])] = float(row["crime_count"])
+    return out
 
 
 # --------------------------------------------------------------------------- 城市形态
@@ -148,8 +182,17 @@ def _assign_categories(score: np.ndarray, seed: int = 7) -> np.ndarray:
     return cat.reshape(nx, ny)
 
 
-def _crime_field(nx: int, ny: int, land_use: np.ndarray, seed: int, exclude_below: float = 10.0):
-    """犯罪强度：商业/工业密度与环境噪声的混合，并剔除记录数 < 10 的格子（附录 B.1）。"""
+def _crime_field(nx: int, ny: int, land_use: np.ndarray, seed: int,
+                 exclude_below: float = 10.0,
+                 crime_source: str = "synthetic") -> np.ndarray:
+    """犯罪强度：商业/工业密度与环境噪声的混合，并剔除记录数 < 10 的格子（附录 B.1）。
+
+    ``crime_source="zhang2025"`` 时直接返回 Zhang et al. 2025 北京犯罪栅格（已按附录 B.1
+    剔除 <10 条格子），不再使用 ``land_use`` + 噪声合成。两条路径并行，由
+    ``make_urban_grid`` 统一调度。
+    """
+    if crime_source == "zhang2025":
+        return _zhang2025_crime_grid(nx)
     rng = np.random.default_rng(seed)
     density = 2.4 * land_use[:, :, 5] + 1.6 * land_use[:, :, 1] + 0.4 * land_use[:, :, 4]
     noise = rng.gamma(shape=2.0, scale=0.5, size=(nx, ny))
@@ -171,6 +214,16 @@ def _crime_field(nx: int, ny: int, land_use: np.ndarray, seed: int, exclude_belo
     raw = np.maximum(raw, 0.0)
     masked = np.where(raw >= exclude_below, raw, 0.0)
     return masked
+
+
+def urban_note(source: str, crime_source: str) -> str:
+    """城市属性层的紧凑来源标签，如 ``landuse=osm(实测), crime=real(张等2025)``。
+
+    两个子层独立计算，字符串在此处统一生成，避免 caller 端拼写不一致。
+    """
+    lu = "landuse=osm(实测)" if source == "osm" else "landuse=synthetic"
+    crime = "crime=real(张等2025)" if crime_source == "zhang2025" else "crime=synthetic"
+    return "%s, %s" % (lu, crime)
 
 
 @dataclass
@@ -257,17 +310,27 @@ class UrbanGrid:
 _URBAN_CACHE: Dict[Tuple[str, int, int, str], UrbanGrid] = {}
 
 
-def make_urban_grid(dataset: str, nx: int, ny: int, source: str = "synthetic") -> UrbanGrid:
+def make_urban_grid(
+    dataset: str,
+    nx: int,
+    ny: int,
+    source: str = "synthetic",
+    crime_source: str = "synthetic",
+) -> UrbanGrid:
     """按数据集构造（并缓存）城市属性。dataset ∈ {tdrive, grab}。
 
-    ``source="osm"`` 时土地利用改为**真实 OSM 测量**（``data/osm_attrs`` 产出物），
-    而不是手绘的高斯团块；``source="synthetic"`` 保持原行为不变（默认）。
+    ``source`` 控制**土地利用层**："osm" 时改为真实 OSM 测量（``data/osm_attrs`` 产出物）；
+    "synthetic" 保持原行为不变（手绘高斯团块）。
 
-    **犯罪层仍是合成的**：北京没有公开的细粒度犯罪数据，故即便土地利用是真的，
-    ``crime`` 也只是土地利用的函数 + 噪声。论文里必须分开写这两件事，
-    不能因为土地利用变真了就顺势说"城市属性都是真实的"。
+    ``crime_source`` 控制**犯罪层**：
+    - "zhang2025"：读取 Zhang et al. 2025 北京犯罪栅格（``data/crime/crime_grid_<n>_beijing.csv.gz``），
+      仅支持 tdrive 的 8/16/32 方网格，已按附录 B.1 剔除 <10 条格子；
+    - "synthetic"（默认）：土地利用的函数 + 噪声（原行为）。
+
+    两者独立，可混合：source="osm" + crime_source="zhang2025" 即**土地利用与犯罪均为实测**。
+    非方网格（grab 布局）的犯罪层保持合成，因为张等 2025 数据集未覆盖东南亚 Grab 区域。
     """
-    key = (dataset, nx, ny, source)
+    key = (dataset, nx, ny, source, crime_source)
     if key in _URBAN_CACHE:
         return _URBAN_CACHE[key]
 
@@ -287,7 +350,8 @@ def make_urban_grid(dataset: str, nx: int, ny: int, source: str = "synthetic") -
         # 真实数据本身就是混合用地，直接用 argmax，不再套 TARGET_SHARE 的配额，
         # 否则会把实测占比改写成设计占比。
         category = np.argmax(land_use, axis=2).astype(int)
-        crime = _crime_field(nx, ny, land_use, seed=9001 + nx * 31 + ny)
+        crime = _crime_field(nx, ny, land_use, seed=9001 + nx * 31 + ny,
+                             crime_source=crime_source)
         peak = float(crime.max()) or 1.0
         grid = UrbanGrid(nx=nx, ny=ny, dataset=dataset, land_use=land_use,
                          category=category, crime=crime, crime_norm=crime / peak)
@@ -299,8 +363,13 @@ def make_urban_grid(dataset: str, nx: int, ny: int, source: str = "synthetic") -
     score = _field(nx, ny, layout)
     category = _assign_categories(score, seed=(1000 if dataset == "tdrive" else 2000) + nx * 31 + ny)
     land_use = score / np.maximum(1e-9, score.sum(axis=2, keepdims=True))
+    if dataset != "tdrive" and crime_source == "zhang2025":
+        raise ValueError(
+            "张等 2025 犯罪栅格仅支持 tdrive（北京），当前 dataset=%r；"
+            "grab 布局无可靠犯罪数据，请用 crime_source='synthetic'" % dataset)
     if dataset == "tdrive":
-        crime = _crime_field(nx, ny, land_use, seed=9001 + nx * 31 + ny)
+        crime = _crime_field(nx, ny, land_use, seed=9001 + nx * 31 + ny,
+                             crime_source=crime_source)
     else:  # 附录 B.1：Grab-Posisi 区域没有可靠犯罪数据，只有土地利用
         crime = np.zeros((nx, ny))
     peak = float(crime.max()) or 1.0
