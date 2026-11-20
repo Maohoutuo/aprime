@@ -1,13 +1,21 @@
 # -*- coding: utf-8 -*-
-r"""E4.2 / E4.3：候选生成器质量 → 近似比（定理 4 的一致性 + 鲁棒性）。
+r"""E4.2 / E4.3：候选生成器质量 → 近似比（定理 3 的一致性 + 鲁棒性）。
 
-    py -3.14 experiments/run_llm_candidates.py --n 5
+    # 可控仿真（默认，复现论文现有表格，不联网、不烧 token）
+    py -3.14 experiments/run_llm_candidates.py --n-workers 20 --seeds 5
 
-**关于「LLM」的诚实声明**：本机无外网、无 LLM API，因此这里**不调用任何 LLM**。
-定理 4 的数学对象是「候选池 C_u 是否包含最优路线」以及「C_u 被污染的比例 η」，
-这与生成器是 LLM、启发式还是随机采样**无关**。本实验因此实现的是**候选生成器的
-可控仿真**，验证的是**定理 4 的界结构**（一致性 (1−ε)·OPT 与鲁棒性 (1−ε)(1−η′)），
-而不是某个具体 LLM 的实际质量。论文中必须按此口径表述。
+    # 真实 LLM 调用（需要 API key）
+    $env:DEEPSEEK_API_KEY = "sk-..."
+    py -3.14 experiments/run_llm_candidates.py --mode llm --n-workers 20 --seeds 5
+
+两种模式的口径差别（论文中**必须写明**）：
+* ``--mode sim``（默认）——**未调用任何 LLM**。定理 3 的数学对象是「候选池 ``C_u``
+  是否包含最优路线」与「污染比例 η」，这与生成器是 LLM、启发式还是随机采样无关。
+  本模式实现的是**候选生成器的可控仿真**，验证的是**定理 3 的界结构**
+  （一致性 (1−ε)·OPT 与鲁棒性 (1−ε)(1−η′)），**不是某个具体 LLM 的质量**。
+* ``--mode llm`` —— 真实调用 LLM 在每位参与者的编号菜单上做选择（见
+  ``aprime/llm_gen.py``），命中率与近似比均为实测。此时 E4.3（污染）不跑，
+  因为污染实验需要可控基线。
 
 实验设计
 --------
@@ -32,6 +40,7 @@ import argparse
 import json
 import os
 import random
+import re
 import sys
 import time
 from statistics import mean
@@ -43,6 +52,7 @@ import aprime  # noqa: F401,E402
 from aprime.candidates import build_candidates  # noqa: E402
 from aprime.config import APrimeConfig  # noqa: E402
 from aprime.dense import make_dense_instance  # noqa: E402
+from aprime.llm_gen import PRESETS, LLMConfig, LLMConfigError, MenuSelector  # noqa: E402
 from aprime.model import Candidate, SelectionProblem, make_problem  # noqa: E402
 from aprime.solvers.exact import exact  # noqa: E402
 from aprime.solvers.greedy import solve  # noqa: E402
@@ -136,6 +146,24 @@ def poison(pool: List[Candidate], by_w: Dict[str, List[Candidate]], eta: float,
     return out
 
 
+def _gen_llm_pool(selector: MenuSelector, rec: dict, args) -> tuple:
+    """让真实 LLM 在每位参与者的全池菜单上选 k 条，返回候选与审计记录。"""
+    pool: List[Candidate] = []
+    audit: List[dict] = []
+    for wid, menu in rec["by_w"].items():
+        if len(menu) <= args.k:
+            pool.extend(menu)
+            continue
+        fallback = sorted(menu, key=lambda c: (-c.sat, -len(c.cells)))
+        row: dict = {"seed": rec["seed"], "wid": wid, "theta": args.theta}
+        picked = selector.select_candidates(
+            wid, menu, args.k, theta=args.theta,
+            fallback=fallback, record=row, style=args.prompt_style)
+        pool.extend(picked)
+        audit.append(row)
+    return pool, audit
+
+
 # --------------------------------------------------------------------- 主流程
 def main() -> None:
     ap = argparse.ArgumentParser()
@@ -151,10 +179,52 @@ def main() -> None:
     ap.add_argument("--eps-grid", default="0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0")
     ap.add_argument("--eta-grid", default="0,0.05,0.1,0.15,0.2,0.3,0.4,0.5")
     ap.add_argument("--out-dir", default="results")
+    # ---------------- 真实 LLM 模式 ----------------
+    ap.add_argument("--mode", choices=("sim", "llm"), default="sim",
+                    help="sim=可控仿真（默认，验证界结构）；llm=真实 LLM 调用")
+    ap.add_argument("--provider", choices=tuple(PRESETS), default="deepseek")
+    ap.add_argument("--model", default=None, help="覆盖预设模型名")
+    ap.add_argument("--base-url", default=None,
+                    help="覆盖预设端点（自建/本地 mock 用；loopback 会自动绕过代理）")
+    ap.add_argument("--cache-dir", default="results/llm_cache")
+    ap.add_argument("--no-cache", action="store_true", help="禁用落盘缓存（会重复烧 token）")
+    ap.add_argument("--env-file", default="",
+                    help="含 API key 的 .env 路径（环境变量缺失时兜底读取）")
+    ap.add_argument("--thinking", action="store_true",
+                    help="开启推理模式。默认关闭——开启后 completion token 可能涨 100 倍以上")
+    ap.add_argument("--prompt-style", choices=("coverage", "diverse"), default="coverage",
+                    help="coverage=覆盖最大化优先（与命中率指标一致，默认）；"
+                         "diverse=多样性/均衡（早期版本，指标不一致，仅作对照）")
     args = ap.parse_args()
 
     eps_grid = [float(x) for x in args.eps_grid.split(",") if x]
     eta_grid = [float(x) for x in args.eta_grid.split(",") if x]
+
+    selector = None
+    if args.mode == "llm":
+        preset = PRESETS[args.provider]
+        extra = dict(preset.extra_payload)
+        if args.thinking:
+            extra["enable_thinking"] = True
+        cfg = LLMConfig(
+            base_url=args.base_url or preset.base_url,
+            model=args.model or preset.model,
+            api_key_env=preset.api_key_env,
+            cache_dir=args.cache_dir,
+            use_cache=not args.no_cache,
+            trust_env=not (args.base_url or "").startswith(("http://127.", "http://localhost")),
+            extra_payload=extra,
+            env_file=args.env_file,
+        )
+        if extra.get("enable_thinking") is True:
+            print("[警告] 已开启推理模式：completion token 可能达非推理的 100 倍以上。")
+        try:
+            cfg.api_key()
+        except LLMConfigError as exc:
+            raise SystemExit(f"[--mode llm] 凭据缺失：\n{exc}")
+        selector = MenuSelector(cfg)
+        print(f"[LLM] provider={args.provider} model={cfg.model} "
+              f"cache={'off' if args.no_cache else cfg.cache_dir}")
 
     # 每次 (seed) 一个实例，缓存全池与 OPT
     instances = []
@@ -188,15 +258,22 @@ def main() -> None:
         return
 
     rows: List[dict] = []
+    llm_audit: List[dict] = []
+    modes = (("full", "llm") if args.mode == "llm"
+             else ("full", "topk_sat", "topk_cov", "random", "oracle_eps"))
 
     # ---------------- E4.2：命中率 → 近似比 ----------------
-    for mode in ("full", "topk_sat", "topk_cov", "random", "oracle_eps"):
+    for mode in modes:
         eps_list = eps_grid if mode == "oracle_eps" else [0.0]
         for eps in eps_list:
             for rec in instances:
                 rng = random.Random(1000 * rec["seed"] + 17)
-                pool = gen_pool(rec["by_w"], args.k, mode, rng,
-                                opt_routes=rec["opt_routes"], eps=eps)
+                if mode == "llm":
+                    pool, audit = _gen_llm_pool(selector, rec, args)
+                    llm_audit.extend(audit)
+                else:
+                    pool = gen_pool(rec["by_w"], args.k, mode, rng,
+                                    opt_routes=rec["opt_routes"], eps=eps)
                 if not pool:
                     continue
                 cov, n_sel = _select(rec["inst"], pool, args.theta,
@@ -212,7 +289,7 @@ def main() -> None:
                         hits += 1
                 rows.append({
                     "exp": "E4.2", "mode": mode, "eps": eps, "eta": 0.0,
-                    "seed": rec["seed"], "k": args.k,
+                    "theta": args.theta, "seed": rec["seed"], "k": args.k,
                     "cov": cov, "opt": rec["opt_cov"],
                     "ratio": round(cov / rec["opt_cov"], 4),
                     "hit_rate": round(hits / tot, 4) if tot else 0.0,
@@ -221,7 +298,8 @@ def main() -> None:
 
     # ---------------- E4.3：污染 η → 近似比 ----------------
     # 基线池统一用 topk_sat（"一个还不错的生成器"），再施加污染
-    for pmode in ("random", "adversarial"):
+    # 真实 LLM 模式下跳过本节（污染实验需要可控基线，与 LLM 无关）
+    for pmode in (() if args.mode == "llm" else ("random", "adversarial")):
         for eta in eta_grid:
             for rec in instances:
                 rng = random.Random(2000 * rec["seed"] + 23)
@@ -232,7 +310,7 @@ def main() -> None:
                                      args.budget_steps, args.k)
                 rows.append({
                     "exp": "E4.3", "mode": pmode, "eps": 0.0, "eta": eta,
-                    "seed": rec["seed"], "k": args.k,
+                    "theta": args.theta, "seed": rec["seed"], "k": args.k,
                     "cov": cov, "opt": rec["opt_cov"],
                     "ratio": round(cov / rec["opt_cov"], 4),
                     "hit_rate": None,
@@ -248,7 +326,7 @@ def main() -> None:
     print("\n===== E4.2 命中率 → 近似比（|C_u|=%d, 全池 k=%d）====="
           % (args.k, args.k_full))
     print(f"{'mode':12s} {'eps':>5s} {'hit_rate':>9s} {'ratio':>7s}")
-    for mode in ("full", "topk_sat", "topk_cov", "random", "oracle_eps"):
+    for mode in modes:
         eps_list = eps_grid if mode == "oracle_eps" else [0.0]
         for eps in eps_list:
             hr = [r["hit_rate"] for r in rows
@@ -269,15 +347,56 @@ def main() -> None:
             print(f"{pmode:12s} {eta:5.2f} {rt:7.3f}")
 
     os.makedirs(args.out_dir, exist_ok=True)
-    stem = os.path.join(args.out_dir, f"llm_candidates_{args.dataset}_{args.scale}_n{len(instances)}")
+    is_llm = args.mode == "llm"
+    model_name = args.model or PRESETS[args.provider].model
+    # 模型名含 "/"（如 deepseek-ai/DeepSeek-V4-Flash），直接拼进文件名会被当成路径分隔符
+    safe_model = re.sub(r"[^A-Za-z0-9._-]+", "-", model_name)
+    suffix = f"_llm{safe_model}_{args.prompt_style}" if is_llm else ""
+    stem = os.path.join(
+        args.out_dir,
+        f"llm_candidates_{args.dataset}_{args.scale}_n{len(instances)}{suffix}")
+
+    if is_llm:
+        note = (f"真实 LLM 调用（provider={args.provider}, model="
+                f"{model_name}, prompt={args.prompt_style}）。"
+                f"候选池由 LLM 在编号菜单上选择生成，命中率与近似比均为实测。")
+    else:
+        note = ("候选生成器的可控仿真：未调用任何 LLM，验证的是定理 3 的界结构"
+                "（命中率→近似比、污染→退化），不是某个具体 LLM 的质量。")
+
     payload = {
-        "note": ("候选生成器的可控仿真：本机无 LLM API，验证的是定理 4 的界结构"
-                 "（命中率→近似比、污染→退化），不是某个具体 LLM 的质量。"),
+        "note": note,
+        "mode": args.mode,
         "dataset": args.dataset, "scale": args.scale,
         "n_workers": args.n_workers, "k_full": args.k_full, "k": args.k,
         "budget_steps": args.budget_steps, "theta": args.theta,
         "seeds": len(instances), "rows": rows,
     }
+    if is_llm:
+        payload["llm"] = {
+            "provider": args.provider,
+            "model": model_name,
+            "prompt_style": args.prompt_style,
+            "stats": selector.stats,
+            "n_selections": len(llm_audit),
+            "n_padded_total": sum(r.get("n_padded", 0) for r in llm_audit),
+            "n_unparsed": sum(1 for r in llm_audit if not r.get("llm_ok")),
+            "audit": llm_audit,
+        }
+        st = selector.stats
+        live_tok = st["prompt_tokens"] + st["completion_tokens"]
+        cache_tok = st["prompt_tokens_cached"] + st["completion_tokens_cached"]
+        payload["llm"]["tokens"] = {
+            "live": live_tok, "from_cache": cache_tok, "total": live_tok + cache_tok,
+        }
+        print(f"\n===== LLM 用量（{payload['llm']['model']}）=====")
+        print(f"  实发请求 {st['calls']} 次（{live_tok:,} token），"
+              f"缓存命中 {st['cache_hits']} 次（{cache_tok:,} token），失败 {st['failures']} 次")
+        print(f"  本次代表总量 {live_tok + cache_tok:,} token；"
+              f"实发时延 {st['latency_ms'] / 1000.0:.1f} s")
+        print(f"  补足条数合计 {payload['llm']['n_padded_total']}／"
+              f"{payload['llm']['n_selections']} 次选择")
+
     with open(stem + ".json", "w", encoding="utf-8") as fh:
         json.dump(payload, fh, ensure_ascii=False, indent=2)
 
@@ -285,11 +404,10 @@ def main() -> None:
     lines = [f"# 候选生成器质量 → 近似比（E4.2/E4.3，{args.dataset}/{args.scale}）", "",
              f"参与者 {args.n_workers}、全池 k_full={args.k_full}、生成器 |C_u|={args.k}、"
              f"步数预算 {args.budget_steps:.0f}、θ={args.theta}、{len(instances)} 个种子。", "",
-             "> **口径声明**：本机无 LLM API，本文验证的是定理 4 的**界结构**"
-             "（候选命中率 → 近似比；污染比例 → 退化），不是具体 LLM 的质量。", "",
+             f"> **口径声明**：{note}", "",
              "## E4.2 候选命中率 → 近似比（一致性）", "",
              "| 生成器 | ε | 命中率 | A′/OPT |", "|---|---|---|---|"]
-    for mode in ("full", "topk_sat", "topk_cov", "random", "oracle_eps"):
+    for mode in modes:
         eps_list = eps_grid if mode == "oracle_eps" else [0.0]
         for eps in eps_list:
             hr = [r["hit_rate"] for r in rows
@@ -300,9 +418,10 @@ def main() -> None:
                 continue
             tag = "-" if eps == 0.0 and mode != "oracle_eps" else f"{eps:.1f}"
             lines.append(f"| `{mode}` | {tag} | {mean(hr):.3f} | **{rt:.3f}** |")
-    lines += ["", "## E4.3 污染 η → 近似比（鲁棒性，基线 topk_sat）", "",
-              "| 污染模式 | η | A′/OPT |", "|---|---|---|"]
-    for pmode in ("random", "adversarial"):
+    if not is_llm:
+        lines += ["", "## E4.3 污染 η → 近似比（鲁棒性，基线 topk_sat）", "",
+                  "| 污染模式 | η | A′/OPT |", "|---|---|---|"]
+    for pmode in (() if is_llm else ("random", "adversarial")):
         for eta in eta_grid:
             rt = agg("E4.3", pmode, "eta", eta)
             if rt is None:
@@ -310,6 +429,9 @@ def main() -> None:
             lines.append(f"| {pmode} | {eta:.2f} | **{rt:.3f}** |")
     with open(stem + ".md", "w", encoding="utf-8") as fh:
         fh.write("\n".join(lines) + "\n")
+
+    if selector is not None:
+        selector.close()
 
     print(f"\nwrote {stem}.json\nwrote {stem}.md")
 
