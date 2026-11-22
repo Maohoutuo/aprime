@@ -10,7 +10,7 @@
 E4 章节（"LLM 能否替代覆盖贪心做候选选择"）已有 **4 组独立证据、6 个 commit**，全部指向
 同一结论：**LLM 既无优势也无额外脆弱性，退化成不够精确的 `topk_cov`**。
 
-已完成**跨数据集外部效度**（GeoLife 真实轨迹，sim + V4-Flash），与 T-Drive 同向；文档已补 §4.5。
+已完成**跨数据集外部效度**（GeoLife 真实轨迹，sim + V4-Flash + E4.3 污染），与 T-Drive 同向；文档已补 §4.5。
 
 ---
 
@@ -131,7 +131,20 @@ V4-Flash θ=0.3 的 cov 59 / OPT 63，用量 183,104 token。
 
 设置：8×8/8 时槽（与 T-Drive small 口径一致），--source geolife --min-cand 4 --n-workers 60 --seeds 10；
 每种子丢弃候选 <4 条者，有效 314 人·种子、丢弃 286 人·种子。结论：与 T-Drive 同向，绝对值
-略低（候选池更稀）。E4.3 污染未在 GeoLife 上复跑（口径见文档 §4.5 末）。
+略低（候选池更稀）。
+
+**E4.3 污染（GeoLife，V4-Flash，A′/OPT）**：
+
+| 污染 | η | `llm` | `topk_cov` | `topk_sat` | `random` | `llm` 净吸收 |
+|---|---|---|---|---|---|---|
+| random | 0.50 | 0.885 | 0.902 | 0.850 | 0.795 | 0.018 |
+| random | 0.75 | 0.844 | 0.844 | 0.815 | 0.721 | 0.000 |
+| adversarial | 0.50 | 0.850 | 0.850 | 0.800 | 0.754 | 0.016 |
+| adversarial | 0.75 | 0.725 | 0.725 | 0.690 | 0.628 | 0.000 |
+
+`llm` 与 `topk_cov` 全 η 下几乎重合，净吸收 0.000–0.018，与 T-Drive（0.000–0.025）一致；
+`random` 净吸收 0.253–0.455、`topk_sat` 0.092–0.196，与 T-Drive 同向。
+用量：1195 实发调用（689 缓存命中）、740,682 token（实发 474,513）、0 失败、38 补足。
 
 ---
 
@@ -160,7 +173,7 @@ b2bc196  V4-Flash θ 扫描
 
 ---
 
-## 7. 当前任务：跨数据集外部效度（已完成）
+## 7. 当前任务：跨数据集外部效度（已完成，含污染）
 
 GeoLife 外部效度已跑完并写进文档：
 
@@ -168,12 +181,13 @@ GeoLife 外部效度已跑完并写进文档：
   有效 314 人·种子，菜单 4–12 条，topk_cov 0.890 / random 0.868 / topk_sat 0.845，oracle_eps 单调。
 - V4-Flash `--mode llm`：314 次调用、123,482 token、0 失败、命中率 0.379 / 近似比 0.878；
   介于 random 与 topk_cov 之间，与 T-Drive 同向。
-- 文档 `docs/e4_llm_candidate_experiment.md` 新增 §4.5 跨数据集（GeoLife），并更新了 §6 用量表、
-  §8 限制（数据集覆盖扩到两个）、§10 文件表、§7.8 过滤必须报告丢弃人数。
-- 未覆盖：E4.3 污染在 GeoLife 上未复跑（口径已在 §4.5 说明）。
+- V4-Flash E4.3 污染：`run_llm_pollution.py --source geolife --min-cand 4 --n-workers 60`；
+  1195 实发调用 / 740,682 token / 0 失败；`llm` 与 `topk_cov` 全 η 重合、净吸收 0.000–0.018，
+  与 T-Drive 同向。为此给 `run_llm_pollution.py` 加了 `--source` / `--min-cand`。
+- 文档 `docs/e4_llm_candidate_experiment.md` §4.5 已含污染结果，并更新 §6 用量表、
+  §8 限制（两个数据集都跑了污染）、§10 文件表、§7.8 过滤必须报告丢弃人数。
 
-下一步：提交本次更改（`run_llm_candidates.py` 的 `--source`/`--min-cand`，results 产物，文档），
-commit 风格 `feat(llm): ...`（中文，说明做了什么 + 结论）。
+下一步：提交本次更改（`run_llm_pollution.py` 的 `--source`/`--min-cand`，污染结果文件，文档）。
 
 ## 8. 不要做的事
 

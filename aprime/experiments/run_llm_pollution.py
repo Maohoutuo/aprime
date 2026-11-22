@@ -139,6 +139,13 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--dataset", default="tdrive")
     ap.add_argument("--scale", default="small")
+    ap.add_argument("--source", default="synthetic",
+                    help="参与者来源。synthetic=随机采样（默认，保持既有结果可复现）；"
+                         "geolife=GeoLife 1.3 真实轨迹（跨数据集外部效度用）")
+    ap.add_argument("--min-cand", type=int, default=0,
+                    help="只保留候选池 ≥ 该条数的参与者（默认 0=不过滤）。真实轨迹数据"
+                         "（如 GeoLife）出行段短、候选池偏稀，需过滤掉候选不足的参与者；"
+                         "被丢弃的人数会写进结果文件，作为有效样本量")
     ap.add_argument("--n-workers", type=int, default=20)
     ap.add_argument("--k-full", type=int, default=12)
     ap.add_argument("--k", type=int, default=3)
@@ -184,19 +191,38 @@ def main() -> int:
           f"cache={'off' if args.no_cache else cfg.cache_dir}")
 
     instances = []
+    n_kept = n_dropped = 0
     for seed in range(args.seeds):
         inst = make_dense_instance(args.dataset, args.scale, n_workers=args.n_workers,
-                                   seed=seed, index=0)
+                                   seed=seed, index=0, source=args.source)
         cands = build_candidates(inst, k=args.k_full, seed=seed,
                                  lams=(1.0, 0.9, 0.75, 0.6, 0.5, 0.4, 0.25, 0.1, 0.0),
                                  n_random=16)
+        ppw = _by_worker(cands)
+        # 过滤候选不足的参与者（真实轨迹如 GeoLife 出行段短，很多参与者凑不出 4 条路线）
+        floor = max(args.min_cand, args.k + 1)
+        if args.min_cand:
+            n_all = len(ppw)
+            kept = {wid: v for wid, v in ppw.items() if len(v) >= floor}
+            n_kept += len(kept)
+            n_dropped += n_all - len(kept)
+            cands = [c for v in kept.values() for c in v]
+            ppw = kept
+            print(f"[seed {seed}] 候选过滤（≥{floor} 条）：保留 {len(kept)}/{n_all} 人，"
+                  f"丢弃 {n_all - len(kept)} 人")
+        if not ppw:
+            print(f"[seed {seed}] 过滤后没有参与者，跳过")
+            continue
+        sizes = [len(v) for v in ppw.values()]
+        if min(sizes) <= args.k:
+            raise SystemExit(
+                f"候选池太小：每人最少只有 {min(sizes)} 条 ≤ k={args.k}，"
+                f"生成器无法真正截断。请增大 --k-full 或 --min-cand。")
         sel_opt, opt_cov, status = _opt(inst, cands, args.theta,
                                         args.budget_steps, args.k_full)
         if opt_cov <= 0:
             print(f"[seed {seed}] OPT=0 (status={status})，跳过")
             continue
-        ppw = _by_worker(cands)
-        sizes = [len(v) for v in ppw.values()]
         instances.append({
             "seed": seed, "inst": inst, "by_w": ppw, "opt_cov": opt_cov,
             "opt_routes": {c.wid: c for c in sel_opt}, "status": status,
@@ -279,9 +305,10 @@ def main() -> int:
     os.makedirs(args.out_dir, exist_ok=True)
     model_name = args.model or preset.model
     safe_model = re.sub(r"[^A-Za-z0-9._-]+", "-", model_name)
+    src_tag = "" if args.source == "synthetic" else f"_{args.source}"
     stem = os.path.join(
         args.out_dir,
-        f"llm_pollution_{args.dataset}_{args.scale}_n{len(instances)}"
+        f"llm_pollution_{args.dataset}{src_tag}_{args.scale}_n{len(instances)}"
         f"_llm{safe_model}_{args.prompt_style}")
 
     payload = {
@@ -290,8 +317,12 @@ def main() -> int:
                  f"topk_cov/topk_sat/random 在同一污染菜单上作对照。"
                  f"uptake=选中诱饵占比，forced_share=好候选不足 k 时的被迫占比，"
                  f"净吸收=uptake−forced_share。"),
-        "mode": "llm", "dataset": args.dataset, "scale": args.scale,
-        "n_workers": args.n_workers, "k_full": args.k_full, "k": args.k,
+        "mode": "llm", "source": args.source, "min_cand": args.min_cand,
+        "dataset": args.dataset, "scale": args.scale,
+        "n_workers": args.n_workers,
+        "n_workers_retained": n_kept or args.n_workers,
+        "n_workers_dropped": n_dropped,
+        "k_full": args.k_full, "k": args.k,
         "budget_steps": args.budget_steps, "theta": args.theta,
         "seeds": len(instances), "eta_grid": eta_grid,
         "menu_sizes": {"min": min(menu_sizes), "max": max(menu_sizes),
