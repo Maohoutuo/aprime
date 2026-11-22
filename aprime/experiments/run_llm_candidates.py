@@ -169,6 +169,13 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--dataset", default="tdrive")
     ap.add_argument("--scale", default="small")
+    ap.add_argument("--source", default="synthetic",
+                    help="参与者来源。synthetic=随机采样（默认，保持既有结果可复现）；"
+                         "geolife=GeoLife 1.3 真实轨迹（跨数据集外部效度用）")
+    ap.add_argument("--min-cand", type=int, default=0,
+                    help="只保留候选池 ≥ 该条数的参与者（默认 0=不过滤）。真实轨迹数据"
+                         "（如 GeoLife）出行段短、候选池偏稀，需过滤掉候选不足的参与者；"
+                         "被丢弃的人数会写进结果文件，作为有效样本量")
     ap.add_argument("--n-workers", type=int, default=20,
                     help="参与者数（小到 ILP 可在限时内求 OPT）")
     ap.add_argument("--k-full", type=int, default=8, help="全候选池每人条数")
@@ -228,23 +235,39 @@ def main() -> None:
 
     # 每次 (seed) 一个实例，缓存全池与 OPT
     instances = []
+    n_kept = n_dropped = 0
     for seed in range(args.seeds):
         inst = make_dense_instance(args.dataset, args.scale, n_workers=args.n_workers,
-                                   seed=seed, index=0)
+                                   seed=seed, index=0, source=args.source)
         cands = build_candidates(inst, k=args.k_full, seed=seed,
                                  lams=(1.0, 0.9, 0.75, 0.6, 0.5, 0.4, 0.25, 0.1, 0.0),
                                  n_random=16)
+        ppw = _by_worker(cands)
+        # 过滤候选不足的参与者：真实轨迹（GeoLife）出行段短，部分参与者可达格太少、
+        # 只生成得出 1–3 条不同路线，截断到 k 条没有意义，会让生成器"白送"全池。
+        floor = max(args.min_cand, args.k + 1)
+        if args.min_cand:
+            n_all = len(ppw)
+            kept = {wid: v for wid, v in ppw.items() if len(v) >= floor}
+            n_kept += len(kept)
+            n_dropped += n_all - len(kept)
+            cands = [c for v in kept.values() for c in v]
+            ppw = kept
+            print(f"[seed {seed}] 候选过滤（≥{floor} 条）：保留 {len(kept)}/{n_all} 人，"
+                  f"丢弃 {n_all - len(kept)} 人")
+        if not ppw:
+            print(f"[seed {seed}] 过滤后没有参与者，跳过")
+            continue
+        sizes = [len(v) for v in ppw.values()]
+        if min(sizes) <= args.k:
+            raise SystemExit(
+                f"候选池太小：每人最少只有 {min(sizes)} 条 ≤ k={args.k}，"
+                f"生成器无法真正截断。请增大 --k-full 或 --min-cand。")
         sel_opt, opt_cov, status = _opt(inst, cands, args.theta, args.budget_steps, args.k_full)
         if opt_cov <= 0:
             print(f"[seed {seed}] OPT=0 (status={status})，跳过")
             continue
         opt_routes = {c.wid: c for c in sel_opt}
-        ppw = _by_worker(cands)
-        sizes = [len(v) for v in ppw.values()]
-        if sizes and min(sizes) <= args.k:
-            raise SystemExit(
-                f"候选池太小：每人最少只有 {min(sizes)} 条 ≤ k={args.k}，"
-                f"生成器无法真正截断。请增大 --k-full 或 raw 生成量。")
         instances.append({
             "seed": seed, "inst": inst, "cands": cands,
             "by_w": ppw, "opt_cov": opt_cov,
@@ -352,9 +375,10 @@ def main() -> None:
     # 模型名含 "/"（如 deepseek-ai/DeepSeek-V4-Flash），直接拼进文件名会被当成路径分隔符
     safe_model = re.sub(r"[^A-Za-z0-9._-]+", "-", model_name)
     suffix = f"_llm{safe_model}_{args.prompt_style}" if is_llm else ""
+    src_tag = "" if args.source == "synthetic" else f"_{args.source}"
     stem = os.path.join(
         args.out_dir,
-        f"llm_candidates_{args.dataset}_{args.scale}_n{len(instances)}{suffix}")
+        f"llm_candidates_{args.dataset}{src_tag}_{args.scale}_n{len(instances)}{suffix}")
 
     if is_llm:
         note = (f"真实 LLM 调用（provider={args.provider}, model="
@@ -367,8 +391,12 @@ def main() -> None:
     payload = {
         "note": note,
         "mode": args.mode,
+        "source": args.source, "min_cand": args.min_cand,
         "dataset": args.dataset, "scale": args.scale,
-        "n_workers": args.n_workers, "k_full": args.k_full, "k": args.k,
+        "n_workers": args.n_workers,
+        "n_workers_retained": n_kept or args.n_workers,
+        "n_workers_dropped": n_dropped,
+        "k_full": args.k_full, "k": args.k,
         "budget_steps": args.budget_steps, "theta": args.theta,
         "seeds": len(instances), "rows": rows,
     }
@@ -401,12 +429,17 @@ def main() -> None:
         json.dump(payload, fh, ensure_ascii=False, indent=2)
 
     # markdown
+    src_note = ("" if args.source == "synthetic" else
+                f"参与者来源 **{args.source}**（真实轨迹）；")
+    filt_note = ("" if not args.min_cand else
+                 f"仅保留候选池 ≥{max(args.min_cand, args.k + 1)} 条的参与者，"
+                 f"累计丢弃 {n_dropped} 人（有效 {n_kept} 人·种子）。")
     lines = [f"# 候选生成器质量 → 近似比（E4.2/E4.3，{args.dataset}/{args.scale}）", "",
-             f"参与者 {args.n_workers}、全池 k_full={args.k_full}、生成器 |C_u|={args.k}、"
-             f"步数预算 {args.budget_steps:.0f}、θ={args.theta}、{len(instances)} 个种子。", "",
-             f"> **口径声明**：{note}", "",
-             "## E4.2 候选命中率 → 近似比（一致性）", "",
-             "| 生成器 | ε | 命中率 | A′/OPT |", "|---|---|---|---|"]
+             f"{src_note}参与者 {args.n_workers}、全池 k_full={args.k_full}、"
+             f"生成器 |C_u|={args.k}、"
+             f"步数预算 {args.budget_steps:.0f}、θ={args.theta}、{len(instances)} 个种子。",
+             "", f"> {filt_note}" if filt_note else "", "",
+             f"> **口径声明**：{note}", ""]
     for mode in modes:
         eps_list = eps_grid if mode == "oracle_eps" else [0.0]
         for eps in eps_list:

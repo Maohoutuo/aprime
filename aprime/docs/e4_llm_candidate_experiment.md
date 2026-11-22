@@ -256,6 +256,30 @@ medium 基本持平（0.969），small 仅略降（0.937→0.923）。
 > 口径：small 的菜单最小只有 4 条、\(|C_u|=3\)，η=0.75 会把最小菜单逼到"只剩 1 条好候选"，
 > 因此必须看净吸收而不是吸收率。三模型结论一致（V4-Flash / Qwen3.8-27B / V3.2）。
 
+### 4.5 跨数据集：GeoLife 真实轨迹（external validity）
+
+**动机**：E4 此前只在 T-Drive 合成栅格上验证；为检验结论是否只对该数据集成立，用 GeoLife 1.3 作为跨数据集替代（gMission 为匹配型、无轨迹，不能服务 E4）。GeoLife 已归一化为 T-Drive 四列格式，bbox 与 `SETTINGS["tdrive"]` 完全一致，经 `make_dense_instance(..., source="geolife")` 接入。
+
+**设置**：与 T-Drive small **完全相同**的实例口径（8×8 栅格、8 时槽、cps=3、预算 120 步、θ=0.3、k_full=12、k=3），仅把参与者来源换成 GeoLife 真实轨迹（`--source geolife`）。GeoLife 出行段短、候选池偏稀（最稀只有 1 条），故把采样人数放大到 N=60，再只保留候选池 ≥4 条的参与者（`--min-cand 4`，与 T-Drive small 实测菜单范围 4–12 对齐）；每种子丢弃约半数，累计有效 314 人·种子、丢弃 286 人·种子。被丢弃者均为凑不出 4 条可行路线的短程段——这本身也是一个有说明意义的限制。
+
+**结果**（10 种子，`--source geolife --min-cand 4 --n-workers 60`）：
+
+| 设置 | 生成器 | 命中率 | A′/OPT | cov | OPT |
+|---|---|---|---|---|---|
+| sim | `full`（上界） | 1.000 | 0.973 | 59.1 | 60.7 |
+| sim | `topk_cov` | 0.449 | **0.890** | 54.1 | 60.7 |
+| sim | `random` | 0.356 | 0.868 | 52.7 | 60.7 |
+| sim | `topk_sat` | 0.261 | 0.845 | 51.3 | 60.7 |
+| LLM（DeepSeek-V4-Flash） | `llm` | 0.379 | **0.878** | 53.3 | 60.7 |
+
+命中率 → 近似比的关系同样成立：`oracle_eps` 曲线单调（0.387/0.869 → 1.000/0.994），与 T-Drive 一致。
+
+**与 T-Drive small 对比**（`topk_cov` 0.939，LLM 0.936）：GeoLife 上绝对值整体下移约 4–5 个百分点（候选池更稀，OPT_full ≈ 61 vs T-Drive ≈ 64），但**排序与方向完全同向**——`topk_cov` 仍是三类可控生成器中最好的，LLM 介于 `random` 与 `topk_cov` 之间且极近 `topk_cov`（差 1.2pp；T-Drive 上差 0.3pp）。**结论不随数据集反转。**
+
+**结论**：E4 的主结论（LLM ≈ 不够精确的 `topk_cov`、无额外脆弱性、命中率驱动近似比）在 GeoLife 真实轨迹上重现，跨数据集外部效度成立；绝对值略低，主因是 GeoLife 候选池更稀、过滤后有效样本量减少。
+
+**未覆盖**：E4.3 污染实验未在 GeoLife 上复跑（污染需要可控基线，且菜单进一步收缩会放大"被迫"效应）。§4.5 的结论口径限定在候选选择质量（E4.2 风格）。
+
 ---
 
 ## 5. 模型对照：换更强模型有用吗
@@ -305,6 +329,7 @@ medium 基本持平（0.969），small 仅略降（0.937→0.923）。
 | V4-Flash · 覆盖型 · 30 种子 | 600 | 262,859 | 1178 s | 3 | 1 |
 | DeepSeek-V3.2 · 覆盖型 · 10 种子 | 200 | 87,456 | — | — | — |
 | Qwen3.8-27B · 覆盖型 · 10 种子 | 200 | 95,233 | — | — | — |
+| V4-Flash · 覆盖型 · GeoLife 小规模 · 10 种子 | 314 | 123,482 | 306 s | 0 | 0 |
 
 单次约 410–430 prompt + 12 completion token。**表中四轮合计约 70 万 token**（另有早期 100 次调参
 约 3.6 万），折合**几元**量级。`results/llm_cache/` 有落盘缓存，**同配置重跑成本为 0**。
@@ -365,8 +390,7 @@ LLM 有时返回不足 k 条，实现会按满意度降序补齐，并把 `n_pad
 ## 8. 已知限制（论文 §6.10 / §7 已如实写明）
 
 1. **LLM 未超过覆盖贪心**：对齐指令后 0.329 < `topk_cov` 0.383。这是否定结果，不掩饰。
-2. **单一数据集、规模覆盖不均衡**：仅 T-Drive；sim 已覆盖 small 与 medium（见 §4.3.3），但真实 LLM
-   仍只在 small 规模，gMission 真实时间戳未验证。
+2. **数据集覆盖已扩到两个**：T-Drive 合成栅格（sim small + medium，真实 LLM small）与 GeoLife 真实轨迹（small，sim + V4-Flash，见 §4.5）。GeoLife 需过滤候选不足的参与者（N=60 中约半数被丢弃），有效样本存在选择性偏差；gMission 无轨迹，仍不能用于 E4。
 3. **θ 扫描只覆盖一个规模**：三个模型（V4-Flash、Qwen3.8-27B、V3.2）均已在真实 LLM 上完成
    \(\theta \in \{0.3, 0.6, 0.9\}\) 的扫描（V4-Flash 另含 θ=0.0），三者命中率随 θ **一致上升**、
    并非下降（见 §4.3.1–4.3.2）；但仍只在 `tdrive/small` 规模，medium/大规模未覆盖。
@@ -403,6 +427,12 @@ LLM 有时返回不足 k 条，实现会按满意度降序补齐，并把 `n_pad
 | `results/sim_theta_t*/` | θ 敏感性各档的原始 `--mode sim` 产物（small 与 medium） |
 | `experiments/run_llm_pollution.py` | §4.4 菜单污染（真实 LLM vs 算法），含"被迫 / 净吸收"分解 |
 | `results/llm_pollution_tdrive_small_n10_llm*.{md,json}` | §4.4 污染鲁棒性产物（V4-Flash，η∈{0,0.5,0.75} × 2 模式） |
+| `results/llm_candidates_tdrive_geolife_small_n10.json` | §4.5 跨数据集 sim 产物（GeoLife，10 种子，min-cand=4） |
+| `results/llm_candidates_tdrive_geolife_small_n10_llmdeepseek-ai-DeepSeek-V4-Flash_coverage.json` | §4.5 跨数据集真实 LLM 产物（V4-Flash，314 次调用 / 123,482 token） |
 | `results/llm_theta_t*/` | 真实 LLM 各档 θ 的原始产物（V4-Flash 四档；Qwen3.8-27B、V3.2 各三档） |
 | `results/model_comparison/` | §5 三模型对照的原始产物（V3.2、Qwen3.8-27B，各 10 种子） |
 | `results/llm_cache/` | 落盘缓存，同配置重跑零成本 |
+
+### 7.8 真实轨迹必须做候选过滤并报告丢弃人数
+
+GeoLife 等真实轨迹的出行段短，很多参与者凑不出 k_full 条不同可行路线，`--min-cand` 过滤不可避免。**丢弃人数必须写进结果（`n_workers_dropped`）**，否则等于偷偷换了样本；同时应在正文声明"保留者多为行程较长/时间弹性较大的参与者"这一选择性偏差。
