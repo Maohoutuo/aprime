@@ -1,0 +1,3723 @@
+{
+  "note": "真实 LLM 调用（provider=siliconflow, model=deepseek-ai/DeepSeek-V4-Flash, prompt=coverage）。候选池由 LLM 在编号菜单上选择生成，命中率与近似比均为实测。",
+  "mode": "llm",
+  "source": "synthetic",
+  "min_cand": 0,
+  "dataset": "tdrive",
+  "scale": "medium",
+  "n_workers": 20,
+  "n_workers_retained": 20,
+  "n_workers_dropped": 0,
+  "k_full": 12,
+  "k": 3,
+  "budget_steps": 240.0,
+  "theta": 0.3,
+  "seeds": 10,
+  "rows": [
+    {
+      "exp": "E4.2",
+      "mode": "full",
+      "eps": 0.0,
+      "eta": 0.0,
+      "theta": 0.3,
+      "seed": 0,
+      "k": 3,
+      "cov": 176,
+      "opt": 176,
+      "ratio": 1.0,
+      "hit_rate": 1.0,
+      "n_selected": 19
+    },
+    {
+      "exp": "E4.2",
+      "mode": "full",
+      "eps": 0.0,
+      "eta": 0.0,
+      "theta": 0.3,
+      "seed": 1,
+      "k": 3,
+      "cov": 170,
+      "opt": 176,
+      "ratio": 0.9659,
+      "hit_rate": 1.0,
+      "n_selected": 18
+    },
+    {
+      "exp": "E4.2",
+      "mode": "full",
+      "eps": 0.0,
+      "eta": 0.0,
+      "theta": 0.3,
+      "seed": 2,
+      "k": 3,
+      "cov": 167,
+      "opt": 170,
+      "ratio": 0.9824,
+      "hit_rate": 1.0,
+      "n_selected": 18
+    },
+    {
+      "exp": "E4.2",
+      "mode": "full",
+      "eps": 0.0,
+      "eta": 0.0,
+      "theta": 0.3,
+      "seed": 3,
+      "k": 3,
+      "cov": 167,
+      "opt": 170,
+      "ratio": 0.9824,
+      "hit_rate": 1.0,
+      "n_selected": 19
+    },
+    {
+      "exp": "E4.2",
+      "mode": "full",
+      "eps": 0.0,
+      "eta": 0.0,
+      "theta": 0.3,
+      "seed": 4,
+      "k": 3,
+      "cov": 168,
+      "opt": 173,
+      "ratio": 0.9711,
+      "hit_rate": 1.0,
+      "n_selected": 19
+    },
+    {
+      "exp": "E4.2",
+      "mode": "full",
+      "eps": 0.0,
+      "eta": 0.0,
+      "theta": 0.3,
+      "seed": 5,
+      "k": 3,
+      "cov": 165,
+      "opt": 170,
+      "ratio": 0.9706,
+      "hit_rate": 1.0,
+      "n_selected": 18
+    },
+    {
+      "exp": "E4.2",
+      "mode": "full",
+      "eps": 0.0,
+      "eta": 0.0,
+      "theta": 0.3,
+      "seed": 6,
+      "k": 3,
+      "cov": 175,
+      "opt": 177,
+      "ratio": 0.9887,
+      "hit_rate": 1.0,
+      "n_selected": 18
+    },
+    {
+      "exp": "E4.2",
+      "mode": "full",
+      "eps": 0.0,
+      "eta": 0.0,
+      "theta": 0.3,
+      "seed": 7,
+      "k": 3,
+      "cov": 166,
+      "opt": 173,
+      "ratio": 0.9595,
+      "hit_rate": 1.0,
+      "n_selected": 19
+    },
+    {
+      "exp": "E4.2",
+      "mode": "full",
+      "eps": 0.0,
+      "eta": 0.0,
+      "theta": 0.3,
+      "seed": 8,
+      "k": 3,
+      "cov": 171,
+      "opt": 174,
+      "ratio": 0.9828,
+      "hit_rate": 1.0,
+      "n_selected": 17
+    },
+    {
+      "exp": "E4.2",
+      "mode": "full",
+      "eps": 0.0,
+      "eta": 0.0,
+      "theta": 0.3,
+      "seed": 9,
+      "k": 3,
+      "cov": 169,
+      "opt": 174,
+      "ratio": 0.9713,
+      "hit_rate": 1.0,
+      "n_selected": 18
+    },
+    {
+      "exp": "E4.2",
+      "mode": "llm",
+      "eps": 0.0,
+      "eta": 0.0,
+      "theta": 0.3,
+      "seed": 0,
+      "k": 3,
+      "cov": 165,
+      "opt": 176,
+      "ratio": 0.9375,
+      "hit_rate": 0.6842,
+      "n_selected": 19
+    },
+    {
+      "exp": "E4.2",
+      "mode": "llm",
+      "eps": 0.0,
+      "eta": 0.0,
+      "theta": 0.3,
+      "seed": 1,
+      "k": 3,
+      "cov": 164,
+      "opt": 176,
+      "ratio": 0.9318,
+      "hit_rate": 0.8333,
+      "n_selected": 18
+    },
+    {
+      "exp": "E4.2",
+      "mode": "llm",
+      "eps": 0.0,
+      "eta": 0.0,
+      "theta": 0.3,
+      "seed": 2,
+      "k": 3,
+      "cov": 163,
+      "opt": 170,
+      "ratio": 0.9588,
+      "hit_rate": 0.8333,
+      "n_selected": 18
+    },
+    {
+      "exp": "E4.2",
+      "mode": "llm",
+      "eps": 0.0,
+      "eta": 0.0,
+      "theta": 0.3,
+      "seed": 3,
+      "k": 3,
+      "cov": 163,
+      "opt": 170,
+      "ratio": 0.9588,
+      "hit_rate": 0.7368,
+      "n_selected": 18
+    },
+    {
+      "exp": "E4.2",
+      "mode": "llm",
+      "eps": 0.0,
+      "eta": 0.0,
+      "theta": 0.3,
+      "seed": 4,
+      "k": 3,
+      "cov": 168,
+      "opt": 173,
+      "ratio": 0.9711,
+      "hit_rate": 0.7368,
+      "n_selected": 19
+    },
+    {
+      "exp": "E4.2",
+      "mode": "llm",
+      "eps": 0.0,
+      "eta": 0.0,
+      "theta": 0.3,
+      "seed": 5,
+      "k": 3,
+      "cov": 165,
+      "opt": 170,
+      "ratio": 0.9706,
+      "hit_rate": 0.8333,
+      "n_selected": 18
+    },
+    {
+      "exp": "E4.2",
+      "mode": "llm",
+      "eps": 0.0,
+      "eta": 0.0,
+      "theta": 0.3,
+      "seed": 6,
+      "k": 3,
+      "cov": 175,
+      "opt": 177,
+      "ratio": 0.9887,
+      "hit_rate": 0.7778,
+      "n_selected": 18
+    },
+    {
+      "exp": "E4.2",
+      "mode": "llm",
+      "eps": 0.0,
+      "eta": 0.0,
+      "theta": 0.3,
+      "seed": 7,
+      "k": 3,
+      "cov": 168,
+      "opt": 173,
+      "ratio": 0.9711,
+      "hit_rate": 0.7895,
+      "n_selected": 19
+    },
+    {
+      "exp": "E4.2",
+      "mode": "llm",
+      "eps": 0.0,
+      "eta": 0.0,
+      "theta": 0.3,
+      "seed": 8,
+      "k": 3,
+      "cov": 169,
+      "opt": 174,
+      "ratio": 0.9713,
+      "hit_rate": 0.7778,
+      "n_selected": 18
+    },
+    {
+      "exp": "E4.2",
+      "mode": "llm",
+      "eps": 0.0,
+      "eta": 0.0,
+      "theta": 0.3,
+      "seed": 9,
+      "k": 3,
+      "cov": 170,
+      "opt": 174,
+      "ratio": 0.977,
+      "hit_rate": 1.0,
+      "n_selected": 18
+    }
+  ],
+  "llm": {
+    "provider": "siliconflow",
+    "model": "deepseek-ai/DeepSeek-V4-Flash",
+    "prompt_style": "coverage",
+    "stats": {
+      "calls": 200,
+      "cache_hits": 0,
+      "failures": 0,
+      "prompt_tokens": 92600,
+      "completion_tokens": 2400,
+      "latency_ms": 281691.50000000006,
+      "prompt_tokens_cached": 0,
+      "completion_tokens_cached": 0
+    },
+    "n_selections": 200,
+    "n_padded_total": 0,
+    "n_unparsed": 0,
+    "audit": [
+      {
+        "seed": 0,
+        "wid": "w000",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          3,
+          8
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 3136.9,
+        "llm_error": ""
+      },
+      {
+        "seed": 0,
+        "wid": "w001",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          5,
+          11
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1115.8,
+        "llm_error": ""
+      },
+      {
+        "seed": 0,
+        "wid": "w002",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          2,
+          3
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1073.9,
+        "llm_error": ""
+      },
+      {
+        "seed": 0,
+        "wid": "w003",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          5,
+          1
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 2542.8,
+        "llm_error": ""
+      },
+      {
+        "seed": 0,
+        "wid": "w004",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          2
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1632.6,
+        "llm_error": ""
+      },
+      {
+        "seed": 0,
+        "wid": "w005",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          2
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1300.7,
+        "llm_error": ""
+      },
+      {
+        "seed": 0,
+        "wid": "w006",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          3,
+          10
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1099.2,
+        "llm_error": ""
+      },
+      {
+        "seed": 0,
+        "wid": "w007",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          11,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1527.4,
+        "llm_error": ""
+      },
+      {
+        "seed": 0,
+        "wid": "w008",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          10,
+          6
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 809.0,
+        "llm_error": ""
+      },
+      {
+        "seed": 0,
+        "wid": "w009",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          5,
+          3
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1621.3,
+        "llm_error": ""
+      },
+      {
+        "seed": 0,
+        "wid": "w010",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          4,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1372.4,
+        "llm_error": ""
+      },
+      {
+        "seed": 0,
+        "wid": "w011",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          11,
+          2
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 2004.3,
+        "llm_error": ""
+      },
+      {
+        "seed": 0,
+        "wid": "w012",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          8,
+          2
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 849.6,
+        "llm_error": ""
+      },
+      {
+        "seed": 0,
+        "wid": "w013",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          2,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1215.2,
+        "llm_error": ""
+      },
+      {
+        "seed": 0,
+        "wid": "w014",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1362.7,
+        "llm_error": ""
+      },
+      {
+        "seed": 0,
+        "wid": "w015",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          8,
+          9
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1478.5,
+        "llm_error": ""
+      },
+      {
+        "seed": 0,
+        "wid": "w016",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          6,
+          8
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1370.1,
+        "llm_error": ""
+      },
+      {
+        "seed": 0,
+        "wid": "w017",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          11,
+          7
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1614.5,
+        "llm_error": ""
+      },
+      {
+        "seed": 0,
+        "wid": "w018",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          5,
+          10
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 937.4,
+        "llm_error": ""
+      },
+      {
+        "seed": 0,
+        "wid": "w019",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          3
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 754.2,
+        "llm_error": ""
+      },
+      {
+        "seed": 1,
+        "wid": "w000",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          2,
+          9
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 987.3,
+        "llm_error": ""
+      },
+      {
+        "seed": 1,
+        "wid": "w001",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          9,
+          10
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1261.3,
+        "llm_error": ""
+      },
+      {
+        "seed": 1,
+        "wid": "w002",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          2,
+          10
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1465.8,
+        "llm_error": ""
+      },
+      {
+        "seed": 1,
+        "wid": "w003",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          5,
+          6
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 716.0,
+        "llm_error": ""
+      },
+      {
+        "seed": 1,
+        "wid": "w004",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          10
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 998.6,
+        "llm_error": ""
+      },
+      {
+        "seed": 1,
+        "wid": "w005",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 862.9,
+        "llm_error": ""
+      },
+      {
+        "seed": 1,
+        "wid": "w006",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          4,
+          9
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 740.3,
+        "llm_error": ""
+      },
+      {
+        "seed": 1,
+        "wid": "w007",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          8
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 873.7,
+        "llm_error": ""
+      },
+      {
+        "seed": 1,
+        "wid": "w008",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          10
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1080.1,
+        "llm_error": ""
+      },
+      {
+        "seed": 1,
+        "wid": "w009",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          3,
+          4
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1120.1,
+        "llm_error": ""
+      },
+      {
+        "seed": 1,
+        "wid": "w010",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          4,
+          2
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1456.6,
+        "llm_error": ""
+      },
+      {
+        "seed": 1,
+        "wid": "w011",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          5,
+          3
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 2728.4,
+        "llm_error": ""
+      },
+      {
+        "seed": 1,
+        "wid": "w012",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          5,
+          8
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 758.1,
+        "llm_error": ""
+      },
+      {
+        "seed": 1,
+        "wid": "w013",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          7,
+          1
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1584.9,
+        "llm_error": ""
+      },
+      {
+        "seed": 1,
+        "wid": "w014",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          2,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1060.7,
+        "llm_error": ""
+      },
+      {
+        "seed": 1,
+        "wid": "w015",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          9,
+          6
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1219.9,
+        "llm_error": ""
+      },
+      {
+        "seed": 1,
+        "wid": "w016",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          2
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 3014.9,
+        "llm_error": ""
+      },
+      {
+        "seed": 1,
+        "wid": "w017",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          5,
+          1
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1627.3,
+        "llm_error": ""
+      },
+      {
+        "seed": 1,
+        "wid": "w018",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          8
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 751.2,
+        "llm_error": ""
+      },
+      {
+        "seed": 1,
+        "wid": "w019",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          10
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 752.2,
+        "llm_error": ""
+      },
+      {
+        "seed": 2,
+        "wid": "w000",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          2,
+          1
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 2664.4,
+        "llm_error": ""
+      },
+      {
+        "seed": 2,
+        "wid": "w001",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          3,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 2573.3,
+        "llm_error": ""
+      },
+      {
+        "seed": 2,
+        "wid": "w002",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          6,
+          4
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 805.7,
+        "llm_error": ""
+      },
+      {
+        "seed": 2,
+        "wid": "w003",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          5,
+          4
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1699.7,
+        "llm_error": ""
+      },
+      {
+        "seed": 2,
+        "wid": "w004",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          4,
+          2
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1583.6,
+        "llm_error": ""
+      },
+      {
+        "seed": 2,
+        "wid": "w005",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          9,
+          1
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1042.8,
+        "llm_error": ""
+      },
+      {
+        "seed": 2,
+        "wid": "w006",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          6
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 2157.6,
+        "llm_error": ""
+      },
+      {
+        "seed": 2,
+        "wid": "w007",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          3
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 2462.0,
+        "llm_error": ""
+      },
+      {
+        "seed": 2,
+        "wid": "w008",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          2,
+          1
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1809.3,
+        "llm_error": ""
+      },
+      {
+        "seed": 2,
+        "wid": "w009",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1108.4,
+        "llm_error": ""
+      },
+      {
+        "seed": 2,
+        "wid": "w010",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          3,
+          2
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1567.7,
+        "llm_error": ""
+      },
+      {
+        "seed": 2,
+        "wid": "w011",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          3,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1582.4,
+        "llm_error": ""
+      },
+      {
+        "seed": 2,
+        "wid": "w012",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          4,
+          1
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 806.4,
+        "llm_error": ""
+      },
+      {
+        "seed": 2,
+        "wid": "w013",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          5,
+          1
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1759.1,
+        "llm_error": ""
+      },
+      {
+        "seed": 2,
+        "wid": "w014",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          2,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1526.1,
+        "llm_error": ""
+      },
+      {
+        "seed": 2,
+        "wid": "w015",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          2,
+          1
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1586.4,
+        "llm_error": ""
+      },
+      {
+        "seed": 2,
+        "wid": "w016",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          2,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1799.8,
+        "llm_error": ""
+      },
+      {
+        "seed": 2,
+        "wid": "w017",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          7,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1021.1,
+        "llm_error": ""
+      },
+      {
+        "seed": 2,
+        "wid": "w018",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          2,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1150.3,
+        "llm_error": ""
+      },
+      {
+        "seed": 2,
+        "wid": "w019",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          3,
+          8
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 913.3,
+        "llm_error": ""
+      },
+      {
+        "seed": 3,
+        "wid": "w000",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          2,
+          4
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 828.4,
+        "llm_error": ""
+      },
+      {
+        "seed": 3,
+        "wid": "w001",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          6,
+          1
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 886.6,
+        "llm_error": ""
+      },
+      {
+        "seed": 3,
+        "wid": "w002",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          9,
+          7
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1963.6,
+        "llm_error": ""
+      },
+      {
+        "seed": 3,
+        "wid": "w003",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          4,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1805.8,
+        "llm_error": ""
+      },
+      {
+        "seed": 3,
+        "wid": "w004",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          9
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 951.0,
+        "llm_error": ""
+      },
+      {
+        "seed": 3,
+        "wid": "w005",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          3,
+          1
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1647.7,
+        "llm_error": ""
+      },
+      {
+        "seed": 3,
+        "wid": "w006",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          11,
+          1
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1571.6,
+        "llm_error": ""
+      },
+      {
+        "seed": 3,
+        "wid": "w007",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 2218.0,
+        "llm_error": ""
+      },
+      {
+        "seed": 3,
+        "wid": "w008",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          2,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1172.6,
+        "llm_error": ""
+      },
+      {
+        "seed": 3,
+        "wid": "w009",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          9,
+          1
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1405.9,
+        "llm_error": ""
+      },
+      {
+        "seed": 3,
+        "wid": "w010",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          4,
+          6
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1506.0,
+        "llm_error": ""
+      },
+      {
+        "seed": 3,
+        "wid": "w011",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          11
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1115.6,
+        "llm_error": ""
+      },
+      {
+        "seed": 3,
+        "wid": "w012",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          9,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1577.5,
+        "llm_error": ""
+      },
+      {
+        "seed": 3,
+        "wid": "w013",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          2,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1040.6,
+        "llm_error": ""
+      },
+      {
+        "seed": 3,
+        "wid": "w014",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          5,
+          10
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 700.6,
+        "llm_error": ""
+      },
+      {
+        "seed": 3,
+        "wid": "w015",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          7
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1503.7,
+        "llm_error": ""
+      },
+      {
+        "seed": 3,
+        "wid": "w016",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          2,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1489.3,
+        "llm_error": ""
+      },
+      {
+        "seed": 3,
+        "wid": "w017",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          8,
+          1
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 721.9,
+        "llm_error": ""
+      },
+      {
+        "seed": 3,
+        "wid": "w018",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          3,
+          1
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 935.0,
+        "llm_error": ""
+      },
+      {
+        "seed": 3,
+        "wid": "w019",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          9,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1444.4,
+        "llm_error": ""
+      },
+      {
+        "seed": 4,
+        "wid": "w000",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          3,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1743.9,
+        "llm_error": ""
+      },
+      {
+        "seed": 4,
+        "wid": "w001",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          2,
+          1
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1440.5,
+        "llm_error": ""
+      },
+      {
+        "seed": 4,
+        "wid": "w002",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          11,
+          6
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1328.4,
+        "llm_error": ""
+      },
+      {
+        "seed": 4,
+        "wid": "w003",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          11,
+          10
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 696.3,
+        "llm_error": ""
+      },
+      {
+        "seed": 4,
+        "wid": "w004",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          3,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1739.5,
+        "llm_error": ""
+      },
+      {
+        "seed": 4,
+        "wid": "w005",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          2,
+          3
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1553.3,
+        "llm_error": ""
+      },
+      {
+        "seed": 4,
+        "wid": "w006",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          3,
+          4
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1116.7,
+        "llm_error": ""
+      },
+      {
+        "seed": 4,
+        "wid": "w007",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          6
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1391.4,
+        "llm_error": ""
+      },
+      {
+        "seed": 4,
+        "wid": "w008",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          5,
+          6
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 743.0,
+        "llm_error": ""
+      },
+      {
+        "seed": 4,
+        "wid": "w009",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          7
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 879.7,
+        "llm_error": ""
+      },
+      {
+        "seed": 4,
+        "wid": "w010",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          11,
+          1
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1252.3,
+        "llm_error": ""
+      },
+      {
+        "seed": 4,
+        "wid": "w011",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          3
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1221.0,
+        "llm_error": ""
+      },
+      {
+        "seed": 4,
+        "wid": "w012",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          9
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1868.7,
+        "llm_error": ""
+      },
+      {
+        "seed": 4,
+        "wid": "w013",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          8,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1351.5,
+        "llm_error": ""
+      },
+      {
+        "seed": 4,
+        "wid": "w014",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          10,
+          1
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 3357.8,
+        "llm_error": ""
+      },
+      {
+        "seed": 4,
+        "wid": "w015",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          2,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 769.6,
+        "llm_error": ""
+      },
+      {
+        "seed": 4,
+        "wid": "w016",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          2,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 776.6,
+        "llm_error": ""
+      },
+      {
+        "seed": 4,
+        "wid": "w017",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          2,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1429.7,
+        "llm_error": ""
+      },
+      {
+        "seed": 4,
+        "wid": "w018",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          3,
+          1
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1662.5,
+        "llm_error": ""
+      },
+      {
+        "seed": 4,
+        "wid": "w019",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          5,
+          2
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1533.2,
+        "llm_error": ""
+      },
+      {
+        "seed": 5,
+        "wid": "w000",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          2,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1315.5,
+        "llm_error": ""
+      },
+      {
+        "seed": 5,
+        "wid": "w001",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          3,
+          2
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 765.8,
+        "llm_error": ""
+      },
+      {
+        "seed": 5,
+        "wid": "w002",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          8,
+          7,
+          6
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1273.1,
+        "llm_error": ""
+      },
+      {
+        "seed": 5,
+        "wid": "w003",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          9,
+          2
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1572.4,
+        "llm_error": ""
+      },
+      {
+        "seed": 5,
+        "wid": "w004",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          2,
+          1
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 931.7,
+        "llm_error": ""
+      },
+      {
+        "seed": 5,
+        "wid": "w005",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          5,
+          9
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1062.8,
+        "llm_error": ""
+      },
+      {
+        "seed": 5,
+        "wid": "w006",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          2
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1096.7,
+        "llm_error": ""
+      },
+      {
+        "seed": 5,
+        "wid": "w007",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          6,
+          2
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1565.5,
+        "llm_error": ""
+      },
+      {
+        "seed": 5,
+        "wid": "w008",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          2
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 952.7,
+        "llm_error": ""
+      },
+      {
+        "seed": 5,
+        "wid": "w009",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          6,
+          2
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1364.2,
+        "llm_error": ""
+      },
+      {
+        "seed": 5,
+        "wid": "w010",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          2,
+          11
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1583.4,
+        "llm_error": ""
+      },
+      {
+        "seed": 5,
+        "wid": "w011",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          2
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 928.4,
+        "llm_error": ""
+      },
+      {
+        "seed": 5,
+        "wid": "w012",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          5,
+          8
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1471.8,
+        "llm_error": ""
+      },
+      {
+        "seed": 5,
+        "wid": "w013",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          2,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1524.6,
+        "llm_error": ""
+      },
+      {
+        "seed": 5,
+        "wid": "w014",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          2,
+          11
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 2131.4,
+        "llm_error": ""
+      },
+      {
+        "seed": 5,
+        "wid": "w015",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          6,
+          1
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 716.5,
+        "llm_error": ""
+      },
+      {
+        "seed": 5,
+        "wid": "w016",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          3
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1234.2,
+        "llm_error": ""
+      },
+      {
+        "seed": 5,
+        "wid": "w017",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          4,
+          2
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 711.2,
+        "llm_error": ""
+      },
+      {
+        "seed": 5,
+        "wid": "w018",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          10,
+          4
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1477.1,
+        "llm_error": ""
+      },
+      {
+        "seed": 5,
+        "wid": "w019",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          3
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1548.0,
+        "llm_error": ""
+      },
+      {
+        "seed": 6,
+        "wid": "w000",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          5,
+          3
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1856.9,
+        "llm_error": ""
+      },
+      {
+        "seed": 6,
+        "wid": "w001",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          10,
+          1
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1422.9,
+        "llm_error": ""
+      },
+      {
+        "seed": 6,
+        "wid": "w002",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          4
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 978.5,
+        "llm_error": ""
+      },
+      {
+        "seed": 6,
+        "wid": "w003",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          10,
+          6
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1040.4,
+        "llm_error": ""
+      },
+      {
+        "seed": 6,
+        "wid": "w004",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          11
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1435.2,
+        "llm_error": ""
+      },
+      {
+        "seed": 6,
+        "wid": "w005",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          11,
+          3
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 2201.0,
+        "llm_error": ""
+      },
+      {
+        "seed": 6,
+        "wid": "w006",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          11,
+          1
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 851.1,
+        "llm_error": ""
+      },
+      {
+        "seed": 6,
+        "wid": "w007",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          11,
+          1
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 766.6,
+        "llm_error": ""
+      },
+      {
+        "seed": 6,
+        "wid": "w008",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          2,
+          1
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 969.7,
+        "llm_error": ""
+      },
+      {
+        "seed": 6,
+        "wid": "w009",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          2,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 852.7,
+        "llm_error": ""
+      },
+      {
+        "seed": 6,
+        "wid": "w010",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          10,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 2005.2,
+        "llm_error": ""
+      },
+      {
+        "seed": 6,
+        "wid": "w011",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          8,
+          7
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 733.1,
+        "llm_error": ""
+      },
+      {
+        "seed": 6,
+        "wid": "w012",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          7,
+          4
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1595.3,
+        "llm_error": ""
+      },
+      {
+        "seed": 6,
+        "wid": "w013",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          8,
+          7
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1044.4,
+        "llm_error": ""
+      },
+      {
+        "seed": 6,
+        "wid": "w014",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          5,
+          6
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1460.5,
+        "llm_error": ""
+      },
+      {
+        "seed": 6,
+        "wid": "w015",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          5,
+          2
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 3264.6,
+        "llm_error": ""
+      },
+      {
+        "seed": 6,
+        "wid": "w016",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          9,
+          1
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 890.6,
+        "llm_error": ""
+      },
+      {
+        "seed": 6,
+        "wid": "w017",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          2,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 3026.7,
+        "llm_error": ""
+      },
+      {
+        "seed": 6,
+        "wid": "w018",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          4,
+          2
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1749.5,
+        "llm_error": ""
+      },
+      {
+        "seed": 6,
+        "wid": "w019",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          2,
+          4
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1130.1,
+        "llm_error": ""
+      },
+      {
+        "seed": 7,
+        "wid": "w000",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          2,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 999.8,
+        "llm_error": ""
+      },
+      {
+        "seed": 7,
+        "wid": "w001",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          3,
+          8
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 823.8,
+        "llm_error": ""
+      },
+      {
+        "seed": 7,
+        "wid": "w002",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          7,
+          8
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1595.6,
+        "llm_error": ""
+      },
+      {
+        "seed": 7,
+        "wid": "w003",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          6,
+          11
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1089.9,
+        "llm_error": ""
+      },
+      {
+        "seed": 7,
+        "wid": "w004",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          11
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 749.8,
+        "llm_error": ""
+      },
+      {
+        "seed": 7,
+        "wid": "w005",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          9,
+          1
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 851.6,
+        "llm_error": ""
+      },
+      {
+        "seed": 7,
+        "wid": "w006",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          2,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1342.7,
+        "llm_error": ""
+      },
+      {
+        "seed": 7,
+        "wid": "w007",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          3
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 800.4,
+        "llm_error": ""
+      },
+      {
+        "seed": 7,
+        "wid": "w008",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          9,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 2091.1,
+        "llm_error": ""
+      },
+      {
+        "seed": 7,
+        "wid": "w009",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          10,
+          7
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 3319.3,
+        "llm_error": ""
+      },
+      {
+        "seed": 7,
+        "wid": "w010",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          4
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1300.6,
+        "llm_error": ""
+      },
+      {
+        "seed": 7,
+        "wid": "w011",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          8
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1598.3,
+        "llm_error": ""
+      },
+      {
+        "seed": 7,
+        "wid": "w012",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          2,
+          4
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1889.3,
+        "llm_error": ""
+      },
+      {
+        "seed": 7,
+        "wid": "w013",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          7,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1012.1,
+        "llm_error": ""
+      },
+      {
+        "seed": 7,
+        "wid": "w014",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          2,
+          11
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1753.5,
+        "llm_error": ""
+      },
+      {
+        "seed": 7,
+        "wid": "w015",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          4
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1588.0,
+        "llm_error": ""
+      },
+      {
+        "seed": 7,
+        "wid": "w016",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1431.0,
+        "llm_error": ""
+      },
+      {
+        "seed": 7,
+        "wid": "w017",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          4,
+          6
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1970.1,
+        "llm_error": ""
+      },
+      {
+        "seed": 7,
+        "wid": "w018",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          8,
+          11
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1138.9,
+        "llm_error": ""
+      },
+      {
+        "seed": 7,
+        "wid": "w019",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          7,
+          11
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1807.0,
+        "llm_error": ""
+      },
+      {
+        "seed": 8,
+        "wid": "w000",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          2,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1342.2,
+        "llm_error": ""
+      },
+      {
+        "seed": 8,
+        "wid": "w001",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          11,
+          3
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1167.4,
+        "llm_error": ""
+      },
+      {
+        "seed": 8,
+        "wid": "w002",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          9
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 8171.0,
+        "llm_error": ""
+      },
+      {
+        "seed": 8,
+        "wid": "w003",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          10,
+          1
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1166.4,
+        "llm_error": ""
+      },
+      {
+        "seed": 8,
+        "wid": "w004",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          10
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 744.7,
+        "llm_error": ""
+      },
+      {
+        "seed": 8,
+        "wid": "w005",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          10
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1863.1,
+        "llm_error": ""
+      },
+      {
+        "seed": 8,
+        "wid": "w006",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          9,
+          10
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 904.1,
+        "llm_error": ""
+      },
+      {
+        "seed": 8,
+        "wid": "w007",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          11,
+          1
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 2078.3,
+        "llm_error": ""
+      },
+      {
+        "seed": 8,
+        "wid": "w008",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          3,
+          11
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1439.4,
+        "llm_error": ""
+      },
+      {
+        "seed": 8,
+        "wid": "w009",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1196.3,
+        "llm_error": ""
+      },
+      {
+        "seed": 8,
+        "wid": "w010",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          7
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1524.2,
+        "llm_error": ""
+      },
+      {
+        "seed": 8,
+        "wid": "w011",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          6,
+          10
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 991.1,
+        "llm_error": ""
+      },
+      {
+        "seed": 8,
+        "wid": "w012",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          6,
+          4
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1758.8,
+        "llm_error": ""
+      },
+      {
+        "seed": 8,
+        "wid": "w013",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 879.2,
+        "llm_error": ""
+      },
+      {
+        "seed": 8,
+        "wid": "w014",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          2,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1956.6,
+        "llm_error": ""
+      },
+      {
+        "seed": 8,
+        "wid": "w015",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          6,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1542.3,
+        "llm_error": ""
+      },
+      {
+        "seed": 8,
+        "wid": "w016",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          2,
+          10
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1499.3,
+        "llm_error": ""
+      },
+      {
+        "seed": 8,
+        "wid": "w017",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          2
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1203.7,
+        "llm_error": ""
+      },
+      {
+        "seed": 8,
+        "wid": "w018",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          9
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 879.7,
+        "llm_error": ""
+      },
+      {
+        "seed": 8,
+        "wid": "w019",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          6,
+          4
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1832.1,
+        "llm_error": ""
+      },
+      {
+        "seed": 9,
+        "wid": "w000",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          4,
+          2
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 838.7,
+        "llm_error": ""
+      },
+      {
+        "seed": 9,
+        "wid": "w001",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          11
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1427.0,
+        "llm_error": ""
+      },
+      {
+        "seed": 9,
+        "wid": "w002",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          7,
+          11
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1445.9,
+        "llm_error": ""
+      },
+      {
+        "seed": 9,
+        "wid": "w003",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          5,
+          1
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 822.2,
+        "llm_error": ""
+      },
+      {
+        "seed": 9,
+        "wid": "w004",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          2
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1343.3,
+        "llm_error": ""
+      },
+      {
+        "seed": 9,
+        "wid": "w005",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          11
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1080.3,
+        "llm_error": ""
+      },
+      {
+        "seed": 9,
+        "wid": "w006",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          4,
+          1
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 815.8,
+        "llm_error": ""
+      },
+      {
+        "seed": 9,
+        "wid": "w007",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          7,
+          8
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1523.1,
+        "llm_error": ""
+      },
+      {
+        "seed": 9,
+        "wid": "w008",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          2,
+          11
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 868.8,
+        "llm_error": ""
+      },
+      {
+        "seed": 9,
+        "wid": "w009",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          5,
+          1
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1539.8,
+        "llm_error": ""
+      },
+      {
+        "seed": 9,
+        "wid": "w010",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          5,
+          3
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1118.9,
+        "llm_error": ""
+      },
+      {
+        "seed": 9,
+        "wid": "w011",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          4
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1580.3,
+        "llm_error": ""
+      },
+      {
+        "seed": 9,
+        "wid": "w012",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          1,
+          9
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 872.7,
+        "llm_error": ""
+      },
+      {
+        "seed": 9,
+        "wid": "w013",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          8,
+          11
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1353.5,
+        "llm_error": ""
+      },
+      {
+        "seed": 9,
+        "wid": "w014",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          3,
+          9
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1018.9,
+        "llm_error": ""
+      },
+      {
+        "seed": 9,
+        "wid": "w015",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          8,
+          2
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1603.4,
+        "llm_error": ""
+      },
+      {
+        "seed": 9,
+        "wid": "w016",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          9,
+          1
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 885.6,
+        "llm_error": ""
+      },
+      {
+        "seed": 9,
+        "wid": "w017",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          5,
+          1
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 833.3,
+        "llm_error": ""
+      },
+      {
+        "seed": 9,
+        "wid": "w018",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          3,
+          1
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 2046.2,
+        "llm_error": ""
+      },
+      {
+        "seed": 9,
+        "wid": "w019",
+        "theta": 0.3,
+        "llm_ok": true,
+        "llm_cached": false,
+        "llm_picks": [
+          0,
+          2,
+          5
+        ],
+        "n_padded": 0,
+        "prompt_tokens": 463,
+        "completion_tokens": 12,
+        "latency_ms": 1039.5,
+        "llm_error": ""
+      }
+    ],
+    "tokens": {
+      "live": 95000,
+      "from_cache": 0,
+      "total": 95000
+    }
+  }
+}
