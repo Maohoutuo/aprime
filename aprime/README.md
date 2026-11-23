@@ -365,6 +365,6 @@ medium 结果（80 对）：Δgqc_gap −0.027 [−0.044, −0.010]、Δexcl −
 
 1. **引用定理号（只剩 3 个号）**：文献元数据已由我补齐到正文（Oxley 2011 / KMN 1999 *IPL* 70(1):39–45 / FNW 1978 *Math. Prog.* 14(1):265–294），
    仅 `〔定理号待核〕` 三处需能翻原文的人核实（CITE-1/2/3，见 `docs/citation_numbers_alignment.md`）。
-   本机无外网，**不编造编号**；拿到号后 `scripts/finalize_citations.py` 一条命令落定。定理 2 措辞已冻结。
+   文献站（ACM/IEEE/Wikipedia）返回反爬页、检索工具结果不可靠，未能取得原文，**不编造编号**；拿到号后 `scripts/finalize_citations.py` 一条命令落定。定理 2 措辞已冻结。
 2. **C（阻塞）**：gMission 数据申请；能力定义固定为 θ=0 的候选池规模后重跑 E3.1 跨 θ 可比。
 3. **可选**：`α_B`（受限次模比）尝试，非关键路径。

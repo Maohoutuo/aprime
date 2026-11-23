@@ -27,6 +27,7 @@ from aprime.candidates import build_candidates  # noqa: E402
 from aprime.availability import require_available  # noqa: E402
 from aprime.config import THETA_GRID, APrimeConfig  # noqa: E402
 from aprime.model import make_problem  # noqa: E402
+from aprime.provenance import stamp  # noqa: E402
 from aprime.solvers.baselines import (capacity_greedy, iterative_greedy, random_feasible,  # noqa: E402
                                       sa_greedy, unconstrained_exact)
 from aprime.solvers.exact import exact  # noqa: E402
@@ -46,6 +47,11 @@ def main() -> None:
     ap.add_argument("--k", type=int, default=12)
     ap.add_argument("--budget-kind", default="steps", choices=["steps", "count"])
     ap.add_argument("--theta", default="")
+    ap.add_argument("--source", default="tdrive",
+                    help="make_mapus_instance 的 source：'tdrive'（真实轨迹，默认）或 "
+                    "'synthetic'（合成，只用于调试，结果会被 provenance 标记）")
+    ap.add_argument("--urban", default="synthetic", choices=["synthetic", "osm"],
+                    help="城市属性层来源；'osm' 需 data/osm_attrs/attrs.csv.gz 已生成")
     ap.add_argument("--exact-max-elements", type=int, default=400)
     ap.add_argument("--sa-iters", type=int, default=3000)
     ap.add_argument("--seed", type=int, default=0)
@@ -56,11 +62,16 @@ def main() -> None:
     thetas = [float(t) for t in args.theta.split(",") if t] or THETA_GRID
     rng = random.Random(args.seed)
     rows, t0 = [], time.time()
+    last_inst = None
 
     for theta in thetas:
         recs = []
         for i in range(args.n):
-            inst = make_mapus_instance(args.setting, i)
+            inst = make_mapus_instance(args.setting, i, source=args.source,
+                                       urban_source=args.urban)
+            last_inst = inst
+            # 来源闸门：E1.1 要真实参与者，合成实例在这里就会被拦下
+            require_available("E1.1", instance=inst)
             cands = build_candidates(inst, k=args.k, seed=args.seed + i)
             prob = make_problem(inst, cands,
                                 APrimeConfig(theta=theta, budget_kind=args.budget_kind, k_cand=args.k))
@@ -127,6 +138,9 @@ def main() -> None:
                "budget_kind": args.budget_kind,
                "data_source": data_source_label(args.setting.split("_")[0]),
                "seed": args.seed, "rows": rows}
+    stamp(payload, instance=last_inst,
+          models={"theta_mode": "absolute", "candidate_pool": "classical planner (lam sweep + random)"},
+          assumed={"profiles": "synthetic preference vectors (no public survey source)"})
     with open(stem + ".json", "w", encoding="utf-8") as fh:
         json.dump(payload, fh, ensure_ascii=False, indent=2)
 

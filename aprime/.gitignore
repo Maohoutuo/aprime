@@ -20,3 +20,5 @@ progress.html
 docs/*.pdf
 docs/*.html
 docs/转PDF.bat
+# NHTS 校准中间产物（未被代码引用，可由 calibrate_archetype_weights_nhts.py 重新生成）
+data/context/
