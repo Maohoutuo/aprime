@@ -2,3 +2,21 @@ __pycache__/
 *.pyc
 .pytest_cache/
 # 结果目录保留（体积很小，且是论文图的数据来源）
+# NHTS 原始数据 3.9 MB，脚本可自动重新下载，不入库
+data/nhts/raw/
+# LLM 响应缓存：按 prompt 哈希命名，可重放重建。
+# 单个文件几百字节但有一万多个，入库会让 git 与编辑器索引彻底卡死。
+results/llm_cache/
+# 冒烟/试跑产物：验证链路用，不是论文数据来源
+results/_smoke/
+# 本地临时跑批脚本（含本机路径与 key 引用），见 docs/handoff.md
+_*.ps1
+# 本机临时数据采集/探测脚本（下划线前缀，含本机路径与接口细节）
+_*.py
+# CGSS 原始数据与问卷（约 18 MB，按 docs/data_acquisition_survey.md 重新获取）
+data/cgss/raw/
+# 演示页与汇报生成物（可由 Markdown 重新生成）
+progress.html
+docs/*.pdf
+docs/*.html
+docs/转PDF.bat
