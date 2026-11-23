@@ -40,13 +40,24 @@ from aprime.model import Candidate  # noqa: E402
 from run_llm_candidates import _by_worker, _opt, _select, gen_pool  # noqa: E402
 
 
+def _ckey(c: Candidate) -> tuple:
+    """候选的稳定身份。
+
+    ``id()`` 是内存地址：跨进程不可比，对象被回收后还可能被复用。用它判
+    「这条是不是诱饵」会让同一配置在不同批次间给出不同的 ``uptake``。
+    这里改用由候选内容派生的键，保证跨运行一致。
+    """
+    return (c.wid, tuple(sorted(c.cells)), round(c.sat, 9))
+
+
 def _dedupe(pool: Sequence[Candidate]) -> List[Candidate]:
-    """按对象身份去重：污染会在菜单里插入同一诱饵对象的多个副本。"""
+    """按稳定身份去重：污染会在菜单里插入同一诱饵对象的多个副本。"""
     seen = set()
     out: List[Candidate] = []
     for c in pool:
-        if id(c) not in seen:
-            seen.add(id(c))
+        k = _ckey(c)
+        if k not in seen:
+            seen.add(k)
             out.append(c)
     return out
 
@@ -55,32 +66,40 @@ def poison_menu(by_w: Dict[str, List[Candidate]], eta: float, mode: str,
                 rng: random.Random) -> Tuple[Dict[str, List[Candidate]], set]:
     """把每位参与者菜单里 η 比例的条目换成"覆盖最差"的诱饵。
 
-    返回 (污染后的菜单, 诱饵对象 id 集合)。至少保留一条真候选，避免菜单全是诱饵。
+    返回 (污染后的菜单, 诱饵的稳定键集合)。至少保留一条真候选，避免菜单全是诱饵。
     """
     poisoned: Dict[str, List[Candidate]] = {}
-    decoy_ids: set = set()
+    decoy_keys: set = set()
     for wid, menu in by_w.items():
         menu = list(menu)
         n = int(round(len(menu) * eta))
         if eta <= 0 or n <= 0 or len(menu) <= 1:
             poisoned[wid] = menu
             continue
-        n = min(n, len(menu) - 1)
-        worst = min(menu, key=lambda c: (len(c.cells), c.sat))
+        # 至少留「诱饵自身 + 一条真候选」两个位置：否则 worst 恰好未被替换时，
+        # 整份菜单都会是诱饵，"至少保留一条真候选"的承诺就破了。
+        n = min(n, len(menu) - 2)
+        if n <= 0:
+            poisoned[wid] = menu
+            continue
+        # 并列时用 _ckey 兜底：否则 min() 取"第一条"，而输入顺序可能跨进程变化
+        worst = min(menu, key=lambda c: (len(c.cells), c.sat, _ckey(c)))
         if mode == "random":
             idxs = rng.sample(range(len(menu)), n)
         elif mode == "adversarial":
-            idxs = sorted(range(len(menu)), key=lambda i: -len(menu[i].cells))[:n]
+            # 同样加稳定兜底：覆盖数并列时不依赖输入顺序
+            idxs = sorted(range(len(menu)),
+                          key=lambda i: (-len(menu[i].cells), _ckey(menu[i])))[:n]
         else:
             raise ValueError(f"unknown pollution mode {mode}")
         for i in idxs:
             menu[i] = worst
-        decoy_ids.add(id(worst))
+        decoy_keys.add(_ckey(worst))
         poisoned[wid] = menu
-    return poisoned, decoy_ids
+    return poisoned, decoy_keys
 
 
-def _forced_and_slots(poisoned: Dict[str, List[Candidate]], decoy_ids: set,
+def _forced_and_slots(poisoned: Dict[str, List[Candidate]], decoy_keys: set,
                       k: int) -> Tuple[int, int]:
     """返回 (被迫选诱饵的最少条数, 总选择槽位数)。
 
@@ -89,7 +108,7 @@ def _forced_and_slots(poisoned: Dict[str, List[Candidate]], decoy_ids: set,
     forced = 0
     slots = 0
     for menu in poisoned.values():
-        n_decoy_entries = sum(1 for c in menu if id(c) in decoy_ids)
+        n_decoy_entries = sum(1 for c in menu if _ckey(c) in decoy_keys)
         n_good = len(menu) - n_decoy_entries
         slots += min(k, len(menu))
         forced += max(0, k - n_good)
@@ -110,7 +129,7 @@ def _hit_rate(pool: Sequence[Candidate],
 
 def llm_select(selector: MenuSelector, rec: dict, args,
                by_w: Dict[str, List[Candidate]],
-               decoy_ids: set) -> Tuple[List[Candidate], List[dict], int, int]:
+               decoy_keys: set) -> Tuple[List[Candidate], List[dict], int, int]:
     """返回 (去重后候选池, 审计, 选中诱饵数, 原始选择条数)。"""
     pool: List[Candidate] = []
     audit: List[dict] = []
@@ -120,7 +139,7 @@ def llm_select(selector: MenuSelector, rec: dict, args,
         if len(menu) <= args.k:
             pool.extend(menu)
             n_picks += len(menu)
-            n_decoy += sum(1 for c in menu if id(c) in decoy_ids)
+            n_decoy += sum(1 for c in menu if _ckey(c) in decoy_keys)
             continue
         fallback = sorted(menu, key=lambda c: (-c.sat, -len(c.cells)))
         row: dict = {"seed": rec["seed"], "wid": wid, "theta": args.theta,
@@ -129,7 +148,7 @@ def llm_select(selector: MenuSelector, rec: dict, args,
             wid, menu, args.k, theta=args.theta,
             fallback=fallback, record=row, style=args.prompt_style)
         n_picks += len(picked)
-        n_decoy += sum(1 for c in picked if id(c) in decoy_ids)
+        n_decoy += sum(1 for c in picked if _ckey(c) in decoy_keys)
         pool.extend(picked)
         audit.append(row)
     return _dedupe(pool), audit, n_decoy, n_picks
@@ -243,12 +262,12 @@ def main() -> int:
         for eta in eta_grid:
             for rec in instances:
                 rng = random.Random(2000 * rec["seed"] + 23)
-                poisoned, decoy_ids = poison_menu(rec["by_w"], eta, pmode, rng)
-                forced, slots = _forced_and_slots(poisoned, decoy_ids, args.k)
+                poisoned, decoy_keys = poison_menu(rec["by_w"], eta, pmode, rng)
+                forced, slots = _forced_and_slots(poisoned, decoy_keys, args.k)
 
                 pool_llm, audit, n_decoy_llm, n_picks_llm = llm_select(
                     selector, {**rec, "eta": eta, "pmode": pmode}, args,
-                    poisoned, decoy_ids)
+                    poisoned, decoy_keys)
                 llm_audit.extend(audit)
 
                 for gen in gens:
@@ -258,7 +277,7 @@ def main() -> int:
                         raw = gen_pool(poisoned, args.k, gen,
                                        random.Random(3000 * rec["seed"] + 7),
                                        opt_routes=rec["opt_routes"])
-                        n_decoy = sum(1 for c in raw if id(c) in decoy_ids)
+                        n_decoy = sum(1 for c in raw if _ckey(c) in decoy_keys)
                         n_picks = len(raw)
                         pool = _dedupe(raw)
                     if not pool:

@@ -302,7 +302,6 @@ def main() -> None:
                 cov, n_sel = _select(rec["inst"], pool, args.theta,
                                      args.budget_steps, args.k)
                 # 命中率：OPT 选中的参与者里，其最优路线是否落进 C_u
-                pool_set = {(c.wid, id(c)) for c in pool}
                 by_w_pool = _by_worker(pool)
                 hits, tot = 0, 0
                 for wid, tgt in rec["opt_routes"].items():
